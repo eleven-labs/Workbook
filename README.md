@@ -8,9 +8,10 @@ Workbook est un intranet relationnel. Il permet aux employés d’une entreprise
 Table of contents
 -----------------
 
-You can insert a table of contents using the marker `[TOC]`:
+You can insert a table of contents using the marker:
 
 [TOC]
+
 
 Présentation fonctionnelle
 --------------------------
