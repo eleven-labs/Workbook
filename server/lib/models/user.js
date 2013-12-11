@@ -13,7 +13,7 @@ UserSchema = new Schema({
   salt:                   { type: String },
   picture:                String,
   password:               String,
-  admin:                  Boolean,
+  admin:                  { type: Boolean, 'default': false },
   language:               { type: String, required: true, "enum": config.languages },
   validated:              { type: Boolean, "default": false },
   validationKey:          { type: String },
