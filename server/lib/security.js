@@ -21,7 +21,7 @@ var filterUser = function(user) {
 };
 
 var security = {
-  initialize: function(dbName, authCollection) {
+  initialize: function() {
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, function(email, password, done){
       User.isValidUserPassword(email, password, done);
     }));
