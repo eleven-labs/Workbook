@@ -104,9 +104,9 @@ Our client application is a straight HTML/Javascript application but our develop
 
 * Install mongo and run our initialization script to initialize the database with a first admin user.
 
-    ```
-    `node server/scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User`
-    ```
+```
+node server/scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User
+```
 
 ### Configure Client
 The client specifies the name of the MongoDB to use in `client/src/app/app.js`.  If your DB is not called "ascrum" then you need to change the MONGOLAB_CONFIG constant:
