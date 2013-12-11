@@ -60,7 +60,7 @@ app.namespace('/databases/:db/collections/:collection*', function() {
     next();
   });
   // Proxy database calls to the MongoDB
-  app.all('/', mongoProxy('config.mongo.dbUrl', 'config.mongo.apiKey')); // FIXME
+  app.all('/', mongoProxy);
 });
 
 require('./lib/routes/security').addRoutes(app, security);
