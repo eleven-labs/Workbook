@@ -7,9 +7,10 @@ Workbook is a relational intranet. It allows employees of a company to search an
 
 Functional overview
 --------------------------
+
 - Authentication Required
 - Access to four pages
-  - Tables of activities
+  - Tables of activities
     - List of users and administrators messages
     - Ability to write a message
     - Ability to comment and like
@@ -28,6 +29,7 @@ Functional overview
 
 Technical directive
 --------------------------
+
 - Development of a front and a back (API)
 - Front Application
   - Framework AngularJs
