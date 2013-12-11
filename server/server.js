@@ -5,6 +5,8 @@ var privateKey  = fs.readFileSync(__dirname + '/cert/privatekey.pem').toString()
 var certificate = fs.readFileSync(__dirname + '/cert/certificate.pem').toString();
 var credentials = {key: privateKey, cert: certificate};
 
+require('./bootstrap');
+
 var express = require('express');
 var mongoProxy = require('./lib/mongo-proxy');
 var config = require('./config.js');
@@ -12,12 +14,8 @@ var passport = require('passport');
 var security = require('./lib/security');
 var xsrf = require('./lib/xsrf');
 var protectJSON = require('./lib/protectJSON');
-var mongoose = require('mongoose');
-require('express-namespace');
 
-mongoose.connect(config.Mongo.dbUris.join(','), config.Mongo.options, function (err) {
-  if (err) throw(err);
-});
+require('express-namespace');
 
 var app = express();
 var secureServer = https.createServer(credentials, app);
@@ -33,8 +31,8 @@ app.use(express.cookieParser(config.server.cookieSecret));  // Hash cookies with
 app.use(express.cookieSession());                           // Store the session in the (secret) cookie
 app.use(passport.initialize());                             // Initialize PassportJS
 app.use(passport.session());                                // Use Passport's session authentication strategy - this stores the logged in user in the session and will now run on any request
-app.use(xsrf);                                            // Add XSRF checks to the request
-security.initialize(config.mongo.dbUrl, config.mongo.apiKey, config.security.dbName, config.security.usersCollection); // Add a Mongo strategy for handling the authentication
+app.use(xsrf);                                              // Add XSRF checks to the request
+security.initialize();                                      // Add a Mongo strategy for handling the authentication
 
 app.use(function(req, res, next) {
   if ( req.user ) {
@@ -62,7 +60,7 @@ app.namespace('/databases/:db/collections/:collection*', function() {
     next();
   });
   // Proxy database calls to the MongoDB
-  app.all('/', mongoProxy(config.mongo.dbUrl, config.mongo.apiKey));
+  app.all('/', mongoProxy('config.mongo.dbUrl', 'config.mongo.apiKey')); // FIXME
 });
 
 require('./lib/routes/security').addRoutes(app, security);

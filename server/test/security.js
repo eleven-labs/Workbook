@@ -25,6 +25,12 @@ function mockUpPassport(test, authenticated) {
     use: function(fn) {
       spies.useCalled = true;
     },
+    serializeUser: function(fn) {
+      spies.useCalled = true;
+    },
+    deserializeUser: function(fn) {
+      spies.useCalled = true;
+    },
     authenticate: function(strategy, callback) {
       spies.authenticateCalled = true;
       return function() { callback(); };

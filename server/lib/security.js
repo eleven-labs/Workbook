@@ -1,6 +1,6 @@
 var express = require('express');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy
+var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user');
 var app = express();
 
@@ -21,7 +21,7 @@ var filterUser = function(user) {
 };
 
 var security = {
-  initialize: function(dbName, authCollection) {
+  initialize: function() {
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, function(email, password, done){
       User.isValidUserPassword(email, password, done);
     }));
@@ -41,7 +41,6 @@ var security = {
 
   },
   authenticationRequired: function(req, res, next) {
-    console.log('authRequired');
     if (req.isAuthenticated()) {
       next();
     } else {
@@ -49,7 +48,6 @@ var security = {
     }
   },
   adminRequired: function(req, res, next) {
-    console.log('adminRequired');
     if (req.user && req.user.admin ) {
       next();
     } else {
