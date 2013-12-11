@@ -102,7 +102,7 @@ Our client application is a straight HTML/Javascript application but our develop
 
 ### Configure Server
 
-* Install mongo and run our initialization script to initialize the database with a first admin user (admin@abc.com : changeme).
+* Install mongo and run our initialization script to initialize the database with a first admin user.
 
     ```
     `node server/scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User`
