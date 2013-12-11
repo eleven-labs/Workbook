@@ -5,7 +5,7 @@ var privateKey  = fs.readFileSync(__dirname + '/cert/privatekey.pem').toString()
 var certificate = fs.readFileSync(__dirname + '/cert/certificate.pem').toString();
 var credentials = {key: privateKey, cert: certificate};
 
-require('./bootstrap')
+require('./bootstrap');
 
 var express = require('express');
 var mongoProxy = require('./lib/mongo-proxy');
