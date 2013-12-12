@@ -1,4 +1,4 @@
-angular.module('projects', ['resources.projects', 'productbacklog', 'sprints', 'security.authorization'])
+angular.module('projects', ['resources.projects', 'security.authorization'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/projects', {
@@ -17,21 +17,7 @@ angular.module('projects', ['resources.projects', 'productbacklog', 'sprints', '
 .controller('ProjectsViewCtrl', ['$scope', '$location', 'projects', 'security', function ($scope, $location, projects, security) {
   $scope.projects = projects;
 
-  $scope.viewProject = function (project) {
-    $location.path('/projects/'+project.$id());
-  };
-
-  $scope.manageBacklog = function (project) {
-    $location.path('/projects/'+project.$id()+'/productbacklog');
-  };
-
-  $scope.manageSprints = function (project) {
-    $location.path('/projects/'+project.$id()+'/sprints');
-  };
-
-  $scope.getMyRoles = function(project) {
-    if ( security.currentUser ) {
-      return project.getRoles(security.currentUser.id);
-    }
-  };
+  // $scope.viewProject = function (project) {
+  //   $location.path('/projects/'+project.$id());
+  // };
 }]);
