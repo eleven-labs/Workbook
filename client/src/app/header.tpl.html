@@ -3,9 +3,9 @@
         <a class="brand" ng-click="home()">Workbook</a>
         <ul class="nav" ng-show="isAuthenticated()">
             <li ng-class="{active:isNavbarActive('activities')}"><a href="/activities">Dashboard</a></li>
-            <li ng-class="{active:isNavbarActive('consultantList')}"><a href="/consultantList">Consultant list</a></li>
-            <li ng-class="{active:isNavbarActive('consultantMapping')}"><a href="/consultantMapping">Consultant mapping</a></li>
-            <li ng-class="{active:isNavbarActive('myProfile')}"><a href="/myProfile">My profile</a></li>
+            <li ng-class="{active:isNavbarActive('consultantsList')}"><a href="/consultants-list">Consultants list</a></li>
+            <li ng-class="{active:isNavbarActive('consultantsMapping')}"><a href="/consultants-mapping">Consultants mapping</a></li>
+            <li ng-class="{active:isNavbarActive('profile')}"><a href="/profile">My profile</a></li>
             <li class="dropdown" ng-class="{active:isNavbarActive('admin'), open:isAdminOpen}" ng-show="isAdmin()">
                 <a id="adminmenu" role="button" class="dropdown-toggle" ng-click="isAdminOpen=!isAdminOpen">Admin<b class="caret"></b></a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="adminmenu">

@@ -1,0 +1,21 @@
+<table class="table table-bordered table-condensed table-striped table-hover">
+    <thead>
+    <tr>
+        <th class="span3">Name</th>
+        <th class="span5">Description</th>
+        <th class="span2">My Role(s)</th>
+        <th class="span2">Tools</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="consultant in consultants">
+        <td ng-click="manageBacklog(consultant)">{{consultant.name}}</td>
+        <td ng-click="manageBacklog(consultant)">{{consultant.desc}}</td>
+        <td>{{ getMyRoles(consultant) }}</td>
+        <td>
+            <a ng-click="manageBacklog(consultant)">Product backlog</a>
+            <a ng-click="manageSprints(consultant)">Sprints</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

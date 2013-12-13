@@ -8,13 +8,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="project in projects">
-        <td ng-click="manageBacklog(project)">{{project.name}}</td>
-        <td ng-click="manageBacklog(project)">{{project.desc}}</td>
-        <td>{{ getMyRoles(project) }}</td>
+    <tr ng-repeat="activity in activities">
+        <td ng-click="manageBacklog(activity)">{{activity.name}}</td>
+        <td ng-click="manageBacklog(activity)">{{activity.desc}}</td>
+        <td>{{ getMyRoles(activity) }}</td>
         <td>
-            <a ng-click="manageBacklog(project)">Product backlog</a>
-            <a ng-click="manageSprints(project)">Sprints</a>
+            <a ng-click="manageBacklog(activity)">Product backlog</a>
+            <a ng-click="manageSprints(activity)">Sprints</a>
         </td>
     </tr>
     </tbody>

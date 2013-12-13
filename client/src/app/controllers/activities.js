@@ -6,7 +6,6 @@ angular.module('activities', ['resources.activities', 'security.authorization'])
     controller:'ActivitiesViewCtrl',
     resolve:{
       activities:['Activities', function (Activities) {
-        //TODO: fetch only for the current user
         return Activities.all();
       }],
       authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
