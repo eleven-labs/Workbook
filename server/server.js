@@ -53,8 +53,8 @@ app.namespace('/databases/:db/collections/:collection*', function() {
     }
   });
   app.all('/', function(req, res, next) {
-    if ( req.method !== 'GET' && (req.params.collection === 'users' || req.params.collection === 'projects') ) {
-      // We require the current user to be admin to modify the users or projects collection
+    if ( req.method !== 'GET' && (req.params.collection === 'users' || req.params.collection === 'activities') ) {
+      // We require the current user to be admin to modify the users or activities collection
       return security.adminRequired(req, res, next);
     }
     next();

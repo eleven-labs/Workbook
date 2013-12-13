@@ -1,26 +1,27 @@
-var Schema, User, UserSchema, config, moment, mongoose, pwd;
+var mongoose = require('mongoose');
+var moment = require('moment');
+var pwd = require('pwd');
+var config = require('../../config.js');
+var Schema = mongoose.Schema;
 
-mongoose = require('mongoose');
-moment = require('moment');
-pwd = require('pwd');
-config = require('../../config.js');
-Schema = mongoose.Schema;
+var status = [ 'leader', 'human-resource', 'consultant' ];
 
-UserSchema = new Schema({
+var UserSchema = new Schema({
   firstName:              String,
   lastName:               String,
   email:                  { type: String, required: true, unique: true, match: /@/ },
   salt:                   { type: String },
   picture:                String,
   password:               String,
-  admin:                  { type: Boolean, 'default': false },
   language:               { type: String, required: true, "enum": config.languages },
   validated:              { type: Boolean, "default": false },
   validationKey:          { type: String },
   facebook:               { id: String, name: String },
   twitter:                { id: String, name: String },
   regeneratePasswordKey:  String,
-  regeneratePasswordDate: Date
+  regeneratePasswordDate: Date,
+  admin:                  { type: Boolean, 'default': false },
+  status:                 { type: String,  'default': false, enum: status }
 });
 
 /*
@@ -184,6 +185,6 @@ UserSchema.methods.isValidated = function() {
   return this.validated === true;
 };
 
-User = mongoose.model("User", UserSchema);
+var User = mongoose.model("User", UserSchema);
 
 module.exports = User;
