@@ -10,7 +10,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.get('/:id', function(req, res, next){
-    return Post.findById(req.params.collection, function(err, post){
+    return Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       res.send(post);
     });
