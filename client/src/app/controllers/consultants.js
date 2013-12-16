@@ -1,4 +1,4 @@
-angular.module('consultants', ['resources.consultants', 'security.authorization'])
+angular.module('consultants', ['resources.users', 'security.authorization'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider
@@ -6,8 +6,8 @@ angular.module('consultants', ['resources.consultants', 'security.authorization'
       templateUrl:'templates/consultants/list.tpl.html',
       controller:'ConsultantsListViewCtrl',
       resolve:{
-        consultants:['Consultants', function (Consultants) {
-          return Consultants.all();
+        consultants:['Users', function (Users) {
+          return Users.allConsultants();
         }],
         authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
       }
@@ -16,8 +16,8 @@ angular.module('consultants', ['resources.consultants', 'security.authorization'
       templateUrl:'templates/consultants/mapping.tpl.html',
       controller:'ConsultantsMappingViewCtrl',
       resolve:{
-        consultants:['Consultants', function (Consultants) {
-          return Consultants.all();
+        consultants:['Users', function (Users) {
+          return Users.allConsultants();
         }],
         authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
       }

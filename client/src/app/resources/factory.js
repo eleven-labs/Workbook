@@ -1,6 +1,6 @@
-angular.module('mongolabResource', []).factory('mongolabResource', ['MONGOLAB_CONFIG','$http', '$q', function (MONGOLAB_CONFIG, $http, $q) {
+angular.module('resourceFactory', []).factory('resourceFactory', ['MONGOLAB_CONFIG','$http', '$q', function (MONGOLAB_CONFIG, $http, $q) {
 
-  function MongolabResourceFactory(collectionName) {
+  function ResourceFactory(collectionName) {
 
     var url = MONGOLAB_CONFIG.baseUrl + MONGOLAB_CONFIG.dbName + '/collections/' + collectionName;
     var defaultParams = {};
@@ -20,7 +20,8 @@ angular.module('mongolabResource', []).factory('mongolabResource', ['MONGOLAB_CO
             result.push(new Resource(response.data[i]));
           }
         } else {
-          //MongoLab has rather peculiar way of reporting not-found items, I would expect 404 HTTP response status...
+          // MongoLab has rather peculiar way of reporting not-found items, I would expect 404 HTTP response status...
+          // TODO: no more MongoLab
           if (response.data === " null "){
             return $q.reject({
               code:'resource.notfound',
@@ -98,5 +99,5 @@ angular.module('mongolabResource', []).factory('mongolabResource', ['MONGOLAB_CO
 
     return Resource;
   }
-  return MongolabResourceFactory;
+  return ResourceFactory;
 }]);
