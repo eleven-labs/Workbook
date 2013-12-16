@@ -44,7 +44,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-require('./lib/routes/collection').addRoutes(app);
+require('./lib/routes/collection').addRoutes(app, security);
 require('./lib/routes/security').addRoutes(app, security);
 require('./lib/routes/appFile').addRoutes(app, config);
 

@@ -1,4 +1,4 @@
-exports.addRoutes = function(app) {
+exports.addRoutes = function(app, security) {
   app.use('/collection', function(req, res, next){
     if ( req.method !== 'GET' ) {
       // We require the user is authenticated to modify any collections
@@ -8,7 +8,7 @@ exports.addRoutes = function(app) {
     }
   });
 
-  app.use('/collection', function(req, res, next){
+  app.use('/collection/:collection', function(req, res, next){
     if ( req.method !== 'GET' && (req.params.collection === 'users' || req.params.collection === 'posts') ) {
       return security.adminRequired(req, res, next);
     }
