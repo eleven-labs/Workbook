@@ -44,26 +44,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.namespace('/collection/:collection*', function() {
-  app.all('/', function(req, res, next) {
-    if ( req.method !== 'GET' ) {
-      // We require the user is authenticated to modify any collections
-      security.authenticationRequired(req, res, next);
-    } else {
-      next();
-    }
-  });
-  app.all('/', function(req, res, next) {
-    if ( req.method !== 'GET' && (req.params.collection === 'users' || req.params.collection === 'activities') ) {
-      // We require the current user to be admin to modify the users or activities collection
-      return security.adminRequired(req, res, next);
-    }
-    next();
-  });
-  // Proxy database calls to the MongoDB
-  app.all('/', new mongoProxy().middleware);
-});
-
+require('./lib/routes/collection').addRoutes(app);
 require('./lib/routes/security').addRoutes(app, security);
 require('./lib/routes/appFile').addRoutes(app, config);
 

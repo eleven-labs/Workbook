@@ -65,9 +65,7 @@ angular.module('resourceFactory', []).factory('resourceFactory', ['$http', '$q',
     //instance methods
 
     Resource.prototype.$id = function () {
-      if (this._id && this._id.$oid) {
-        return this._id.$oid;
-      }
+      return this._id;
     };
 
     Resource.prototype.$save = function (successcb, errorcb) {
