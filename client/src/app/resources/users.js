@@ -4,7 +4,7 @@ angular.module('resources.users').factory('Users', ['resourceFactory', function 
   var userResource = $resourceFactory('users');
 
   userResource.allConsultants = function (cb, errorcb) {
-      return this.all(cb, errorcb);
+      return this.query({status: 'consultant'}, cb, errorcb);
     };
 
   userResource.prototype.getFullName = function () {

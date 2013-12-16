@@ -1,12 +1,8 @@
-angular.module('resourceFactory', []).factory('resourceFactory', ['MONGOLAB_CONFIG','$http', '$q', function (MONGOLAB_CONFIG, $http, $q) {
+angular.module('resourceFactory', []).factory('resourceFactory', ['$http', '$q', function ($http, $q) {
 
   function ResourceFactory(collectionName) {
 
-    var url = MONGOLAB_CONFIG.baseUrl + MONGOLAB_CONFIG.dbName + '/collections/' + collectionName;
-    var defaultParams = {};
-    if (MONGOLAB_CONFIG.apiKey) {
-      defaultParams.apiKey = MONGOLAB_CONFIG.apiKey;
-    }
+    var url = '/collection/' + collectionName;
 
     var thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {
       var scb = successcb || angular.noop;
@@ -49,12 +45,12 @@ angular.module('resourceFactory', []).factory('resourceFactory', ['MONGOLAB_CONF
 
     Resource.query = function (queryJson, successcb, errorcb) {
       var params = angular.isObject(queryJson) ? {q:JSON.stringify(queryJson)} : {};
-      var httpPromise = $http.get(url, {params:angular.extend({}, defaultParams, params)});
+      var httpPromise = $http.get(url, {params:angular.extend({}, {}, params)});
       return thenFactoryMethod(httpPromise, successcb, errorcb, true);
     };
 
     Resource.getById = function (id, successcb, errorcb) {
-      var httpPromise = $http.get(url + '/' + id, {params:defaultParams});
+      var httpPromise = $http.get(url + '/' + id, {params: {}});
       return thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
@@ -75,17 +71,17 @@ angular.module('resourceFactory', []).factory('resourceFactory', ['MONGOLAB_CONF
     };
 
     Resource.prototype.$save = function (successcb, errorcb) {
-      var httpPromise = $http.post(url, this, {params:defaultParams});
+      var httpPromise = $http.post(url, this, {params: {}});
       return thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
     Resource.prototype.$update = function (successcb, errorcb) {
-      var httpPromise = $http.put(url + "/" + this.$id(), angular.extend({}, this, {_id:undefined}), {params:defaultParams});
+      var httpPromise = $http.put(url + "/" + this.$id(), angular.extend({}, this, {_id:undefined}), {params: {}});
       return thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
     Resource.prototype.$remove = function (successcb, errorcb) {
-      var httpPromise = $http['delete'](url + "/" + this.$id(), {params:defaultParams});
+      var httpPromise = $http['delete'](url + "/" + this.$id(), {params: {}});
       return thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
