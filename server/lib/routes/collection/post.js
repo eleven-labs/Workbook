@@ -3,29 +3,39 @@ var Post = require('../../models/post');
 exports.addRoutes = function(app, security) {
 
   app.get('/', function(req, res, next){
-    return Post.find(req.query.q, function(err, posts){
+    Post.find(JSON.parse(req.query.q), function(err, posts){
       if (err) return next(err);
       res.send(posts);
     });
   });
 
   app.get('/:id', function(req, res, next){
-    return Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       res.send(post);
     });
   });
 
   app.post('/', function(req, res, next){
-    res.send({}); // TO BE IMPLEMENTED
+    var data = req.body;
+    new Post(req.body).save(function(err){
+      if (err) return next(err);
+      res.send('Post inserted');
+    });
   });
 
-  app.put('/', function(req, res, next){
-    res.send({}); // TO BE IMPLEMENTED
+  app.put('/:id', function(req, res, next){
+    Post.findByIdAndUpdate(req.params.id, req.body, function(err){
+      if (err) return next(err);
+      res.send('Post updated');
+    });
   });
 
-  app.delete('/', function(req, res, next){
-    res.send({}); // TO BE IMPLEMENTED
+  app.delete('/:id', function(req, res, next){
+    Post.findByIdAndRemove(req.params.id, function(err){
+      if (err) return next(err);
+      res.send('Post deleted');
+    });
   });
 
 };
