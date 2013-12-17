@@ -3,14 +3,14 @@
     <tr>
         <th class="span3">Name</th>
         <th class="span8">Email</th>
-        <th class="span1"></th>
+        <th class="span1" ng-show="isAdmin()"></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="consultant in consultants">
+    <tr ng-repeat="consultant in consultants" ng-click="edit(consultant.$id())">
         <td>{{consultant.firstName}} {{consultant.lastName}}</td>
         <td>{{consultant.email}}</td>
-        <td>
+        <td ng-show="isAdmin()">
             <a>Edit</a>
         </td>
     </tr>

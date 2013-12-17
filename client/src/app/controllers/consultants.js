@@ -1,4 +1,4 @@
-angular.module('consultants', ['resources.users', 'security.authorization'])
+angular.module('consultants', ['services.crud', 'resources.users', 'security.authorization'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider
@@ -24,8 +24,10 @@ angular.module('consultants', ['resources.users', 'security.authorization'])
     });
 }])
 
-.controller('ConsultantsListViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
+.controller('ConsultantsListViewCtrl', ['$scope', 'crudListMethods', '$location', 'consultants', 'security', function ($scope, crudListMethods, $location, consultants, security) {
   $scope.consultants = consultants;
+
+  angular.extend($scope, crudListMethods('/admin/users'));
 
   // $scope.viewProject = function (project) {
   //   $location.path('/consultants/'+project.$id());
