@@ -16,7 +16,7 @@ angular.module('posts', ['resources.posts', 'security.authorization'])
 .controller('PostsViewCtrl', ['$scope', '$location', 'posts', 'security', function ($scope, $location, posts, security) {
   $scope.posts = posts;
 
-  // $scope.viewProject = function (project) {
-  //   $location.path('/posts/'+project.$id());
+  // $scope.viewProject = function (post) {
+  //   $location.path('/posts/'+post.$id());
   // };
 }]);

@@ -23,12 +23,15 @@ exports.addRoutes = function(app, security) {
     data.status = 'consultant';
     new User(req.body).save(function(err){
       if (err) return next(err);
-      res.send('User saved');
+      res.send('User inserted');
     });
   });
 
-  app.put('/', function(req, res, next){
-    res.send({}); // TO BE IMPLEMENTED
+  app.put('/:id', function(req, res, next){
+    User.update({_id: req.params.id}, req.body, function(err){
+      if (err) return next(err);
+      res.send('User updated');
+    });
   });
 
   app.delete('/', function(req, res, next){

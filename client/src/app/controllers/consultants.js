@@ -29,15 +29,15 @@ angular.module('consultants', ['services.crud', 'resources.users', 'security.aut
 
   angular.extend($scope, crudListMethods('/admin/users'));
 
-  // $scope.viewProject = function (project) {
-  //   $location.path('/consultants/'+project.$id());
+  // $scope.viewProject = function (consultant) {
+  //   $location.path('/consultants/'+consultant.$id());
   // };
 }])
 
 .controller('ConsultantsMappingViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
   $scope.consultants = consultants;
 
-  // $scope.viewProject = function (project) {
-  //   $location.path('/consultants/'+project.$id());
+  // $scope.viewProject = function (consultant) {
+  //   $location.path('/consultants/'+consultant.$id());
   // };
 }]);
