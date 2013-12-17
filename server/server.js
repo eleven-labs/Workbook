@@ -1,6 +1,7 @@
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
+var winston = require('winston');
 var privateKey  = fs.readFileSync(__dirname + '/cert/privatekey.pem').toString();
 var certificate = fs.readFileSync(__dirname + '/cert/certificate.pem').toString();
 var credentials = {key: privateKey, cert: certificate};
@@ -36,33 +37,14 @@ security.initialize();                                      // Add a Mongo strat
 
 app.use(function(req, res, next) {
   if ( req.user ) {
-    console.log('Current User:', req.user.firstName, req.user.lastName);
+    console.info('Current User:', req.user.firstName, req.user.lastName);
   } else {
-    console.log('Unauthenticated');
+    console.info('Unauthenticated');
   }
   next();
 });
 
-app.namespace('/databases/:db/collections/:collection*', function() {
-  app.all('/', function(req, res, next) {
-    if ( req.method !== 'GET' ) {
-      // We require the user is authenticated to modify any collections
-      security.authenticationRequired(req, res, next);
-    } else {
-      next();
-    }
-  });
-  app.all('/', function(req, res, next) {
-    if ( req.method !== 'GET' && (req.params.collection === 'users' || req.params.collection === 'projects') ) {
-      // We require the current user to be admin to modify the users or projects collection
-      return security.adminRequired(req, res, next);
-    }
-    next();
-  });
-  // Proxy database calls to the MongoDB
-  app.all('/', mongoProxy);
-});
-
+require('./lib/routes/collection').addRoutes(app, security);
 require('./lib/routes/security').addRoutes(app, security);
 require('./lib/routes/appFile').addRoutes(app, config);
 

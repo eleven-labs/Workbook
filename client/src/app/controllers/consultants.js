@@ -1,4 +1,4 @@
-angular.module('consultants', ['resources.consultants', 'security.authorization'])
+angular.module('consultants', ['services.crud', 'resources.users', 'security.authorization'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider
@@ -6,8 +6,8 @@ angular.module('consultants', ['resources.consultants', 'security.authorization'
       templateUrl:'templates/consultants/list.tpl.html',
       controller:'ConsultantsListViewCtrl',
       resolve:{
-        consultants:['Consultants', function (Consultants) {
-          return Consultants.all();
+        consultants:['Users', function (Users) {
+          return Users.allConsultants();
         }],
         authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
       }
@@ -16,26 +16,28 @@ angular.module('consultants', ['resources.consultants', 'security.authorization'
       templateUrl:'templates/consultants/mapping.tpl.html',
       controller:'ConsultantsMappingViewCtrl',
       resolve:{
-        consultants:['Consultants', function (Consultants) {
-          return Consultants.all();
+        consultants:['Users', function (Users) {
+          return Users.allConsultants();
         }],
         authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
       }
     });
 }])
 
-.controller('ConsultantsListViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
+.controller('ConsultantsListViewCtrl', ['$scope', 'crudListMethods', '$location', 'consultants', 'security', function ($scope, crudListMethods, $location, consultants, security) {
   $scope.consultants = consultants;
 
-  // $scope.viewProject = function (project) {
-  //   $location.path('/consultants/'+project.$id());
+  angular.extend($scope, crudListMethods('/admin/users'));
+
+  // $scope.viewProject = function (consultant) {
+  //   $location.path('/consultants/'+consultant.$id());
   // };
 }])
 
 .controller('ConsultantsMappingViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
   $scope.consultants = consultants;
 
-  // $scope.viewProject = function (project) {
-  //   $location.path('/consultants/'+project.$id());
+  // $scope.viewProject = function (consultant) {
+  //   $location.path('/consultants/'+consultant.$id());
   // };
 }]);

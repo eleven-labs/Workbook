@@ -2,19 +2,16 @@
     <thead>
     <tr>
         <th class="span3">Name</th>
-        <th class="span5">Description</th>
-        <th class="span2">My Role(s)</th>
-        <th class="span2">Tools</th>
+        <th class="span8">Email</th>
+        <th class="span1" ng-show="isAdmin()"></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="consultant in consultants">
-        <td ng-click="manageBacklog(consultant)">{{consultant.name}}</td>
-        <td ng-click="manageBacklog(consultant)">{{consultant.desc}}</td>
-        <td>{{ getMyRoles(consultant) }}</td>
-        <td>
-            <a ng-click="manageBacklog(consultant)">Product backlog</a>
-            <a ng-click="manageSprints(consultant)">Sprints</a>
+    <tr ng-repeat="consultant in consultants" ng-click="edit(consultant.$id())">
+        <td>{{consultant.firstName}} {{consultant.lastName}}</td>
+        <td>{{consultant.email}}</td>
+        <td ng-show="isAdmin()">
+            <a>Edit</a>
         </td>
     </tr>
     </tbody>
