@@ -1,7 +1,4 @@
 var mongoose = require('mongoose');
-var moment = require('moment');
-var pwd = require('pwd');
-var config = require('../../config.js');
 var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
