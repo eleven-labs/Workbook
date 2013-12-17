@@ -1,6 +1,11 @@
 <div class="navbar" ng-controller="HeaderCtrl">
     <div class="navbar-inner">
-        <a class="brand" ng-click="home()">Workbook</a>
+        <a class="brand" ng-click="home()">
+            <img src="http://eleven-labs.com/ui/img/eleven-labs_logo-rocket-nav.png" class="logo-rocket" alt="">
+            <img src="http://eleven-labs.com/ui/img/eleven-labs_logo-nav.png" class="logo-img" alt="Eleven Labs">
+            Workbook
+        </a>
+        <a href="#big-clouds-bottom" id="logo"></a>
         <ul class="nav" ng-show="isAuthenticated()">
             <li ng-class="{active:isNavbarActive('posts')}"><a href="/posts">Posts</a></li>
             <li ng-class="{active:isNavbarActive('consultants-list')}"><a href="/consultants-list">Consultants list</a></li>
