@@ -1,18 +1,24 @@
+<div class="well">
+    <input class="span6" ng-model="query" placeholder="Search a consultant">
+</div>
 <table class="table table-bordered table-condensed table-striped table-hover">
     <thead>
     <tr>
-        <th class="span3">Name</th>
-        <th class="span8">Email</th>
-        <th class="span1" ng-show="isAdmin()"></th>
+        <th></th>
+        <th>E-mail</th>
+        <th>Last name</th>
+        <th>First name</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="consultant in consultants" ng-click="edit(consultant.$id())">
-        <td>{{consultant.firstName}} {{consultant.lastName}}</td>
+    <tr ng-repeat="consultant in consultants | filter:query" ng-click="edit(consultant.$id())">
+        <td><gravatar email="consultant.email" size="50" default-image="'monsterid'"></gravatar></td>
         <td>{{consultant.email}}</td>
-        <td ng-show="isAdmin()">
-            <a>Edit</a>
-        </td>
+        <td>{{consultant.lastName}}</td>
+        <td>{{consultant.firstName}}</td>
     </tr>
     </tbody>
 </table>
+<div class="well">
+    <button class="btn" ng-click="new()">New User</button>
+</div>
