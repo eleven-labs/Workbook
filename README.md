@@ -108,16 +108,6 @@ Our client application is a straight HTML/Javascript application but our develop
 node server/scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User
 ```
 
-### Configure Client
-The client specifies the name of the MongoDB to use in `client/src/app/app.js`.  If your DB is not called "ascrum" then you need to change the MONGOLAB_CONFIG constant:
-
-```
-angular.module('app').constant('MONGOLAB_CONFIG', {
-  baseUrl: 'http://localhost:3000/databases/',
-  dbName: 'ascrum'
-});
-```
-
 ### Build the client app
 The app made up of a number of javascript, css and html files that need to be merged into a final distribution for running.  We use the Grunt build tool to do this.
 * Build client application: 
