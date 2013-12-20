@@ -126,7 +126,7 @@ The app made up of a number of javascript, css and html files that need to be me
 
     ```
     cd server
-    node server.js
+    sudo -E node server.js
     cd ..
     ```
 * Browse to the application at [http://localhost:3000]
