@@ -105,7 +105,7 @@ Our client application is a straight HTML/Javascript application but our develop
 * Install mongo and run our initialization script to initialize the database with a first admin user.
 
 ```
-node server/scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User
+node server/scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User --status=consultant --validated=1
 ```
 
 ### Build the client app
