@@ -21,6 +21,12 @@
         <input class="span6" type="password" id="passwordRepeat" name="passwordRepeat" ng-model="password" required validate-equals="user.password">
         <span ng-show="showError('passwordRepeat', 'required')" class="help-inline">This field is required.</span>
         <span ng-show="showError('passwordRepeat', 'equal')" class="help-inline">Passwords do not match.</span>
+        <label for="status">Status</label>
+        <select class="span6" id="status" name="status" ng-model="user.status" required>
+            <option value="consultant">Consultant</option>
+            <option value="human-resource">Ressource humaine</option>
+            <option value="leader">Dirigeant</option>
+        </select>
         <label>Admin</label>
         <input type="checkbox" ng-model="user.admin">
         <hr>

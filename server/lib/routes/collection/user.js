@@ -20,7 +20,6 @@ exports.addRoutes = function(app, security) {
   app.post('/', function(req, res, next){
     var data = req.body;
     data.language = 'fr';
-    data.status = 'consultant';
     new User(req.body).save(function(err){
       if (err) return next(err);
       res.send('User inserted');
