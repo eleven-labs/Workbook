@@ -1,0 +1,9 @@
+{
+  "name": "workbook",
+  "version": "0.0.1",
+  "description": "Workbook is a relational intranet. It allows employees of a company to search and list quickly their colleagues. A newsfeed also enables him to be aware of various events planned by the company or its employees.",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v3.0.3"
+  }
+}
