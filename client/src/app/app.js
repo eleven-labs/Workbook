@@ -75,4 +75,8 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route',
   $scope.hasPendingRequests = function () {
     return httpRequestTracker.hasPendingRequests();
   };
+
+  $scope.hasBreadCrumbs = function () {
+    return breadcrumbs.getAll().length > 0;
+  };
 }]);
