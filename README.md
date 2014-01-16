@@ -65,7 +65,7 @@ You need to install Node.js and then the development tools. Node.js comes with a
 Either clone this repository or fork it on GitHub and clone your fork:
 
 ```
-git clone https://github.com/angular-app/angular-app.git
+git clone https://github.com/eleven-labs/Workbook.git
 cd angular-app
 ```
 
