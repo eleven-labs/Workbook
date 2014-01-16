@@ -66,7 +66,7 @@ Either clone this repository or fork it on GitHub and clone your fork:
 
 ```
 git clone https://github.com/eleven-labs/Workbook.git
-cd angular-app
+cd Workbook
 ```
 
 ### App Server
