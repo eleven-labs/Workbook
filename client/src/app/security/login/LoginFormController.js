@@ -2,7 +2,7 @@ angular.module('security.login.form', ['services.localizedMessages'])
 
 // The LoginFormController provides the behaviour behind a reusable form to allow users to authenticate.
 // This controller and its template (login/form.tpl.html) are used in a modal dialog box by the security service.
-.controller('LoginFormController', ['$scope', 'security', 'localizedMessages', function($scope, security, localizedMessages) {
+.controller('LoginFormController', ['$scope', '$modalInstance', 'security', 'localizedMessages', function($scope, $modalInstance, security, localizedMessages) {
   // The model for this form
   $scope.user = {};
 
@@ -28,6 +28,8 @@ angular.module('security.login.form', ['services.localizedMessages'])
       if ( !loggedIn ) {
         // If we get here then the login failed due to bad credentials
         $scope.authError = localizedMessages.get('login.error.invalidCredentials');
+      } else {
+        $modalInstance.close();
       }
     }, function(x) {
       // If we get here then there was a problem with the login request to the server
@@ -40,6 +42,6 @@ angular.module('security.login.form', ['services.localizedMessages'])
   };
 
   $scope.cancelLogin = function() {
-    security.cancelLogin();
+    $modalInstance.dismiss('cancel');
   };
 }]);

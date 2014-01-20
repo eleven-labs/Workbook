@@ -8,7 +8,6 @@ files = [
   'vendor/jquery/jquery.js',
   'vendor/angular/angular.js',
   'vendor/angular/angular-route.js',
-  'vendor/mongolab/mongolab-resource.js',
   'test/vendor/angular/angular-mocks.js',
   'vendor/angular-ui/**/*.js',
   'src/**/*.js',

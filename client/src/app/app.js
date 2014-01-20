@@ -10,7 +10,7 @@ angular.module('app', [
   'security',
   'directives.crud',
   'templates.app',
-  'templates.common']);
+  'templates.angular.ui']);
 
 //TODO: move those messages to a separate module
 angular.module('app').constant('I18N.MESSAGES', {

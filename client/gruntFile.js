@@ -44,7 +44,7 @@ module.exports = function (grunt) {
       html: ['src/index.html'],
       tpl: {
         app: ['src/app/**/*.tpl.html'],
-        common: ['src/common/**/*.tpl.html']
+        angularUI: ['bower_components/angular-ui-bootstrap/template/**/*.html']
       },
       less: ['src/stylesheets/main.less'], // recess:build doesn't accept ** in its file patterns
       lessWatch: ['src/stylesheets/**/*.less']
@@ -71,13 +71,13 @@ module.exports = function (grunt) {
         dest: '<%= distdir %>/templates/app.js',
         module: 'templates.app'
       },
-      common: {
+      angularUI: {
         options: {
-          base: 'src/common'
+          base: 'bower_components/angular-ui-bootstrap'
         },
-        src: ['<%= src.tpl.common %>'],
-        dest: '<%= distdir %>/templates/common.js',
-        module: 'templates.common'
+        src: ['<%= src.tpl.angularUI %>'],
+        dest: '<%= distdir %>/templates/angular.ui.js',
+        module: 'templates.angular.ui'
       }
     },
     concat:{
@@ -94,18 +94,6 @@ module.exports = function (grunt) {
         options: {
           process: true
         }
-      },
-      angular: {
-        src:['vendor/angular/angular.js', 'vendor/angular/angular-route.js'],
-        dest: '<%= distdir %>/angular.js'
-      },
-      bootstrap: {
-        src:['vendor/angular-ui/bootstrap/*.js'],
-        dest: '<%= distdir %>/bootstrap.js'
-      },
-      jquery: {
-        src:['vendor/jquery/*.js'],
-        dest: '<%= distdir %>/jquery.js'
       }
     },
     uglify: {
@@ -153,11 +141,11 @@ module.exports = function (grunt) {
     },
     watch:{
       all: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
         tasks:['default','timestamp']
       },
       build: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
         tasks:['build','timestamp']
       }
     },
