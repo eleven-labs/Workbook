@@ -10,7 +10,7 @@ angular.module('app', [
   'security',
   'directives.crud',
   'templates.app',
-  'templates.common']);
+  'templates.angular.ui']);
 
 //TODO: move those messages to a separate module
 angular.module('app').constant('I18N.MESSAGES', {
@@ -74,5 +74,9 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route',
 
   $scope.hasPendingRequests = function () {
     return httpRequestTracker.hasPendingRequests();
+  };
+
+  $scope.hasBreadCrumbs = function () {
+    return breadcrumbs.getAll().length > 0;
   };
 }]);

@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint','build','karma:unit']);
-  grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy:assets']);
+  grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy:assets','copy:bower_components']);
   grunt.registerTask('release', ['clean','html2js','uglify','jshint','karma:unit','concat:index', 'recess:min','copy:assets']);
   grunt.registerTask('test-watch', ['karma:watch']);
 
@@ -44,15 +44,18 @@ module.exports = function (grunt) {
       html: ['src/index.html'],
       tpl: {
         app: ['src/app/**/*.tpl.html'],
-        common: ['src/common/**/*.tpl.html']
+        angularUI: ['bower_components/angular-ui-bootstrap/template/**/*.html']
       },
-      less: ['src/assets/stylesheets/main.less'], // recess:build doesn't accept ** in its file patterns
-      lessWatch: ['src/assets/stylesheets/**/*.less']
+      less: ['src/stylesheets/main.less'], // recess:build doesn't accept ** in its file patterns
+      lessWatch: ['src/stylesheets/**/*.less']
     },
     clean: ['<%= distdir %>/*'],
     copy: {
       assets: {
         files: [{ dest: '<%= distdir %>', src : '**', expand: true, cwd: 'src/assets/' }]
+      },
+      bower_components: {
+        files: [{ dest: '<%= distdir %>/vendor', src : '**', expand: true, cwd: 'bower_components/' }]
       }
     },
     karma: {
@@ -68,13 +71,13 @@ module.exports = function (grunt) {
         dest: '<%= distdir %>/templates/app.js',
         module: 'templates.app'
       },
-      common: {
+      angularUI: {
         options: {
-          base: 'src/common'
+          base: 'bower_components/angular-ui-bootstrap'
         },
-        src: ['<%= src.tpl.common %>'],
-        dest: '<%= distdir %>/templates/common.js',
-        module: 'templates.common'
+        src: ['<%= src.tpl.angularUI %>'],
+        dest: '<%= distdir %>/templates/angular.ui.js',
+        module: 'templates.angular.ui'
       }
     },
     concat:{
@@ -91,22 +94,6 @@ module.exports = function (grunt) {
         options: {
           process: true
         }
-      },
-      angular: {
-        src:['vendor/angular/angular.js', 'vendor/angular/angular-route.js'],
-        dest: '<%= distdir %>/angular.js'
-      },
-      mongo: {
-        src:['vendor/mongolab/*.js'],
-        dest: '<%= distdir %>/mongolab.js'
-      },
-      bootstrap: {
-        src:['vendor/angular-ui/bootstrap/*.js'],
-        dest: '<%= distdir %>/bootstrap.js'
-      },
-      jquery: {
-        src:['vendor/jquery/*.js'],
-        dest: '<%= distdir %>/jquery.js'
       }
     },
     uglify: {
@@ -154,11 +141,11 @@ module.exports = function (grunt) {
     },
     watch:{
       all: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
         tasks:['default','timestamp']
       },
       build: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.html %>'],
         tasks:['build','timestamp']
       }
     },

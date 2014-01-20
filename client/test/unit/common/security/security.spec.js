@@ -28,7 +28,7 @@ describe('security', function() {
     it("should open the dialog", function() {
       service.showLogin();
       $rootScope.$digest();
-      expect(angular.element('.login-form').length).toBeGreaterThan(0);
+      expect(angular.element('.form-login').length).toBeGreaterThan(0);
     });
   });
 
