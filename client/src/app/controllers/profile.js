@@ -5,15 +5,11 @@ angular.module('profile', ['resources.users', 'security.authorization'])
     templateUrl:'templates/profile/edit.tpl.html',
     controller:'ProfileEditCtrl',
     resolve:{
-      profile:['Users', function (Users) {
-        // return Users.getById();
-        return null;
-      }],
       authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
     }
   });
 }])
 
-.controller('ProfileEditCtrl', ['$scope', '$location', 'profile', 'security', function ($scope, $location, profile, security) {
-  $scope.profile = profile;
+.controller('ProfileEditCtrl', ['$scope', '$location', 'security', function ($scope, $location, security) {
+  $scope.user = security.currentUser;
 }]);
