@@ -1,8 +1,8 @@
-<form name="form" novalidate class="form-login" role="form">
-    <div class="modal-header">
-        <h4>Log in</h4>
-    </div>
-    <div class="modal-body">
+<div class="modal-header">
+    <h4>Log in</h4>
+</div>
+<div class="modal-body">
+    <form name="form" novalidate class="form-login" role="form">
         <div class="alert alert-warning" ng-show="authReason">
             {{authReason}}
         </div>
@@ -18,10 +18,10 @@
             <label>Password</label>
             <input name="pass" type="password" ng-model="user.password" required class="form-control">
         </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>Sign in</button>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>Sign in</button>
         <button class="btn clear" ng-click="clearForm()">Clear</button>
         <button class="btn btn-warning cancel" ng-click="cancelLogin()">Cancel</button>
-    </div>
-</form>
+</div>
