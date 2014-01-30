@@ -6,14 +6,14 @@ var config = require('../config');
 var User = require('../lib/models/user');
 
 var userValues = {};
+userValues.admin = true;
+userValues.language = config.languages[0];
 process.argv.forEach(function (val, index, array) {
   match = val.match(/^--(.*?)=(.*)/)
   if (match !== null) {
     userValues[match[1]] = match[2];
   }
 });
-userValues.admin = true;
-userValues.language = config.languages[0];
 
 winston.info('Tryring to insert user:', userValues);
 new User(userValues).save(function(err) {
