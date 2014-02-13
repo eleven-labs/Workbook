@@ -10,7 +10,7 @@ module.exports = {
   },
   languages: ['fr', 'en'],
   Mongo: {
-    dbUris: ["mongodb://127.0.0.1:27017/test-angular-app"],
+    dbUris: ["mongodb://127.0.0.1:27017/workbook"],
     options: {}
   },
 };
