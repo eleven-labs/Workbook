@@ -1,15 +1,16 @@
 var mongoose           = require('mongoose');
-var mongooseUserPlugin = require('mongoose-user-plugin');
+var MongooseUserPlugin = require('mongoose-user-plugin');
 var config             = require('../../config.js');
 
 var status = [ 'leader', 'human-resource', 'consultant' ];
 
 var UserSchema = new mongoose.Schema();
-UserSchema.plugin(MongooseUserPlugin, { emailMatch: /@eleven-labs.com/ });
+UserSchema.plugin(MongooseUserPlugin, {languages: ['fr', 'en']});
 
-var UserSchema.add({
-  admin:                  { type: Boolean, 'default': false },
-  status:                 { type: String,  'default': false, enum: status }
+UserSchema.add({
+  email:   { type: String, required: true, unique: true, match: /@eleven-labs.com/ },
+  admin:   { type: Boolean, 'default': false },
+  status:  { type: String,  'default': 'consultant', enum: status }
 });
 
 var User = mongoose.model("User", UserSchema);
