@@ -1,21 +1,42 @@
-<table class="table table-bordered table-condensed table-striped table-hover">
-    <thead>
-    <tr>
-        <th class="span3">Name</th>
-        <th class="span5">Description</th>
-        <th class="span2">My Role(s)</th>
-        <th class="span2">Tools</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="post in posts">
-        <td ng-click="manageBacklog(post)">{{post.name}}</td>
-        <td ng-click="manageBacklog(post)">{{post.desc}}</td>
-        <td>{{ getMyRoles(post) }}</td>
-        <td>
-            <a ng-click="manageBacklog(post)">Product backlog</a>
-            <a ng-click="manageSprints(post)">Sprints</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<h1>Post your ideas</h1>
+<div class="media comment">
+  <a class="pull-left" href="#">
+    <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+  </a>
+  <div class="media-body">
+     <textarea class="form-control comment-area" rows="1"></textarea>
+  </div>
+</div>
+<hr>
+<h1>Lasts posts</h1>
+<div class="posts">
+    <div class="media post" ng-repeat="post in posts">
+        <a class="pull-left" href="#">
+          <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+        </a>
+        <div class="media-body">
+            {{post.text}}
+            <div>
+                <button type="button" class="btn btn-link">Like <span class="badge">{{post.likes.length}}</span></button>
+                <button type="button" class="btn btn-link" ng-click="focusPostCommentArea()">Comment</button>
+            </div>
+            <div class="media comment" ng-repeat="comment in post.comments">
+                <a class="pull-left" href="#">
+                    <gravatar email="comment.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+                </a>
+                <div class="media-body">
+                    {{comment.message}}
+                    <div><button type="button" class="btn btn-link">Like <span class="badge">{{comment.likes.length}}</span></button></div>
+                </div>
+            </div>
+            <div class="media comment">
+              <a class="pull-left" href="#">
+                <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+              </a>
+              <div class="media-body">
+                 <textarea class="form-control" rows="1"></textarea>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

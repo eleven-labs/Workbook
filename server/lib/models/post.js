@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var MongooseRattlePlugin = require('mongoose-rattle-plugin');
 
-var PostSchema = new Schema({
+var PostSchema = new mongoose.Schema({
   image:     String,
-  text:      { type: String, min: 1, max: 2000 },
-  creator:   { type: Schema.ObjectId, ref: 'User', required: true, index: true }
+  text:      { type: String, min: 1, max: 2000 }
 });
+PostSchema.plugin(MongooseRattlePlugin, {UserShemaName: 'User'});
 
 var Post = mongoose.model("Post", PostSchema);
 

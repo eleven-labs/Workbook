@@ -1,6 +1,5 @@
 var mongoose           = require('mongoose');
 var MongooseUserPlugin = require('mongoose-user-plugin');
-var config             = require('../../config.js');
 
 var status = [ 'leader', 'human-resource', 'consultant' ];
 
