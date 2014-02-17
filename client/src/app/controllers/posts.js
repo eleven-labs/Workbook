@@ -33,18 +33,26 @@ angular.module('posts', ['resources.posts', 'security.authorization'])
 
   var updateError = function(result, status, headers, config) {
     console.log('error');
-  }
+  };
 
   $scope.addPost = function() {
     if (this.text) {
       new Posts({text: this.text}).$save(updateSuccess, updateError);
       this.text = '';
     }
-  }
+  };
 
-  $scope.addComment = function(post) {
+  $scope.comment = function(post) {
     if (this.message) {
       post.$addComment(this.message, updateSuccess, updateError);
     }
-  }
+  };
+
+  $scope.like = function(post) {
+    post.$addLike(updateSuccess, updateError);
+  };
+
+  $scope.unlike = function(post) {
+    post.$removeLike(updateSuccess, updateError);
+  };
 }]);

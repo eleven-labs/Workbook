@@ -44,12 +44,21 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      console.log('-------------- insert post', req.user._id, req.body.message, req.body);
       post.addComment(req.user._id, req.body.message, function(err, post){
         if (err) return next(err);
         res.send(post);
       });
     });
+  });
 
+  app.post('/:id/like', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      post.addLike(req.user._id, function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
   });
 };

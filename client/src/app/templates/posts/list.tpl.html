@@ -20,7 +20,7 @@
         <div class="media-body">
             {{post.text}}
             <div>
-                <button type="button" class="btn btn-link">Like <span class="badge">{{post.likes.length}}</span></button>
+                <button type="button" class="btn btn-link" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
                 <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
             </div>
             <div class="media comment" ng-repeat="comment in post.comments">
@@ -37,7 +37,7 @@
                     <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
                 </a>
                 <div class="media-body">
-                    <form ng-submit="addComment(post)">
+                    <form ng-submit="comment(post)">
                         <textarea class="form-control" rows="1" name="message" ng-model="message"></textarea>
                         <input type="submit" class="btn btn-primary" value="Commenter"></input>
                     </form>
