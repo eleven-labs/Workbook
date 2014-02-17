@@ -40,4 +40,16 @@ exports.addRoutes = function(app, security) {
     });
   });
 
+  app.post('/:id/message', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      console.log('-------------- insert post', req.user._id, req.body.message, req.body);
+      post.addComment(req.user._id, req.body.message, function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
+
+  });
 };

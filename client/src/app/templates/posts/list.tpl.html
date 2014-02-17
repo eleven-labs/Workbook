@@ -37,8 +37,9 @@
                     <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
                 </a>
                 <div class="media-body">
-                    <form ng-submit="addComment(post._id)">
+                    <form ng-submit="addComment(post)">
                         <textarea class="form-control" rows="1" name="message" ng-model="message"></textarea>
+                        <input type="submit" class="btn btn-primary" value="Commenter"></input>
                     </form>
                 </div>
             </div>

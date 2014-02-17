@@ -20,24 +20,31 @@ angular.module('posts', ['resources.posts', 'security.authorization'])
     $($event.currentTarget).closest('.media-body').find('.form-control').focus();
   };
 
+  var updateSuccess = function(result, status, headers, config) {
+    Posts.all(
+      function success(result, status, headers, config) {
+        $scope.posts = result;
+      },
+      function error(result, status, headers, config) {
+        console.log('error');
+      }
+    );
+  };
+
+  var updateError = function(result, status, headers, config) {
+    console.log('error');
+  }
+
   $scope.addPost = function() {
     if (this.text) {
-      new Posts({text: this.text}).$save(
-        function success(result, status, headers, config) {
-          Posts.all(
-            function success(result, status, headers, config) {
-              $scope.posts = result;
-            },
-            function error(result, status, headers, config) {
-              console.log('error');
-            }
-          );
-        },
-        function error(result, status, headers, config) {
-          console.log('error');
-        }
-      );
+      new Posts({text: this.text}).$save(updateSuccess, updateError);
       this.text = '';
+    }
+  }
+
+  $scope.addComment = function(post) {
+    if (this.message) {
+      post.$addComment(this.message, updateSuccess, updateError);
     }
   }
 }]);
