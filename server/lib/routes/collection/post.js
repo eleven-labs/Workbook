@@ -3,7 +3,7 @@ var Post = require('../../models/post');
 exports.addRoutes = function(app, security) {
 
   app.get('/', function(req, res, next){
-    Post.find(JSON.parse(req.query.q), function(err, posts){
+    Post.find(JSON.parse(req.query.q)).sort('-dateCreation').exec(function(err, posts){
       if (err) return next(err);
       res.send(posts);
     });
@@ -18,6 +18,8 @@ exports.addRoutes = function(app, security) {
 
   app.post('/', function(req, res, next){
     var data = req.body;
+    data.creator = req.user;
+    data.owner   = req.user;
     new Post(req.body).save(function(err){
       if (err) return next(err);
       res.send('Post inserted');

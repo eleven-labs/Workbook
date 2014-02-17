@@ -1,18 +1,21 @@
 <h1>Post your ideas</h1>
 <div class="media comment">
-  <a class="pull-left" href="#">
-    <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
-  </a>
-  <div class="media-body">
-     <textarea class="form-control comment-area" rows="1"></textarea>
-  </div>
+    <a class="pull-left" href="#">
+        <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+    </a>
+    <div class="media-body">
+        <form ng-submit="addPost()">
+            <textarea class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
+            <input type="submit" class="btn btn-primary" value="Poster"></input>
+        </form>
+    </div>
 </div>
 <hr>
 <h1>Lasts posts</h1>
 <div class="posts">
     <div class="media post" ng-repeat="post in posts">
         <a class="pull-left" href="#">
-          <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+            <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
         </a>
         <div class="media-body">
             {{post.text}}
@@ -30,12 +33,14 @@
                 </div>
             </div>
             <div class="media comment">
-              <a class="pull-left" href="#">
-                <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
-              </a>
-              <div class="media-body">
-                 <textarea class="form-control" rows="1"></textarea>
-              </div>
+                <a class="pull-left" href="#">
+                    <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+                </a>
+                <div class="media-body">
+                    <form ng-submit="addComment(post._id)">
+                        <textarea class="form-control" rows="1" name="message" ng-model="message"></textarea>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
