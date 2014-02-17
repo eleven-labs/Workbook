@@ -18,7 +18,7 @@
             {{post.text}}
             <div>
                 <button type="button" class="btn btn-link">Like <span class="badge">{{post.likes.length}}</span></button>
-                <button type="button" class="btn btn-link" ng-click="focusPostCommentArea()">Comment</button>
+                <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
             </div>
             <div class="media comment" ng-repeat="comment in post.comments">
                 <a class="pull-left" href="#">

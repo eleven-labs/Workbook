@@ -51,8 +51,8 @@ angular.module('posts', ['resources.posts', 'security.authorization'])
     }
   ];
 
-  $scope.focusPostCommentArea = function(){
-    angular.element(".comment-area").focus();
+  $scope.focusPostCommentArea = function($event) {
+    $($event.currentTarget).closest('.media-body').find('.form-control').focus();
   };
 
   // $scope.viewProject = function (post) {
