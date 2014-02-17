@@ -40,7 +40,7 @@ exports.addRoutes = function(app, security) {
     });
   });
 
-  app.post('/:id/message', function(req, res, next){
+  app.post('/:id/comment', function(req, res, next){
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
@@ -56,6 +56,39 @@ exports.addRoutes = function(app, security) {
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.addLike(req.user._id, function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
+  });
+
+  app.post('/:id/unlike', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      post.removeLike(req.user._id, function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
+  });
+
+  app.post('/:id/comment/:commentId/like', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      post.addLikeToComment(req.user._id, req.params.commentId, function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
+  });
+
+  app.post('/:id/comment/:commentId/unlike', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      post.removeLikeToComment(req.user._id, req.params.commentId, function(err, post){
         if (err) return next(err);
         res.send(post);
       });

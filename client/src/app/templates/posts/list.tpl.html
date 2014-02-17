@@ -29,7 +29,7 @@
                 </a>
                 <div class="media-body">
                     {{comment.message}}
-                    <div><button type="button" class="btn btn-link">Like <span class="badge">{{comment.likes.length}}</span></button></div>
+                    <div><button type="button" class="btn btn-link" ng-click="likeComment(post, comment)">Like <span class="badge">{{comment.likes.length}}</span></button></div>
                 </div>
             </div>
             <div class="media comment">
