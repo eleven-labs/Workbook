@@ -18,12 +18,6 @@
                 <li ng-class="{active:isNavbarActive('consultants-list')}"><a href="/consultants-list">Consultants list</a></li>
                 <li ng-class="{active:isNavbarActive('consultants-mapping')}"><a href="/consultants-mapping">Consultants mapping</a></li>
                 <li ng-class="{active:isNavbarActive('profile')}"><a href="/profile">My profile</a></li>
-                <li class="dropdown" ng-class="{active:isNavbarActive('admin'), open:isAdminOpen}" ng-show="isAdmin()">
-                    <a id="adminmenu" href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="isAdminOpen=!isAdminOpen">Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu" aria-labelledby="adminmenu">
-                        <li><a tabindex="-1" href="/admin/users" ng-click="isAdminOpen=false">Manage Users</a></li>
-                    </ul>
-                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="hasPendingRequests()">
                 <li class="divider-vertical"></li>
