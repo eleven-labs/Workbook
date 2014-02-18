@@ -33,8 +33,10 @@ User.signup(userValues.email, userValues.password, userValues.language, function
   winston.info('Trying to validate user account');
   User.accountValidator(userSaved.validationKey, function(err, userSaved){
     if (err) return logSaveError('Validation failed', err);
-    userSaved.status = userValues.status;
-    userSaved.admin  = userValues.admin;
+    userSaved.status    = userValues.status;
+    userSaved.admin     = userValues.admin;
+    userSaved.firstName = userValues.firstName;
+    userSaved.lastName  = userValues.lastName;
     winston.info('Trying to set status and admin information for the user');
     userSaved.save(function(err){
       if (err) return logSaveError('Savinf another params failed', err);

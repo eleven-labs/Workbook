@@ -2,9 +2,13 @@ angular.module('resourceFactory', []).factory('resourceFactory', ['$http', '$q',
 
   function ResourceFactory(collectionName) {
 
-    var url = '/collection/' + collectionName;
+    var Resource = function (data) {
+      angular.extend(this, data);
+    };
 
-    var thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {
+    Resource.url = '/collection/' + collectionName;
+
+    Resource.thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {
       var scb = successcb || angular.noop;
       var ecb = errorcb || angular.noop;
 
@@ -35,23 +39,19 @@ angular.module('resourceFactory', []).factory('resourceFactory', ['$http', '$q',
       });
     };
 
-    var Resource = function (data) {
-      angular.extend(this, data);
-    };
-
     Resource.all = function (cb, errorcb) {
       return Resource.query({}, cb, errorcb);
     };
 
     Resource.query = function (queryJson, successcb, errorcb) {
       var params = angular.isObject(queryJson) ? {q:JSON.stringify(queryJson)} : {};
-      var httpPromise = $http.get(url, {params:angular.extend({}, {}, params)});
-      return thenFactoryMethod(httpPromise, successcb, errorcb, true);
+      var httpPromise = $http.get(Resource.url, {params:angular.extend({}, {}, params)});
+      return this.thenFactoryMethod(httpPromise, successcb, errorcb, true);
     };
 
     Resource.getById = function (id, successcb, errorcb) {
-      var httpPromise = $http.get(url + '/' + id, {params: {}});
-      return thenFactoryMethod(httpPromise, successcb, errorcb);
+      var httpPromise = $http.get(Resource.url + '/' + id, {params: {}});
+      return this.thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
     Resource.getByIds = function (ids, successcb, errorcb) {
@@ -69,18 +69,18 @@ angular.module('resourceFactory', []).factory('resourceFactory', ['$http', '$q',
     };
 
     Resource.prototype.$save = function (successcb, errorcb) {
-      var httpPromise = $http.post(url, this, {params: {}});
-      return thenFactoryMethod(httpPromise, successcb, errorcb);
+      var httpPromise = $http.post(Resource.url, this, {params: {}});
+      return Resource.thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
     Resource.prototype.$update = function (successcb, errorcb) {
-      var httpPromise = $http.put(url + "/" + this.$id(), angular.extend({}, this, {_id:undefined}), {params: {}});
-      return thenFactoryMethod(httpPromise, successcb, errorcb);
+      var httpPromise = $http.put(Resource.url + "/" + this.$id(), angular.extend({}, this, {_id:undefined}), {params: {}});
+      return Resource.thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
     Resource.prototype.$remove = function (successcb, errorcb) {
-      var httpPromise = $http['delete'](url + "/" + this.$id(), {params: {}});
-      return thenFactoryMethod(httpPromise, successcb, errorcb);
+      var httpPromise = $http['delete'](Resource.url + "/" + this.$id(), {params: {}});
+      return Resource.thenFactoryMethod(httpPromise, successcb, errorcb);
     };
 
     Resource.prototype.$saveOrUpdate = function (savecb, updatecb, errorSavecb, errorUpdatecb) {

@@ -1,21 +1,52 @@
-<table class="table table-bordered table-condensed table-striped table-hover">
-    <thead>
-    <tr>
-        <th class="span3">Name</th>
-        <th class="span5">Description</th>
-        <th class="span2">My Role(s)</th>
-        <th class="span2">Tools</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="post in posts">
-        <td ng-click="manageBacklog(post)">{{post.name}}</td>
-        <td ng-click="manageBacklog(post)">{{post.desc}}</td>
-        <td>{{ getMyRoles(post) }}</td>
-        <td>
-            <a ng-click="manageBacklog(post)">Product backlog</a>
-            <a ng-click="manageSprints(post)">Sprints</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<h1>Post your ideas</h1>
+<div class="media comment">
+    <a class="pull-left" href="#">
+        <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+    </a>
+    <div class="media-body">
+        <form ng-submit="addPost()">
+            <textarea class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
+            <input type="submit" class="btn btn-primary" value="Poster"></input>
+        </form>
+    </div>
+</div>
+<hr>
+<h1>Lasts posts</h1>
+<div class="posts">
+    <div class="media post" ng-repeat="post in posts">
+        <a class="pull-left" href="#">
+            <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+        </a>
+        <div class="media-body">
+            {{post.text}}
+            <div>
+                <button type="button" class="btn btn-link" ng-show="!userInArray(post.likes)" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
+                <button type="button" class="btn btn-link" ng-show="userInArray(post.likes)" ng-click="unlike(post)">Unlike <span class="badge">{{post.likes.length}}</span></button>
+                <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
+            </div>
+            <div class="media comment" ng-repeat="comment in post.comments">
+                <a class="pull-left" href="#">
+                    <gravatar email="comment.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+                </a>
+                <div class="media-body">
+                    {{comment.message}}
+                    <div>
+                        <button type="button" class="btn btn-link" ng-show="!userInArray(comment.likes)" ng-click="likeComment(post, comment)">Like <span class="badge">{{comment.likes.length}}</span></button>
+                        <button type="button" class="btn btn-link" ng-show="userInArray(comment.likes)" ng-click="unlikeComment(post, comment)">Unlike <span class="badge">{{comment.likes.length}}</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="media comment">
+                <a class="pull-left" href="#">
+                    <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+                </a>
+                <div class="media-body">
+                    <form ng-submit="comment(post)">
+                        <input class="form-control" type="text" name="message" ng-model="message"></input>
+                        <input type="submit" class="btn btn-primary" value="Commenter"></input>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
