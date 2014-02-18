@@ -88,7 +88,7 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      post.removeLikeToComment(req.user._id, req.params.commentId, function(err, post){
+      post.removeLikeFromComment(req.user._id, req.params.commentId, function(err, post){
         if (err) return next(err);
         res.send(post);
       });

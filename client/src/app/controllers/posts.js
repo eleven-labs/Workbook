@@ -56,11 +56,15 @@ angular.module('posts', ['resources.posts', 'security.authorization'])
     post.$removeLike(updateSuccess, updateError);
   };
 
-  $scope.likeComment = function(post, comment, commentId) {
+  $scope.likeComment = function(post, comment) {
     post.$addLikeToComment(comment._id, updateSuccess, updateError);
   };
 
-  $scope.unlikeComment = function(post, comment, commentId) {
-    post.$removeLikeToComment(comment._id, updateSuccess, updateError);
+  $scope.unlikeComment = function(post, comment) {
+    post.$removeLikeFromComment(comment._id, updateSuccess, updateError);
   };
+
+  $scope.userInArray = function(userIds) {
+    return userIds.indexOf(security.currentUser.id) !== -1;
+  }
 }]);

@@ -15,7 +15,7 @@
     "winston": "0.7.2",
     "request": "~2.16.6",
     "mongoose-user-plugin": "0.0.1",
-    "mongoose-rattle-plugin": "0.0.3"
+    "mongoose-rattle-plugin": "0.0.5"
   },
   "devDependencies": {
     "rewire": "~1.0.3",

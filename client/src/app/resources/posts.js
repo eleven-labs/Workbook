@@ -24,7 +24,7 @@ angular.module('resources.posts').factory('Posts', ['resourceFactory', '$http', 
     return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);
   };
 
-  Posts.prototype.$removeLikeToComment = function (successcb, errorcb) {
+  Posts.prototype.$removeLikeFromComment = function (commentId, successcb, errorcb) {
     var httpPromise = $http.post(Posts.url + '/' + this.$id() + '/comment/' + commentId + '/unlike');
     return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);
   };

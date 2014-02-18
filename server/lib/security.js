@@ -8,7 +8,7 @@ var filterUser = function(user) {
   if ( user ) {
     return {
       user : {
-        id: user._id.$oid,
+        id: user._id,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
