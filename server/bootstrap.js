@@ -1,6 +1,6 @@
-var config = require('./config.js');
+var config   = require('config');
 var mongoose = require('mongoose');
-var winston = require('winston');
+var winston  = require('winston');
 
 mongoose.connect(config.Mongo.dbUris.join(','), config.Mongo.options, function (err) {
   if (err) throw(err);

@@ -11,6 +11,7 @@
     "express-namespace": "~0.1.1",
     "open": "0.0.3",
     "mongoose": "3.8.x",
+    "config": "0.4.25",
     "moment": "2.1.0",
     "winston": "0.7.2",
     "request": "~2.16.6",

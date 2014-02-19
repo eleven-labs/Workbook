@@ -1,7 +1,7 @@
 require('../bootstrap');
 
 var winston = require('winston');
-var config = require('../config');
+var config  = require('config');
 
 var User = require('../lib/models/user');
 
