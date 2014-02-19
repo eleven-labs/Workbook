@@ -13,7 +13,6 @@ var credentials = {key: privateKey, cert: certificate};
 require('./bootstrap');
 
 var express     = require('express');
-var mongoProxy  = require('./lib/mongo-proxy');
 var passport    = require('passport');
 var security    = require('./lib/security');
 var xsrf        = require('./lib/xsrf');
@@ -25,7 +24,7 @@ var app          = express();
 var secureServer = https.createServer(credentials, app);
 var server       = http.createServer(app);
 
-require('./lib/routes/static').addRoutes(app, distFolder, config.server.staticUrl);
+require('./routes/static').addRoutes(app, distFolder, config.server.staticUrl);
 
 app.use(protectJSON);
 
@@ -47,9 +46,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-require('./lib/routes/collection').addRoutes(app, security);
-require('./lib/routes/security').addRoutes(app, security);
-require('./lib/routes/appFile').addRoutes(app, distFolder);
+require('./routes/collection').addRoutes(app, security);
+require('./routes/security').addRoutes(app, security);
+require('./routes/appFile').addRoutes(app, distFolder);
 
 // A standard error handler - it picks up any left over errors and returns a nicely formatted server 500 error
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));

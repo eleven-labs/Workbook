@@ -3,7 +3,7 @@ require('../bootstrap');
 var winston = require('winston');
 var config  = require('config');
 
-var User = require('../lib/models/user');
+var User = require('../models/user');
 
 var userValues = {};
 userValues.admin = true;
