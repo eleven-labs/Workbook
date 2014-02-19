@@ -1,28 +1,31 @@
-var fs = require('fs');
-var http = require('http');
-var https = require('https');
+var fs      = require('fs');
+var path    = require('path');
+var config  = require('config');
+var http    = require('http');
+var https   = require('https');
 var winston = require('winston');
+
 var privateKey  = fs.readFileSync(__dirname + '/cert/privatekey.pem').toString();
 var certificate = fs.readFileSync(__dirname + '/cert/certificate.pem').toString();
+var distFolder  = path.resolve(__dirname, '../client/dist');
 var credentials = {key: privateKey, cert: certificate};
 
 require('./bootstrap');
 
-var express = require('express');
-var mongoProxy = require('./lib/mongo-proxy');
-var config = require('./config.js');
-var passport = require('passport');
-var security = require('./lib/security');
-var xsrf = require('./lib/xsrf');
+var express     = require('express');
+var mongoProxy  = require('./lib/mongo-proxy');
+var passport    = require('passport');
+var security    = require('./lib/security');
+var xsrf        = require('./lib/xsrf');
 var protectJSON = require('./lib/protectJSON');
 
 require('express-namespace');
 
-var app = express();
+var app          = express();
 var secureServer = https.createServer(credentials, app);
-var server = http.createServer(app);
+var server       = http.createServer(app);
 
-require('./lib/routes/static').addRoutes(app, config);
+require('./lib/routes/static').addRoutes(app, distFolder, config.server.staticUrl);
 
 app.use(protectJSON);
 
@@ -46,7 +49,7 @@ app.use(function(req, res, next) {
 
 require('./lib/routes/collection').addRoutes(app, security);
 require('./lib/routes/security').addRoutes(app, security);
-require('./lib/routes/appFile').addRoutes(app, config);
+require('./lib/routes/appFile').addRoutes(app, distFolder);
 
 // A standard error handler - it picks up any left over errors and returns a nicely formatted server 500 error
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
