@@ -3,7 +3,7 @@ angular.module('app', [
   'posts',
   'consultants',
   'profile',
-  'admin',
+  'directives.gravatar',
   'services.breadcrumbs',
   'services.i18nNotifications',
   'services.httpRequestTracker',

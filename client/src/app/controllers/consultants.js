@@ -1,4 +1,8 @@
-angular.module('consultants', ['services.crud', 'resources.users', 'security.authorization'])
+angular.module('consultants', [
+  'services.crud',
+  'resources.users',
+  'security.authorization'
+])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider
