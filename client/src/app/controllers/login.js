@@ -1,4 +1,4 @@
-angular.module('security.login.form', ['services.localizedMessages'])
+angular.module('login', ['services.localizedMessages'])
 
 // The LoginFormController provides the behaviour behind a reusable form to allow users to authenticate.
 // This controller and its template (login/form.tpl.html) are used in a modal dialog box by the security service.
