@@ -46,10 +46,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-require('./routes/signup')    .addRoutes(app);
-require('./routes/collection').addRoutes(app, security);
-require('./routes/security')  .addRoutes(app, security);
-require('./routes/appFile')   .addRoutes(app, distFolder);
+require('./routes/signup')       .addRoutes(app);
+require('./routes/resetPassword').addRoutes(app);
+require('./routes/collection')   .addRoutes(app, security);
+require('./routes/security')     .addRoutes(app, security);
+require('./routes/appFile')      .addRoutes(app, distFolder);
 
 // A standard error handler - it picks up any left over errors and returns a nicely formatted server 500 error
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
