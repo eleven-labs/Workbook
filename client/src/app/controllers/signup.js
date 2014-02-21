@@ -4,15 +4,15 @@ angular.module('signup', ['services.localizedMessages'])
   $routeProvider
     .when('/signup', {
       templateUrl:'templates/signup/form.tpl.html',
-      controller:'SignupFormController'
+      controller:'SignupController'
     })
     .when('/signup/validation', {
       templateUrl:'templates/signup/validation.tpl.html',
-      controller:'SignupFormController'
+      controller:'SignupController'
     });
 }])
 
-.controller('SignupFormController', ['$scope', '$location', 'security', 'localizedMessages', function($scope, $location, security, localizedMessages) {
+.controller('SignupController', ['$scope', '$location', 'security', 'localizedMessages', function($scope, $location, security, localizedMessages) {
   // The model for this form
   $scope.user = {};
 

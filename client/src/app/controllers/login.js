@@ -4,11 +4,11 @@ angular.module('login', ['services.localizedMessages'])
   $routeProvider
     .when('/login', {
       templateUrl:'templates/login/form.tpl.html',
-      controller:'LoginFormController'
+      controller:'LoginController'
     });
 }])
 
-.controller('LoginFormController', ['$scope', '$location', 'security', 'localizedMessages', function($scope, $location, security, localizedMessages) {
+.controller('LoginController', ['$scope', '$location', 'security', 'localizedMessages', function($scope, $location, security, localizedMessages) {
   // The model for this form
   $scope.user = {};
 

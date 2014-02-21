@@ -1,0 +1,16 @@
+<form name="form" novalidate class="form form-reset-password" role="form" ng-show="!requestedResetPassword">
+    <h2 class="form-reset-password-heading"> Demande de réinitialisation du mot de passe</h2>
+    <div class="alert alert-error" ng-show="authError">
+        {{authError}}
+    </div>
+    <input id="email" type="email" name="email" ng-model="user.email" required autofocus placeholder=" Email" class="form-control">
+    <input type="submit" value=" Demande de réinitialisation du mot de passe" class="btn btn-lg btn-primary btn-block" ng-click="requestResetPassword()" ng-disabled='form.$invalid'>
+</form>
+
+<div class="jumbotron" ng-show="requestedResetPassword">
+    <h1>Ta requête de changement de mot de passe à été envoyé !</h1>
+    <p>Un email vient juste de t'être envoyé. Merci de cliquer sur le lien donné pour poursuivre le changement de mot de passe.</p>
+    <p>
+        <a class="btn btn-lg btn-success" href="/">Revenir à l'accueil</a>
+    </p>
+</div>

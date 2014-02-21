@@ -1,0 +1,15 @@
+<form name="form" novalidate class="form form-reset-password" role="form" ng-show="!resetedPassword">
+    <h2 class="form-reset-password-heading"> Réinitialiser le mot de passe</h2>
+    <div class="alert alert-error" ng-show="authError">
+        {{authError}}
+    </div>
+    <input id="password" type="password" name="password" ng-model="user.password" required autofocus placeholder=" Mot de passe" class="form-control">
+    <input type="submit" value=" Réinitialiser le mot de passe" class="btn btn-lg btn-primary btn-block" ng-click="resetPassword()" ng-disabled='form.$invalid'>
+</form>
+
+<div class="jumbotron" ng-show="resetedPassword">
+    <h1>Ton mot de passe a bien été modifié !</h1>
+    <p>
+        <a class="btn btn-lg btn-success" href="/login">Se connecter</a>
+    </p>
+</div>

@@ -1,4 +1,4 @@
-<form name="form" novalidate class="form-signup" role="form" ng-show="!signedUp">
+<form name="form" novalidate class="form form-signup" role="form" ng-show="!signedUp">
     <h2 class="form-signup-heading"> Inscription</h2>
     <div class="alert alert-error" ng-show="authError">
         {{authError}}
@@ -9,8 +9,11 @@
 </form>
 
 <div class="jumbotron" ng-show="signedUp">
-    <h1>Merci de vous être inscrit à Super Site !</h1>
-    <p>Une email vient juste de vous être envoyé. Merci de valider votre compte en cliquant le lien donné. A tout de suite !</p>
+    <h1>Merci de t'être inscrit sur Workbook !</h1>
+    <p>Un email vient juste de t'être envoyé. Merci de valider ton compte en cliquant sur le lien donné.</p>
+    <br>
+    <p>A tout de suite !</p>
+    <br>
     <p>
         <a class="btn btn-lg btn-success" href="/">Revenir à l'accueil</a>
     </p>

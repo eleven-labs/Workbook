@@ -2,6 +2,7 @@ angular.module('app', [
   'ngRoute',
   'login',
   'signup',
+  'resetPassword',
   'posts',
   'consultants',
   'profile',

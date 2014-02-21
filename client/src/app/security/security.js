@@ -36,6 +36,14 @@ angular.module('security.service', [
       return $http.post('/signup/validation', {key: key});
     },
 
+    requestResetPassword: function(email) {
+      return $http.post('/request/reset/password', {email: email});
+    },
+
+    resetPassword: function(email) {
+      return $http.post('/reset/password', {regeneratePasswordKey: key, password: password});
+    },
+
     // Attempt to authenticate a user by the given email and password
     login: function(email, password) {
       var request = $http.post('/login', {email: email, password: password});
