@@ -5,10 +5,14 @@ angular.module('signup', ['services.localizedMessages'])
     .when('/signup', {
       templateUrl:'templates/signup/form.tpl.html',
       controller:'SignupFormController'
+    })
+    .when('/signup/validation', {
+      templateUrl:'templates/signup/validation.tpl.html',
+      controller:'SignupFormController'
     });
 }])
 
-.controller('SignupFormController', ['$scope', 'security', 'localizedMessages', function($scope, security, localizedMessages) {
+.controller('SignupFormController', ['$scope', '$location', 'security', 'localizedMessages', function($scope, $location, security, localizedMessages) {
   // The model for this form
   $scope.user = {};
 
@@ -16,6 +20,8 @@ angular.module('signup', ['services.localizedMessages'])
   $scope.authError = null;
 
   $scope.signedUp = false;
+
+  $scope.signupValidated = false;
 
   // Attempt to authenticate the user specified in the form's model
   $scope.signup = function() {
@@ -30,6 +36,15 @@ angular.module('signup', ['services.localizedMessages'])
       $scope.authError = localizedMessages.get('signup.error.serverError', { exception: x });
     });
   };
+
+  $scope.validation = function() {
+    security.signupValidation($location.$$search['key']).then(function() {
+      $scope.signupValidated = true;
+    }, function(x) {
+      // If we get here then there was a problem with the signup request to the server
+      $scope.authError = localizedMessages.get('signup.error.serverError', { exception: x });
+    });
+  }
 
   $scope.clearForm = function() {
     $scope.user = {};

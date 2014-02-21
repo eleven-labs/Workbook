@@ -32,6 +32,10 @@ angular.module('security.service', [
       return $http.post('/signup', {email: email, password: password});
     },
 
+    signupValidation: function(key) {
+      return $http.post('/signup/validation', {key: key});
+    },
+
     // Attempt to authenticate a user by the given email and password
     login: function(email, password) {
       var request = $http.post('/login', {email: email, password: password});

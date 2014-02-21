@@ -23,9 +23,9 @@ exports.addRoutes = function(app) {
       });
     });
   });
-  app.get('/signup/validation', function(req, res, next) {
+  app.post('/signup/validation', function(req, res, next) {
     if (req.isAuthenticated()) return res.json(401, { error: 'User must be logged out' });
-    return User.accountValidator(req.query.key, function(err, user) {
+    return User.accountValidator(req.body.key, function(err, user) {
       if (err)   return res.json(500, { error: err });
       if (!user) return res.json(400, { error: 'No user found' });
 
