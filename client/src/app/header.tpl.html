@@ -23,18 +23,19 @@
                 <li class="divider-vertical"></li>
                 <li><a href="#"><img src="/static/img/spinner.gif"></a></li>
             </ul>
-            <login-toolbar></login-toolbar>
-        </div>
-        <div ng-show="hasBreadCrumbs()">
-            <ol class="breadcrumb">
-                <li ng-repeat="breadcrumb in breadcrumbs.getAll()">
-                    <span class="divider">/</span>
-                    <ng-switch on="$last">
-                        <span ng-switch-when="true">{{breadcrumb.name}}</span>
-                        <span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
-                    </ng-switch>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="divider-vertical"></li>
+                <li ng-show="isAuthenticated()">
+                    <a href="#">{{currentUser.firstName}} {{currentUser.lastName}}</a>
                 </li>
-            </ol>
+                <li ng-show="isAuthenticated()" class="logout">
+                    <form class="navbar-form">
+                        <button class="btn logout" ng-click="logout()">Log out</button>
+                    </form>
+                </li>
+                <a href="/login" class="btn btn-default login navbar-btn pull-right" ng-hide="isAuthenticated()">Log in</a>
+                <a href="/signup" class="btn btn-success signup navbar-btn pull-right" ng-hide="isAuthenticated()">Sign up</a>
+            </ul>
         </div>
     </div>
 </div>

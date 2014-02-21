@@ -50,7 +50,7 @@ exports.addRoutes = function(app) {
         var from     = emailNoReply;
         var to       = user.email;
         var params   = {
-          url: 'http://' + req.host + '/reset/password?key=' + user.regeneratePasswordKey;
+          url: 'http://' + req.host + '/reset/password?key=' + user.regeneratePasswordKey
         };
         return mailer.sendMail('fr', "requestForResetingPassword", subject, from, to, params, function(err, response) {
           if (err) return next(err);

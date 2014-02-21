@@ -1,5 +1,7 @@
 angular.module('app', [
   'ngRoute',
+  'login',
+  'signup',
   'posts',
   'consultants',
   'profile',
@@ -8,7 +10,6 @@ angular.module('app', [
   'services.i18nNotifications',
   'services.httpRequestTracker',
   'security',
-  'login.toolbar',
   'directives.crud',
   'templates.app',
   'templates.angular.ui']);

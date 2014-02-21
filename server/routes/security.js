@@ -15,5 +15,4 @@ exports.addRoutes = function(app, security) {
   app.get('/admin-user', function(req, res) {
     security.adminRequired(req, res, function() { security.sendCurrentUser(req, res); });
   });
-
 };

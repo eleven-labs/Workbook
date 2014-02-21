@@ -13,28 +13,6 @@ angular.module('security.service', [
     $location.path(url);
   }
 
-  // Login form dialog stuff
-  var loginDialog = null;
-  function openLoginDialog() {
-    if ( loginDialog ) {
-      throw new Error('Trying to open a dialog that is already open!');
-    }
-    var loginDialog = $modal.open({
-      templateUrl: 'templates/login/form.tpl.html',
-      controller:  'LoginFormController'
-    });
-    loginDialog.result.then(onLoginDialogClose);
-  }
-  function onLoginDialogClose(success) {
-    loginDialog = null;
-    if ( success ) {
-      queue.retryAll();
-    } else {
-      queue.cancelAll();
-      redirect();
-    }
-  }
-
   // Register a handler for when an item is added to the retry queue
   queue.onItemAddedCallbacks.push(function(retryItem) {
     if ( queue.hasMore() ) {
@@ -50,9 +28,8 @@ angular.module('security.service', [
       return queue.retryReason();
     },
 
-    // Show the modal login dialog
-    showLogin: function() {
-      openLoginDialog();
+    signup: function(email, password) {
+      return $http.post('/signup', {email: email, password: password});
     },
 
     // Attempt to authenticate a user by the given email and password

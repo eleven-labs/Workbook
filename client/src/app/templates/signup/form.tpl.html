@@ -1,0 +1,17 @@
+<form name="form" novalidate class="form-signup" role="form" ng-show="!signedUp">
+    <h2 class="form-signup-heading"> Inscription</h2>
+    <div class="alert alert-error" ng-show="authError">
+        {{authError}}
+    </div>
+    <input id="email" type="email" name="email" ng-model="user.email" required autofocus placeholder=" Email" class="form-control">
+    <input id="password" type="password" name="password" ng-model="user.password" required placeholder=" Mot de passe" class="form-control">
+    <input type="submit" value=" Je m'inscris" class="btn btn-lg btn-primary btn-block" ng-click="signup()" ng-disabled='form.$invalid'>
+</form>
+
+<div class="jumbotron" ng-show="signedUp">
+    <h1>Merci de vous être inscrit à Super Site !</h1>
+    <p>Une email vient juste de vous être envoyé. Merci de valider votre compte en cliquant le lien donné. A tout de suite !</p>
+    <p>
+        <a class="btn btn-lg btn-success" href="/">Revenir à l'accueil</a>
+    </p>
+</div>
