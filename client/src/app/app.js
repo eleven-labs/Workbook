@@ -60,6 +60,7 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route',
   $scope.breadcrumbs = breadcrumbs;
 
   $scope.isAuthenticated = security.isAuthenticated;
+  $scope.logout = security.logout;
   $scope.isAdmin = security.isAdmin;
 
   $scope.home = function () {

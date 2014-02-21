@@ -28,11 +28,7 @@
                 <li ng-show="isAuthenticated()">
                     <a href="#">{{currentUser.firstName}} {{currentUser.lastName}}</a>
                 </li>
-                <li ng-show="isAuthenticated()" class="logout">
-                    <form class="navbar-form">
-                        <button class="btn logout" ng-click="logout()">Log out</button>
-                    </form>
-                </li>
+                <button class="btn btn-danger logout navbar-btn pull-right" ng-click="logout()" ng-hide="!isAuthenticated()">Log out</button>
                 <a href="/login" class="btn btn-default login navbar-btn pull-right" ng-hide="isAuthenticated()">Log in</a>
                 <a href="/signup" class="btn btn-success signup navbar-btn pull-right" ng-hide="isAuthenticated()">Sign up</a>
             </ul>
