@@ -7,6 +7,7 @@ angular.module('app', [
   'consultants',
   'profile',
   'directives.gravatar',
+  'directives.ckEditor',
   'services.breadcrumbs',
   'services.i18nNotifications',
   'services.httpRequestTracker',
