@@ -40,7 +40,7 @@ angular.module('security.service', [
       return $http.post('/request/reset/password', {email: email});
     },
 
-    resetPassword: function(email) {
+    resetPassword: function(key, password) {
       return $http.post('/reset/password', {regeneratePasswordKey: key, password: password});
     },
 

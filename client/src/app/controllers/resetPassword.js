@@ -36,7 +36,7 @@ angular.module('resetPassword', ['services.localizedMessages'])
   };
 
   $scope.resetPassword = function() {
-    security.resetPassword($location.$$search['key']).then(function() {
+    security.resetPassword($location.$$search['key'], $scope.user.password).then(function() {
       $scope.resetedPassword = true;
     }, function(x) {
       $scope.authError = localizedMessages.get('resetPassword.error.serverError', { exception: x });
