@@ -51,6 +51,17 @@ exports.addRoutes = function(app, security) {
     });
   });
 
+  app.delete('/:id/comment/:commentId/remove', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      post.removeComment(req.user._id, req.params.commentId, function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
+  });
+
   app.post('/:id/like', function(req, res, next){
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);

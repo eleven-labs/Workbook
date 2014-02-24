@@ -23,6 +23,9 @@
                 <button type="button" class="btn btn-link" ng-show="!userInArray(post.likes)" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
                 <button type="button" class="btn btn-link" ng-show="userInArray(post.likes)" ng-click="unlike(post)">Unlike <span class="badge">{{post.likes.length}}</span></button>
                 <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
+                <button type="button" class="btn btn-danger btn-xs" ng-show="canRemovePost(post)" ng-click="removePost(post)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
             </div>
             <div class="media comment" ng-repeat="comment in post.comments">
                 <a class="pull-left" href="#">
@@ -33,6 +36,9 @@
                     <div>
                         <button type="button" class="btn btn-link" ng-show="!userInArray(comment.likes)" ng-click="likeComment(post, comment)">Like <span class="badge">{{comment.likes.length}}</span></button>
                         <button type="button" class="btn btn-link" ng-show="userInArray(comment.likes)" ng-click="unlikeComment(post, comment)">Unlike <span class="badge">{{comment.likes.length}}</span></button>
+                        <button type="button" class="btn btn-danger btn-xs" ng-show="canRemoveComment(comment)" ng-click="removeComment(post, comment)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
                     </div>
                 </div>
             </div>

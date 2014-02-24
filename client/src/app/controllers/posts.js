@@ -42,11 +42,27 @@ angular.module('posts', ['resources.posts', 'security.authorization'])
     }
   };
 
+  $scope.removePost = function(post) {
+    post.$remove(updateSuccess, updateError);
+  };
+
+  $scope.canRemovePost = function(post) {
+    return post.creator == security.currentUser.id;
+  }
+
   $scope.comment = function(post) {
     if (this.message) {
       post.$addComment(this.message, updateSuccess, updateError);
     }
   };
+
+  $scope.removeComment = function(post, comment) {
+    post.$removeComment(comment._id, updateSuccess, updateError);
+  };
+
+  $scope.canRemoveComment = function(comment) {
+    return comment.creator == security.currentUser.id;
+  }
 
   $scope.like = function(post) {
     post.$addLike(updateSuccess, updateError);
