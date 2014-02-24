@@ -9,16 +9,17 @@
     "passport": "~0.1.12",
     "passport-local": "~0.1.6",
     "express-namespace": "~0.1.1",
-    "open": "0.0.3",
     "mongoose": "3.8.x",
     "config": "0.4.25",
     "moment": "2.1.0",
     "winston": "0.7.2",
     "request": "~2.16.6",
     "mongoose-user-plugin": "0.0.1",
-    "mongoose-rattle-plugin": "0.0.5"
+    "mongoose-rattle-plugin": "0.0.5",
+    "node-service-mailer": "0.0.1"
   },
   "devDependencies": {
+    "open": "0.0.3",
     "rewire": "~1.0.3",
     "supervisor": "~0.4.1",
     "grunt": "~0.4",

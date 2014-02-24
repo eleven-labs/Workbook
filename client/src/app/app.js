@@ -1,9 +1,12 @@
 angular.module('app', [
   'ngRoute',
+  'login',
+  'signup',
+  'resetPassword',
   'posts',
   'consultants',
   'profile',
-  'admin',
+  'directives.gravatar',
   'services.breadcrumbs',
   'services.i18nNotifications',
   'services.httpRequestTracker',
@@ -58,6 +61,7 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route',
   $scope.breadcrumbs = breadcrumbs;
 
   $scope.isAuthenticated = security.isAuthenticated;
+  $scope.logout = security.logout;
   $scope.isAdmin = security.isAdmin;
 
   $scope.home = function () {

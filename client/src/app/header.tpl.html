@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="http://eleven-labs.com/ui/img/eleven-labs_logo-rocket-nav.png" class="logo-rocket" alt="">
                 Workbook
             </a>
@@ -18,29 +18,20 @@
                 <li ng-class="{active:isNavbarActive('consultants-list')}"><a href="/consultants-list">Consultants list</a></li>
                 <li ng-class="{active:isNavbarActive('consultants-mapping')}"><a href="/consultants-mapping">Consultants mapping</a></li>
                 <li ng-class="{active:isNavbarActive('profile')}"><a href="/profile">My profile</a></li>
-                <li class="dropdown" ng-class="{active:isNavbarActive('admin'), open:isAdminOpen}" ng-show="isAdmin()">
-                    <a id="adminmenu" href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="isAdminOpen=!isAdminOpen">Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu" aria-labelledby="adminmenu">
-                        <li><a tabindex="-1" href="/admin/users" ng-click="isAdminOpen=false">Manage Users</a></li>
-                    </ul>
-                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="hasPendingRequests()">
                 <li class="divider-vertical"></li>
                 <li><a href="#"><img src="/static/img/spinner.gif"></a></li>
             </ul>
-            <login-toolbar></login-toolbar>
-        </div>
-        <div ng-show="hasBreadCrumbs()">
-            <ol class="breadcrumb">
-                <li ng-repeat="breadcrumb in breadcrumbs.getAll()">
-                    <span class="divider">/</span>
-                    <ng-switch on="$last">
-                        <span ng-switch-when="true">{{breadcrumb.name}}</span>
-                        <span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
-                    </ng-switch>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="divider-vertical"></li>
+                <li ng-show="isAuthenticated()">
+                    <a href="#">{{currentUser.firstName}} {{currentUser.lastName}}</a>
                 </li>
-            </ol>
+                <button class="btn btn-danger logout navbar-btn pull-right" ng-click="logout()" ng-hide="!isAuthenticated()">Log out</button>
+                <a href="/login" class="btn btn-default login navbar-btn pull-right" ng-hide="isAuthenticated()">Log in</a>
+                <a href="/signup" class="btn btn-success signup navbar-btn pull-right" ng-hide="isAuthenticated()">Sign up</a>
+            </ul>
         </div>
     </div>
 </div>

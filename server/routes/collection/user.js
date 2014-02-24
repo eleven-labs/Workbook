@@ -27,7 +27,14 @@ exports.addRoutes = function(app, security) {
   });
 
   app.put('/:id', function(req, res, next){
-    User.findByIdAndUpdate(req.params.id, req.body, function(err){
+    change = {}
+    updatableFields = ['lastName', 'firstName', 'status']
+    Object.keys(req.body).forEach(function(field){
+      if (updatableFields.indexOf(field) !== -1) {
+        change[field] = req.body[field];
+      }
+    });
+    User.findByIdAndUpdate(req.params.id, updatableFields, function(err){
       if (err) return next(err);
       res.send('User updated');
     });

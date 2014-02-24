@@ -1,7 +1,7 @@
 // Based loosely around work by Witold Szczerba - https://github.com/witoldsz/angular-http-auth
 angular.module('security.service', [
   'security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
-  'security.login',         // Contains the login form template and controller
+  'login',                  // Contains the login form template and controller
   'ui.bootstrap.modal'      // Used to display the login form as a modal dialog.
 ])
 
@@ -11,28 +11,6 @@ angular.module('security.service', [
   function redirect(url) {
     url = url || '/';
     $location.path(url);
-  }
-
-  // Login form dialog stuff
-  var loginDialog = null;
-  function openLoginDialog() {
-    if ( loginDialog ) {
-      throw new Error('Trying to open a dialog that is already open!');
-    }
-    var loginDialog = $modal.open({
-      templateUrl: 'security/login/form.tpl.html',
-      controller:  'LoginFormController'
-    });
-    loginDialog.result.then(onLoginDialogClose);
-  }
-  function onLoginDialogClose(success) {
-    loginDialog = null;
-    if ( success ) {
-      queue.retryAll();
-    } else {
-      queue.cancelAll();
-      redirect();
-    }
   }
 
   // Register a handler for when an item is added to the retry queue
@@ -50,9 +28,20 @@ angular.module('security.service', [
       return queue.retryReason();
     },
 
-    // Show the modal login dialog
-    showLogin: function() {
-      openLoginDialog();
+    signup: function(email, password) {
+      return $http.post('/signup', {email: email, password: password});
+    },
+
+    signupValidation: function(key) {
+      return $http.post('/signup/validation', {key: key});
+    },
+
+    requestResetPassword: function(email) {
+      return $http.post('/request/reset/password', {email: email});
+    },
+
+    resetPassword: function(key, password) {
+      return $http.post('/reset/password', {regeneratePasswordKey: key, password: password});
     },
 
     // Attempt to authenticate a user by the given email and password

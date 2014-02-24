@@ -1,8 +1,7 @@
-var express = require('express');
-var passport = require('passport');
+var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/user');
-var app = express();
+
+var User          = require('../models/user');
 
 var filterUser = function(user) {
   if ( user ) {

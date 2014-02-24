@@ -9,7 +9,7 @@
     "dbUris": ["mongodb://127.0.0.1:27017/workbook"],
     "options": {}
   },
-  "languages": ["fr", "en"],
+  "languages": ["fr"],
   "mailer": {
     "sender": {
       "no-reply": "no-reply@super-site.com"
