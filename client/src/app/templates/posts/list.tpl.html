@@ -18,7 +18,7 @@
             <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
         </a>
         <div class="media-body">
-            {{post.text}}
+            <div ng-bind-html="post.text"></div>
             <div>
                 <button type="button" class="btn btn-link" ng-show="!userInArray(post.likes)" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
                 <button type="button" class="btn btn-link" ng-show="userInArray(post.likes)" ng-click="unlike(post)">Unlike <span class="badge">{{post.likes.length}}</span></button>

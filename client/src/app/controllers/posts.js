@@ -1,4 +1,4 @@
-angular.module('posts', ['resources.posts', 'security.authorization'])
+angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitize'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/posts', {
