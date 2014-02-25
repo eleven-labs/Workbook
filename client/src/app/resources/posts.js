@@ -9,6 +9,11 @@ angular.module('resources.posts').factory('Posts', ['resourceFactory', '$http', 
     return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);
   };
 
+  Posts.prototype.$getComment = function (commentId, successcb, errorcb) {
+    var httpPromise = $http.get(Posts.url + '/' + this.$id() + '/comment/' + commentId);
+    return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);
+  };
+
   Posts.prototype.$removeComment = function (commentId, successcb, errorcb) {
     var httpPromise = $http.delete(Posts.url + '/' + this.$id() + '/comment/' + commentId + '/remove');
     return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);

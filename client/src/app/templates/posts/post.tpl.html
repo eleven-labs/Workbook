@@ -1,0 +1,28 @@
+<div class="media post">
+    <a class="pull-left" href="#">
+        <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+    </a>
+    <div class="media-body">
+        <div ng-bind-html="post.text"></div>
+        <div>
+            <button type="button" class="btn btn-link" ng-show="!userInArray(post.likes)" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
+            <button type="button" class="btn btn-link" ng-show="userInArray(post.likes)" ng-click="unlike(post)">Unlike <span class="badge">{{post.likes.length}}</span></button>
+            <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
+            <button type="button" class="btn btn-danger btn-xs" ng-show="canRemovePost(post)" ng-click="removePost(post)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+        <comment class="media comment" comment="comment" post="post" ng-repeat="comment in post.comments" on-comment-remove="removeComment(post, comment)"></comment>
+        <div class="media comment">
+            <a class="pull-left" href="#">
+                <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+            </a>
+            <div class="media-body">
+                <form ng-submit="comment(post)">
+                    <input class="form-control" type="text" name="message" ng-model="message">
+                    <input type="submit" class="btn btn-primary" value="Commenter">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
