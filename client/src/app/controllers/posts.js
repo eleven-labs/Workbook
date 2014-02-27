@@ -23,6 +23,10 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     return $scope.post !== null;
   }
 
+  $scope.isNewPost = function() {
+    return $scope.editingPost() && !$scope.post.$id();
+  }
+
   var getAllSuccess = function(posts, status, headers, config) {
     $scope.posts = posts;
   };
