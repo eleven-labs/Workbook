@@ -5,8 +5,9 @@
     <div class="media-body">
         {{comment.message}}
         <div>
-            <button type="button" class="btn btn-link" ng-show="!userInArray(comment.likes)" ng-click="likeComment(post, comment)">Like <span class="badge">{{comment.likes.length}}</span></button>
-            <button type="button" class="btn btn-link" ng-show="userInArray(comment.likes)" ng-click="unlikeComment(post, comment)">Unlike <span class="badge">{{comment.likes.length}}</span></button>
+            <span class="badge ng-binding">{{comment.likes.length}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
+            <button type="button" class="btn btn-link" ng-show="!userInArray(comment.likes)" ng-click="likeComment(post, comment)">Like</button>
+            <button type="button" class="btn btn-link" ng-show="userInArray(comment.likes)" ng-click="unlikeComment(post, comment)">Unlike</button>
             <button type="button" class="btn btn-danger btn-xs" ng-show="ownComment(comment)" ng-click="removeComment(post, comment)">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
