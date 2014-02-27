@@ -6,7 +6,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     controller:'PostsViewCtrl',
     resolve:{
       posts:['Posts', function (Posts) {
-        return Posts.all();
+        return Posts.getList(10, 4);
       }],
       authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
     }
@@ -41,7 +41,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     $scope.post = null;
   };
 
-  var requestFails = function(result, status, headers, config) {
+  var failsRequest = function(result, status, headers, config) {
     console.log('error');
   };
 
@@ -53,9 +53,9 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
   $scope.savePost = function() {
     $scope.post.text = $scope.text;
     if ($scope.post.$id()) {
-      return $scope.post.$update(updateSuccess, requestFails);
+      return $scope.post.$update(updateSuccess, failsRequest);
     } else {
-      return $scope.post.$save(saveSuccess, requestFails);
+      return $scope.post.$save(saveSuccess, failsRequest);
     }
   };
 
@@ -71,7 +71,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
           return post.$id() !== postToRemove.$id();
         })
       },
-      requestFails
+      failsRequest
     );
   };
 }])
@@ -90,7 +90,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
         $scope.post = result;
       };
 
-      var updateError = function(result, status, headers, config) {
+      var failsRequest = function(result, status, headers, config) {
         console.log('error');
       };
 
@@ -103,11 +103,11 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       }
 
       $scope.like = function(post) {
-        post.$addLike(updateSuccess, updateError);
+        post.$addLike(updateSuccess, failsRequest);
       };
 
       $scope.unlike = function(post) {
-        post.$removeLike(updateSuccess, updateError);
+        post.$removeLike(updateSuccess, failsRequest);
       };
 
       $scope.ownPost = function(post) {
@@ -123,13 +123,26 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
               self.message = '';
               updateSuccess(result, status, headers, config);
             },
-            updateError
+            failsRequest
           );
         }
       };
 
       $scope.removeComment = function(post, comment) {
-        post.$removeComment(comment._id, updateSuccess, updateError);
+        post.$removeComment(comment._id, updateSuccess, failsRequest);
+      };
+
+      $scope.displayPreviousComments = function() {
+        $scope.post.$getPreviousComments(
+          $scope.post.comments.length,
+          10,
+          function successRequest(lastComments, status, headers, config) {
+            for (var i = Object.keys(lastComments).length - 1; i >= 0; i--) {
+              $scope.post.comments.unshift(lastComments[i]);
+            }
+          },
+          failsRequest
+        );
       };
     }
   };

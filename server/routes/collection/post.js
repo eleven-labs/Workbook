@@ -3,7 +3,9 @@ var Post = require('../../models/post');
 exports.addRoutes = function(app, security) {
 
   app.get('/', function(req, res, next){
-    Post.find(JSON.parse(req.query.q)).sort('-dateCreation').exec(function(err, posts){
+    var numPosts = parseInt(req.query.numPosts);
+    var maxNumLastPostComments = parseInt(req.query.maxNumLastPostComments);
+    Post.getList(numPosts, maxNumLastPostComments, function(err, posts){
       if (err) return next(err);
       res.send(posts);
     });
@@ -37,6 +39,16 @@ exports.addRoutes = function(app, security) {
     Post.findByIdAndRemove(req.params.id, function(err){
       if (err) return next(err);
       res.send();
+    });
+  });
+
+  app.get('/:id/comments', function(req, res, next){
+    var numComments = parseInt(req.query.numCommentsAlreadyDisplay);
+    var maxNumLast = parseInt(req.query.maxNumLastPostComments);
+    Post.findByIdAndGetPreviousComments(req.params.id, numComments, maxNumLast, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      res.send(post.comments);
     });
   });
 

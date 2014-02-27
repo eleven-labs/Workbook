@@ -17,6 +17,9 @@
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
         </div>
+        <div>
+            <button type="button" class="btn btn-link" ng-click="displayPreviousComments()">Voir les commentaires précédents</button>
+        </div>
         <comment class="media comment" comment="comment" post="post" ng-repeat="comment in post.comments" on-comment-remove="removeComment(post, comment)"></comment>
         <div class="media comment">
             <a class="pull-left" href="#">
