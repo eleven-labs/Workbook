@@ -16,19 +16,57 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
 .controller('PostsViewCtrl', ['$scope', 'posts', 'security', 'Posts', function ($scope, posts, security, Posts) {
   $scope.posts = posts;
 
-  var updateSuccess = function(result, status, headers, config) {
-    $scope.posts.unshift(result);
+  $scope.post = null;
+  $scope.text = '';
+
+  $scope.editingPost = function() {
+    return $scope.post !== null;
+  }
+
+  var getAllSuccess = function(posts, status, headers, config) {
+    $scope.posts = posts;
   };
 
-  var updateError = function(result, status, headers, config) {
+  var saveSuccess = function(result, status, headers, config) {
+    $scope.posts.unshift(result);
+    $scope.text = '';
+    $scope.post = null;
+  };
+
+  var updateSuccess = function(result, status, headers, config) {
+    $scope.post = null;
+  };
+
+  var requestFails = function(result, status, headers, config) {
     console.log('error');
   };
 
-  $scope.addPost = function() {
-    if (this.text) {
-      new Posts({text: this.text}).$save(updateSuccess, updateError);
-      this.text = '';
+  $scope.initNewPost = function() {
+    $scope.post = new Posts();
+    $scope.text = '';
+  }
+
+  $scope.savePost = function() {
+    $scope.post.text = $scope.text;
+    if ($scope.post.$id()) {
+      return $scope.post.$update(updateSuccess, requestFails);
+    } else {
+      return $scope.post.$save(saveSuccess, requestFails);
     }
+  };
+
+  $scope.editPost = function(post) {
+    $scope.post = post;
+    $scope.text = post.text;
+  };
+
+  $scope.removePost = function(post) {
+    post.$remove(
+      function removeSuccess(){
+        Posts.all(getAllSuccess, requestFails);
+      },
+      requestFails
+    );
   };
 }])
 
@@ -36,7 +74,9 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
   return {
     restrict: 'E',
     scope: {
-      post: '='
+      post: '=',
+      'editPost': '&onPostEdit',
+      'removePost': '&onPostRemove'
     },
     templateUrl: 'templates/posts/post.tpl.html',
     controller: function($scope, security) {
@@ -64,11 +104,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
         post.$removeLike(updateSuccess, updateError);
       };
 
-      $scope.removePost = function(post) {
-        post.$remove(updateSuccess, updateError);
-      };
-
-      $scope.canRemovePost = function(post) {
+      $scope.ownPost = function(post) {
         return post.creator == security.currentUser.id;
       }
 
@@ -136,7 +172,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
         post.$removeLikeFromComment(comment._id, updateSuccess(comment._id), updateError);
       };
 
-      $scope.canRemoveComment = function(comment) {
+      $scope.ownComment = function(comment) {
         return comment.creator == security.currentUser.id;
       }
     }

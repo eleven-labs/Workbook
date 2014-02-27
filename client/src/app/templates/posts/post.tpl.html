@@ -8,8 +8,11 @@
             <button type="button" class="btn btn-link" ng-show="!userInArray(post.likes)" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
             <button type="button" class="btn btn-link" ng-show="userInArray(post.likes)" ng-click="unlike(post)">Unlike <span class="badge">{{post.likes.length}}</span></button>
             <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
-            <button type="button" class="btn btn-danger btn-xs" ng-show="canRemovePost(post)" ng-click="removePost(post)">
-                <span class="glyphicon glyphicon-remove"></span>
+            <button type="button" class="btn btn-default btn-xs" ng-show="ownPost(post)" ng-click="editPost(post)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-danger btn-xs post-remove" ng-show="ownPost(post)" ng-click="removePost(post)">
+                Supprimer le post
             </button>
         </div>
         <comment class="media comment" comment="comment" post="post" ng-repeat="comment in post.comments" on-comment-remove="removeComment(post, comment)"></comment>
