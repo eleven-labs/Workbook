@@ -17,7 +17,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
   $scope.posts = posts;
 
   var updateSuccess = function(result, status, headers, config) {
-    $scope.posts.push(result);
+    $scope.posts.unshift(result);
   };
 
   var updateError = function(result, status, headers, config) {
