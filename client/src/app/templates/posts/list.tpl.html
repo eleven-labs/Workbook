@@ -1,52 +1,26 @@
-<h1>Post your ideas</h1>
-<div class="media comment">
-    <a class="pull-left" href="#">
-        <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
-    </a>
-    <div class="media-body">
-        <form ng-submit="addPost()">
-            <textarea class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
-            <input type="submit" class="btn btn-primary" value="Poster">
-        </form>
-    </div>
-</div>
-<hr>
-<h1>Lasts posts</h1>
-<div class="posts">
-    <div class="media post" ng-repeat="post in posts">
+<button type="button" class="btn btn-success create-post" ng-click="initNewPost()">
+    <span class="glyphicon glyphicon-plus"></span> Ajouter un post
+</button>
+<div id="newPost" ng-show="editingPost()">
+    <div class="media comment">
         <a class="pull-left" href="#">
-            <gravatar email="post.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+            <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
         </a>
         <div class="media-body">
-            {{post.text}}
-            <div>
-                <button type="button" class="btn btn-link" ng-show="!userInArray(post.likes)" ng-click="like(post)">Like <span class="badge">{{post.likes.length}}</span></button>
-                <button type="button" class="btn btn-link" ng-show="userInArray(post.likes)" ng-click="unlike(post)">Unlike <span class="badge">{{post.likes.length}}</span></button>
-                <button type="button" class="btn btn-link" ng-click="focusPostCommentArea($event)">Comment</button>
-            </div>
-            <div class="media comment" ng-repeat="comment in post.comments">
-                <a class="pull-left" href="#">
-                    <gravatar email="comment.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
-                </a>
-                <div class="media-body">
-                    {{comment.message}}
-                    <div>
-                        <button type="button" class="btn btn-link" ng-show="!userInArray(comment.likes)" ng-click="likeComment(post, comment)">Like <span class="badge">{{comment.likes.length}}</span></button>
-                        <button type="button" class="btn btn-link" ng-show="userInArray(comment.likes)" ng-click="unlikeComment(post, comment)">Unlike <span class="badge">{{comment.likes.length}}</span></button>
-                    </div>
+            <form ng-submit="savePost()">
+                <div class="form-group">
+                    <textarea ck-editor class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
                 </div>
-            </div>
-            <div class="media comment">
-                <a class="pull-left" href="#">
-                    <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
-                </a>
-                <div class="media-body">
-                    <form ng-submit="comment(post)">
-                        <input class="form-control" type="text" name="message" ng-model="message">
-                        <input type="submit" class="btn btn-primary" value="Commenter">
-                    </form>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-show="isNewPost()" value="Créer le post">
+                    <input type="submit" class="btn btn-primary" ng-show="!isNewPost()" value="Mettre à jour le post">
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+    <hr>
+</div>
+<br>
+<div class="posts">
+    <post class="media post" post="post" ng-repeat="post in posts" on-post-edit="editPost(post)" on-post-remove="removePost(post)"></post>
 </div>

@@ -3,7 +3,9 @@ var Post = require('../../models/post');
 exports.addRoutes = function(app, security) {
 
   app.get('/', function(req, res, next){
-    Post.find(JSON.parse(req.query.q)).sort('-dateCreation').exec(function(err, posts){
+    var numPosts = parseInt(req.query.numPosts);
+    var maxNumLastPostComments = parseInt(req.query.maxNumLastPostComments);
+    Post.getList(numPosts, maxNumLastPostComments, function(err, posts){
       if (err) return next(err);
       res.send(posts);
     });
@@ -20,23 +22,41 @@ exports.addRoutes = function(app, security) {
     var data = req.body;
     data.creator = req.user;
     data.owner   = req.user;
-    new Post(req.body).save(function(err){
+    new Post(req.body).save(function(err, post){
       if (err) return next(err);
-      res.send('Post inserted');
+      res.send(post);
     });
   });
 
   app.put('/:id', function(req, res, next){
-    Post.findByIdAndUpdate(req.params.id, req.body, function(err){
+    Post.findByIdAndUpdate(req.params.id, req.body, function(err, post){
       if (err) return next(err);
-      res.send('Post updated');
+      res.send(post);
     });
   });
 
   app.delete('/:id', function(req, res, next){
     Post.findByIdAndRemove(req.params.id, function(err){
       if (err) return next(err);
-      res.send('Post deleted');
+      res.send();
+    });
+  });
+
+  app.get('/:id/comments', function(req, res, next){
+    var numComments = parseInt(req.query.numCommentsAlreadyDisplay);
+    var maxNumLast = parseInt(req.query.maxNumLastPostComments);
+    Post.findByIdAndGetPreviousComments(req.params.id, numComments, maxNumLast, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      res.send(post.comments);
+    });
+  });
+
+  app.get('/:id/comment/:commentId', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      res.send(post.getComment(req.params.commentId));
     });
   });
 
@@ -44,7 +64,18 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      post.addComment(req.user._id, req.body.message, function(err, post){
+      post.addComment(req.user._id, req.body.message, function(err){
+        if (err) return next(err);
+        res.send(post);
+      });
+    });
+  });
+
+  app.delete('/:id/comment/:commentId/remove', function(req, res, next){
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      if (!post) return next(new Error('Post not found'));
+      post.removeComment(req.user._id, req.params.commentId, function(err){
         if (err) return next(err);
         res.send(post);
       });
@@ -55,7 +86,7 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      post.addLike(req.user._id, function(err, post){
+      post.addLike(req.user._id, function(err){
         if (err) return next(err);
         res.send(post);
       });
@@ -66,7 +97,7 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      post.removeLike(req.user._id, function(err, post){
+      post.removeLike(req.user._id, function(err){
         if (err) return next(err);
         res.send(post);
       });
@@ -77,7 +108,7 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      post.addLikeToComment(req.user._id, req.params.commentId, function(err, post){
+      post.addLikeToComment(req.user._id, req.params.commentId, function(err){
         if (err) return next(err);
         res.send(post);
       });
@@ -88,7 +119,7 @@ exports.addRoutes = function(app, security) {
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
-      post.removeLikeFromComment(req.user._id, req.params.commentId, function(err, post){
+      post.removeLikeFromComment(req.user._id, req.params.commentId, function(err){
         if (err) return next(err);
         res.send(post);
       });
