@@ -64,10 +64,12 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     $scope.text = post.text;
   };
 
-  $scope.removePost = function(post) {
-    post.$remove(
+  $scope.removePost = function(postToRemove) {
+    postToRemove.$remove(
       function removeSuccess(){
-        Posts.all(getAllSuccess, requestFails);
+        $scope.posts = $scope.posts.filter(function removePost(post){
+          return post.$id() !== postToRemove.$id();
+        })
       },
       requestFails
     );
