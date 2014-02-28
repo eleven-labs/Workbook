@@ -22,5 +22,6 @@
 </div>
 <br>
 <div class="posts">
-    <post class="media post" post="post" ng-repeat="post in posts" on-post-edit="editPost(post)" on-post-remove="removePost(post)"></post>
+    <post post="post" ng-repeat="post in posts" on-post-edit="editPost(post)" on-post-remove="removePost(post)"></post>
 </div>
+<button type="button" class="btn btn-link" ng-show="!allPostsDisplayed" ng-click="getOlderPosts()">Voir les posts précédents</button>

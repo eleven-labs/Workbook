@@ -18,6 +18,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
 
   $scope.post = null;
   $scope.text = '';
+  $scope.allPostsDisplayed = false;
 
   $scope.editingPost = function() {
     return $scope.post !== null;
@@ -70,6 +71,26 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
         $scope.posts = $scope.posts.filter(function removePost(post){
           return post.$id() !== postToRemove.$id();
         })
+      },
+      failsRequest
+    );
+  };
+
+  $scope.getOlderPosts = function() {
+    var olderPostDisplayed = $scope.posts[$scope.posts.length - 1];
+    var numOlderPostsRequired = 10;
+
+    olderPostDisplayed.$getOlderPosts(
+      numOlderPostsRequired,
+      4,
+      function successRequest(olderPosts, status, headers, config) {
+        var numOlderPosts = Object.keys(olderPosts).length;
+        if (numOlderPosts < numOlderPostsRequired) {
+          $scope.allPostsDisplayed = true;
+        }
+        for (var i = 0; i < numOlderPosts - 1; i++) {
+          $scope.posts.push(new Posts(olderPosts[i]));
+        }
       },
       failsRequest
     );

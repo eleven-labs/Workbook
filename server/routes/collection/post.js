@@ -18,6 +18,18 @@ exports.addRoutes = function(app, security) {
     });
   });
 
+  app.get('/:id/previous', function(req, res, next){
+    var numPosts = parseInt(req.query.numPosts);
+    var maxNumLastPostComments = parseInt(req.query.maxNumLastPostComments);
+    Post.findById(req.params.id, function(err, post){
+      if (err) return next(err);
+      post.getPreviousPosts(numPosts, maxNumLastPostComments, function(err, posts){
+        if (err) return next(err);
+        res.send(posts);
+      });
+    });
+  });
+
   app.post('/', function(req, res, next){
     var data = req.body;
     data.creator = req.user;

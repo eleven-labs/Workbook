@@ -23,6 +23,15 @@ angular.module('resources.posts').factory('Posts', ['resourceFactory', '$http', 
     return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);
   };
 
+  Posts.prototype.$getOlderPosts = function (numPosts, maxNumLastPostComments, successcb, errorcb) {
+    var params = {
+      numPosts: numPosts,
+      maxNumLastPostComments: maxNumLastPostComments
+    };
+    var httpPromise = $http.get(Posts.url + '/' + this.$id() + '/previous', {params:angular.extend({}, {}, params)});
+    return Posts.thenFactoryMethod(httpPromise, successcb, errorcb);
+  };
+
   Posts.prototype.$getPreviousComments = function (numComments, maxNumLast, successcb, errorcb) {
     var params = {
       numCommentsAlreadyDisplay: numComments,
