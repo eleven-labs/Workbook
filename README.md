@@ -5,45 +5,11 @@ Workbook is a relational intranet. It allows employees of a company to search an
 
 ----------
 
-Functional overview
---------------------------
+[Functional overview](https://github.com/eleven-labs/Workbook/issues/42)
+---------------------
 
-- Authentication Required
-- Access to four pages
-  - Tables of activities
-    - List of users and administrators messages
-    - Ability to write a message
-    - Ability to comment and like
-  - Profile Search
-    - Search on personal details
-  - Mapping Contributors
-    - Gmap map to display the location of all missions and residences
-  - Edition of personal data
-    - Photo
-    - First
-    - Name
-    - Address of the mission
-    - Home address ( Optional )
-    - Technologies of choice
-    - Social Links ( github , facebook, Viadeo , ... )
-
-Technical directive
---------------------------
-
-- Development of a front and a back (API)
-- Front Application
-  - Framework AngularJs
-  - Bootstrap CSS Framework
-  - Deployment helped by grunt and bower
-- Back Application (API)
-  - Http server node.js
-  - Framework express.js
-  - Database MongoDB ( but also an opportunity to head next on graph databases as Neo4j and full text search as ElasticSearch )
-  - Authentication with passportJs
-  - Management of profile pictures by jQuery-File-Upload
-  - Mapping addresses with GMaps Api
-- Project management on Github
-- Deploying and testing online via Heroku
+[Technical directive](https://github.com/eleven-labs/Workbook/issues/43)
+---------------------
 
 Installation
 ------------
