@@ -34,7 +34,7 @@ exports.addRoutes = function(app, security) {
         change[field] = req.body[field];
       }
     });
-    User.findByIdAndUpdate(req.params.id, updatableFields, function(err){
+    User.findByIdAndUpdate(req.params.id, change, function(err){
       if (err) return next(err);
       res.send('User updated');
     });

@@ -120,7 +120,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       };
 
       $scope.userInArray = function(userIds) {
-        return userIds.indexOf(security.currentUser.id) !== -1;
+        return userIds.indexOf(security.currentUser._id) !== -1;
       }
 
       $scope.like = function(post) {
@@ -132,7 +132,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       };
 
       $scope.ownPost = function(post) {
-        return post.creator == security.currentUser.id;
+        return post.creator == security.currentUser._id;
       }
 
       $scope.comment = function(post) {
@@ -200,7 +200,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
 
       $scope.userInArray = function(userIds) {
         if (userIds) {
-          return userIds.indexOf(security.currentUser.id) !== -1;
+          return userIds.indexOf(security.currentUser._id) !== -1;
         }
       }
 
@@ -213,7 +213,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       };
 
       $scope.ownComment = function(comment) {
-        return comment.creator == security.currentUser.id;
+        return comment.creator == security.currentUser._id;
       }
     }
   };
