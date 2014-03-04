@@ -15,7 +15,7 @@ exports.addRoutes = function(app) {
       var from    = emailNoReply;
       var to      = user.email;
       var params  = {
-        url: 'http://' + req.host + '/signup/validation?key=' + user.validationKey
+        url: 'http://' + req.get('host') + '/signup/validation?key=' + user.validationKey
       };
       return mailer.sendMail('fr', "signup", subject, from, to, params, function(err, response) {
         if (err) return next(err);
