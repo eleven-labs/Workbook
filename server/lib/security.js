@@ -4,14 +4,17 @@ var LocalStrategy = require('passport-local').Strategy;
 var User          = require('../models/user');
 
 var filterUser = function(user) {
-  if ( user ) {
+  if (user) {
     return {
       user : {
-        id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        admin: user.admin
+        _id:                        user._id,
+        email:                      user.email,
+        firstName:                  user.firstName,
+        lastName:                   user.lastName,
+        status:                     user.status,
+        addressMission:             user.addressMission,
+        technologiesOfPredilection: user.technologiesOfPredilection,
+        admin:                      user.admin
       }
     };
   } else {

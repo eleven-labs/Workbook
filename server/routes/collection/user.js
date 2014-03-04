@@ -27,14 +27,14 @@ exports.addRoutes = function(app, security) {
   });
 
   app.put('/:id', function(req, res, next){
-    change = {}
-    updatableFields = ['lastName', 'firstName', 'status']
+    var change = {};
+    var updatableFields = ['lastName', 'firstName', 'status', 'addressMission', 'technologiesOfPredilection'];
     Object.keys(req.body).forEach(function(field){
       if (updatableFields.indexOf(field) !== -1) {
         change[field] = req.body[field];
       }
     });
-    User.findByIdAndUpdate(req.params.id, updatableFields, function(err){
+    User.findByIdAndUpdate(req.params.id, change, function(err){
       if (err) return next(err);
       res.send('User updated');
     });
