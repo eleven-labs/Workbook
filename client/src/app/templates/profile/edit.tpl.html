@@ -29,6 +29,18 @@
             </select>
             <span ng-show="form.status.$error.required" class="help-inline">Ce champs est requis.</span>
         </div>
+        <div class="form-group has-feedback" ng-class="{'has-error': form.addressMission.$error.required, 'has-success': !form.addressMission.$error.required}">
+            <label class="control-label" for="addressMission">Adresse de la mission</label>
+            <input class="span6 form-control" type="text" id="addressMission" name="addressMission" ng-model="user.addressMission" required>
+            <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': form.addressMission.$error.required, 'glyphicon-ok': !form.addressMission.$error.required}"></span>
+            <span ng-show="form.addressMission.$error.required" class="help-inline">Ce champs est requis.</span>
+        </div>
+        <div class="form-group has-feedback" ng-class="{'has-error': form.technologiesOfPredilection.$error.required, 'has-success': !form.technologiesOfPredilection.$error.required}">
+            <label class="control-label" for="technologiesOfPredilection">Technologies de predilection</label>
+            <input class="span6 form-control" type="text" id="technologiesOfPredilection" name="technologiesOfPredilection" ng-model="user.technologiesOfPredilection" required>
+            <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': form.technologiesOfPredilection.$error.required, 'glyphicon-ok': !form.technologiesOfPredilection.$error.required}"></span>
+            <span ng-show="form.technologiesOfPredilection.$error.required" class="help-inline">Ce champs est requis.</span>
+        </div>
         <hr>
         <button type="button" class="btn btn-primary" ng-click="update()" ng-disabled='form.$invalid'>Save</button>
         <button type="button" class="btn" ng-click="reset()">Reset</button>

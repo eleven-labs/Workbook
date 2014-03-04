@@ -7,12 +7,14 @@ var filterUser = function(user) {
   if (user) {
     return {
       user : {
-        _id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        status: user.status,
-        admin: user.admin
+        _id:                        user._id,
+        email:                      user.email,
+        firstName:                  user.firstName,
+        lastName:                   user.lastName,
+        status:                     user.status,
+        addressMission:             user.addressMission,
+        technologiesOfPredilection: user.technologiesOfPredilection,
+        admin:                      user.admin
       }
     };
   } else {
