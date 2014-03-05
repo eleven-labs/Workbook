@@ -64,22 +64,23 @@ Our client application is a straight HTML/Javascript application but our develop
     ```
 
   (This will install the dependencies declared in the client/package.json file)
-  
+
 ## Building
 
 ### Configure Server
 
 * Install mongo and run our initialization script to initialize the database with a first admin user.
 
-```
-cd server
-node scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User --status=consultant --validated=1
-```
+    ```
+    cd server
+    node scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User --status=consultant --validated=1
+    cd ..
+    ```
 
 ### Build the client app
 The app made up of a number of javascript, css and html files that need to be merged into a final distribution for running.  We use the Grunt build tool to do this.
-* Build client application: 
-    
+* Build client application:
+
     ```
     cd client
     grunt build
@@ -97,7 +98,9 @@ The app made up of a number of javascript, css and html files that need to be me
     sudo -E node server.js
     cd ..
     ```
-* Browse to the application at [http://localhost:3000]
+  (Note that you need to be root so that the server can listen on the port 80. Also you'll need to kill other daemons running on this port first, ex. apache)
+
+* Browse to the application at [http://localhost](http://localhost)
 
 ## Browser Support
 We only regularly test against Chrome 29 and occasionally against Firefox and Internet Explorer.
@@ -120,7 +123,7 @@ Within the client folder you have the following structure:
 The default grunt task will build (checks the javascript (lint), runs the unit tests (test:unit) and builds distributable files) and run all unit tests: `grunt` (or `grunt.cmd` on Windows).  The tests are run by karma and need one or more browsers open to actually run the tests.
 * `cd client`
 * `grunt`
-* Open one or more browsers and point them to [http://localhost:8080/__test/].  Once the browsers connect the tests will run and the build will complete.
+* Open one or more browsers and point them to [http://localhost:8080/__test/](http://localhost:8080/__test/).  Once the browsers connect the tests will run and the build will complete.
 * If you leave the browsers open at this url then future runs of `grunt` will automatically run the tests against these browsers.
 
 ### Continuous Building
@@ -134,7 +137,7 @@ You can build a release version of the app, with minified files.  This task will
 The e2e tests require the server to be started and also one or more browsers open to run the tests.  (You can use the same browsers as for the unit tests.)
 * `cd client`
 * Run `grunt release`
-* Open one or more browsers and point them to [http://localhost:8080/__test/].  Once the browsers connect the tests will run and the build will complete.
+* Open one or more browsers and point them to [http://localhost:8080/__test/](http://localhost:8080/__test/).  Once the browsers connect the tests will run and the build will complete.
 * If you leave the browsers open at this url then future runs of `grunt` will automatically run the tests against these browsers.
 
 ### Continuous testing
@@ -142,5 +145,5 @@ You can have grunt (karma) continuously watch for file changes and automatically
 
 * `cd client`
 * Run `grunt test-watch`.
-* Open one or more browsers and point them to [http://localhost:8080/__test/].
+* Open one or more browsers and point them to [http://localhost:8080/__test/](http://localhost:8080/__test/).
 * Each time a file changes the tests will be run against each browser.
