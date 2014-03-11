@@ -1,15 +1,14 @@
 {
-  "author": "Eleven Labs",
-  "name": "workbook",
-  "description": "Workbook is a relational intranet. It allows employees of a company to search and list quickly their colleagues. A newsfeed also enables him to be aware of various events planned by the company or its employees.",
-  "homepage": "https://github.com/eleven-labs/Workbook",
-  "version": "0.0.1",
+  "author": "Pawel Kozlowski & Peter Bacon Darwin",
+  "name": "angular-app",
+  "homepage": "https://github.com/angular-app/angular-app",
+  "version": "0.0.1-SNAPSHOT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:eleven-labs/Workbook.git"
+    "url": "git@github.com:angular-app/angular-app.git"
   },
   "bugs": {
-    "url": "https://github.com/eleven-labs/Workbook/issues"
+    "url": "https://github.com/angular-app/angular-app/issues"
   },
   "licenses": [
     {
@@ -22,15 +21,17 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-recess": "~0.3",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-copy": "~0.4.0",
-    "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-concat": "~0.1.3",
-    "grunt-contrib-uglify": "~0.1.1",
-    "grunt-karma": "~0.4.4",
+    "grunt": "v0.4.3",
+    "grunt-recess": "v0.6.0",
+    "grunt-contrib-clean": "v0.4.0",
+    "grunt-contrib-copy": "v0.5.0",
+    "grunt-contrib-jshint": "v0.8.0",
+    "grunt-contrib-concat": "v0.1.2",
+    "grunt-contrib-uglify": "v0.4.0",
+    "grunt-karma": "v0.7.2",
     "grunt-html2js": "~0.1.0",
-    "grunt-contrib-watch": "~0.3.1"
+    "grunt-contrib-watch": "v0.5.3",
+    "karma-jasmine": "v0.2.1",
+    "karma-phantomjs-launcher": "v0.1.2"
   }
 }
