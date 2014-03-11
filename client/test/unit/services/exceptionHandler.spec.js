@@ -29,12 +29,12 @@ describe('exception handler', function () {
   });
 
   it('should not go into infinite loop in case of problems with exception handler', function () {
-    spyOn(notifications, 'pushForCurrentRoute').andThrow('issue with notifications');
+    spyOn(notifications, 'pushForCurrentRoute').and.throwError('issue with notifications');
     //the syntax to test for exceptions is a bit odd...
     //http://stackoverflow.com/questions/4144686/how-to-write-a-test-which-expects-an-error-to-be-thrown
     expect(function(){
       $exceptionHandler(new Error('root cause'));
-    }).toThrow('issue with notifications');
+    }).toThrow(new Error('issue with notifications'));
   });
 
   it('should call through to the delegate', function() {

@@ -14,7 +14,7 @@ angular.module('security.service', [
   // Register a handler for when an item is added to the retry queue
   queue.onItemAddedCallbacks.push(function(retryItem) {
     if ( queue.hasMore() ) {
-      service.showLogin();
+      $location.path('/login');
     }
   });
 

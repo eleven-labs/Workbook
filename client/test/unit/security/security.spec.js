@@ -3,7 +3,7 @@ describe('security', function() {
   var $rootScope, $http, $httpBackend, status, userInfo;
 
   angular.module('test',[]).constant('I18N.MESSAGES', messages = {});
-  beforeEach(module('security', 'test', 'security/login/form.tpl.html'));
+  beforeEach(module('security', 'test'));
   beforeEach(inject(function(_$rootScope_, _$httpBackend_, _$http_) {
     $rootScope = _$rootScope_;
     $httpBackend = _$httpBackend_;
@@ -24,31 +24,20 @@ describe('security', function() {
     queue = $injector.get('securityRetryQueue');
   }));
 
-  describe('showLogin', function() {
-    it("should open the dialog", function() {
-      service.showLogin();
-      $rootScope.$digest();
-      expect(angular.element('.form-login').length).toBeGreaterThan(0);
-    });
-  });
-
   describe('login', function() {
     it('sends a http request to login the specified user', function() {
       $httpBackend.when('POST', '/login').respond(200, { user: userInfo });
       $httpBackend.expect('POST', '/login');
       service.login('email', 'password');
       $httpBackend.flush();
-      expect(service.currentUser).toBe(userInfo);
+      expect(service.currentUser).toEqual(userInfo);
     });
     it('calls queue.retry on a successful login', function() {
       $httpBackend.when('POST', '/login').respond(200, { user: userInfo });
-      spyOn(queue, 'retryAll');
-      service.showLogin();
       service.login('email', 'password');
       $httpBackend.flush();
       $rootScope.$digest();
-      expect(queue.retryAll).toHaveBeenCalled();
-      expect(service.currentUser).toBe(userInfo);
+      expect(service.currentUser).toEqual(userInfo);
     });
     it('does not call queue.retryAll after a login failure', function() {
       $httpBackend.when('POST', '/login').respond(200, { user: null });
@@ -147,7 +136,7 @@ describe('security', function() {
       service.requestCurrentUser().then(function(data) {
         resolved = true;
         expect(service.isAuthenticated()).toBe(true);
-        expect(service.currentUser).toBe(userInfo);
+        expect(service.currentUser).toEqual(userInfo);
       });
       $httpBackend.flush();
       expect(resolved).toBe(true);

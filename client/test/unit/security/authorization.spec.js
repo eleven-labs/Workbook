@@ -3,7 +3,7 @@ describe('securityAuthorization', function() {
   var userResponse, resolved;
 
   angular.module('test', []).value('I18N.MESSAGES', {});
-  beforeEach(module('test', 'security.authorization', 'security/login/form.tpl.html'));
+  beforeEach(module('test', 'security.authorization'));
   beforeEach(inject(function($injector) {
     $rootScope = $injector.get('$rootScope');
     securityAuthorization = $injector.get('securityAuthorization');
@@ -13,7 +13,7 @@ describe('securityAuthorization', function() {
     userResponse = { user: { id: '1234567890', email: 'jo@bloggs.com', firstName: 'Jo', lastName: 'Bloggs'} };
     resolved = false;
 
-    spyOn(security, 'requestCurrentUser').andCallFake(function() {
+    spyOn(security, 'requestCurrentUser').and.callFake(function() {
       security.currentUser = security.currentUser || userResponse.user;
       var promise = $injector.get('$q').when(security.currentUser);
       // Trigger a digest to resolve the promise;

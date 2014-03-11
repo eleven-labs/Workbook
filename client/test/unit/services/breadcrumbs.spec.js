@@ -14,7 +14,7 @@ describe('breadcrumbs', function () {
     breadcrumbs = $injector.get('breadcrumbs');
     $rootScope = $injector.get('$rootScope');
     $location = $injector.get('$location');
-    spyOn($location, 'path').andCallFake(new LocationMock().path);
+    spyOn($location, 'path').and.callFake(new LocationMock().path);
   }));
 
   it('should have sensible defaults before route navigation', function() {
