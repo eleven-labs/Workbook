@@ -1,5 +1,4 @@
 angular.module('consultants', [
-  'services.crud',
   'resources.users',
   'security.authorization'
 ])
@@ -28,20 +27,10 @@ angular.module('consultants', [
     });
 }])
 
-.controller('ConsultantsListViewCtrl', ['$scope', 'crudListMethods', '$location', 'consultants', 'security', function ($scope, crudListMethods, $location, consultants, security) {
+.controller('ConsultantsListViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
   $scope.consultants = consultants;
-
-  angular.extend($scope, crudListMethods('/admin/users'));
-
-  // $scope.viewProject = function (consultant) {
-  //   $location.path('/consultants/'+consultant.$id());
-  // };
 }])
 
 .controller('ConsultantsMappingViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
   $scope.consultants = consultants;
-
-  // $scope.viewProject = function (consultant) {
-  //   $location.path('/consultants/'+consultant.$id());
-  // };
 }]);
