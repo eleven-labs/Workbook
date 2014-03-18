@@ -1,4 +1,5 @@
 angular.module('consultants', [
+  'ngRoute',
   'resources.users',
   'security.authorization'
 ])

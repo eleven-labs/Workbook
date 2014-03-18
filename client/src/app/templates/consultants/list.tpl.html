@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="consultant in consultants | filter:query" ng-click="edit(consultant.$id())">
+    <tr ng-repeat="consultant in consultants | filter:query">
         <td><gravatar email="consultant.email" size="50" default-image="'monsterid'"></gravatar></td>
         <td>{{consultant.email}}</td>
         <td>{{consultant.lastName}}</td>
