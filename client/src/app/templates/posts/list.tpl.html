@@ -1,7 +1,7 @@
 <button type="button" class="btn btn-success create-post" ng-click="initNewPost()">
     <span class="glyphicon glyphicon-plus"></span> Ajouter un post
 </button>
-<div id="newPost" ng-show="editingPost()">
+<div id="newPost" ng-show="isEditingPost()">
     <div class="media comment">
         <a class="pull-left" href="#">
             <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
@@ -12,8 +12,8 @@
                     <textarea ck-editor class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" ng-show="isNewPost()" value="Créer le post">
-                    <input type="submit" class="btn btn-primary" ng-show="!isNewPost()" value="Mettre à jour le post">
+                    <input type="submit" class="btn btn-primary" ng-show="isEditingNewPost()" value="Créer le post">
+                    <input type="submit" class="btn btn-primary" ng-show="!isEditingNewPost()" value="Mettre à jour le post">
                 </div>
             </form>
         </div>
@@ -24,4 +24,4 @@
 <div class="posts">
     <post post="post" ng-repeat="post in posts" on-post-edit="editPost(post)" on-post-remove="removePost(post)"></post>
 </div>
-<button type="button" class="btn btn-link" ng-show="!allPostsDisplayed" ng-click="getOlderPosts()">Voir les posts précédents</button>
+<button type="button" class="btn btn-link" ng-show="!allPostsDisplayed" ng-click="getOlderPosts(10, 4)">Voir les posts précédents</button>

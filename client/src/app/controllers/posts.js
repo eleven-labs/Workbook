@@ -1,4 +1,4 @@
-angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitize'])
+angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitize', 'ngRoute'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/posts', {
@@ -20,29 +20,26 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
   $scope.text = '';
   $scope.allPostsDisplayed = false;
 
-  $scope.editingPost = function() {
+  $scope.isEditingPost = function() {
     return $scope.post !== null;
   }
 
-  $scope.isNewPost = function() {
-    return $scope.editingPost() && !$scope.post.$id();
+  $scope.isEditingNewPost = function() {
+    return $scope.isEditingPost() && !$scope.post.$id();
   }
 
-  var getAllSuccess = function(posts, status, headers, config) {
-    $scope.posts = posts;
-  };
-
-  var saveSuccess = function(result, status, headers, config) {
+  var saveSuccess = function(result) {
     $scope.posts.unshift(result);
     $scope.text = '';
     $scope.post = null;
   };
 
-  var updateSuccess = function(result, status, headers, config) {
+  var updateSuccess = function() {
+    $scope.text = '';
     $scope.post = null;
   };
 
-  var failsRequest = function(result, status, headers, config) {
+  var failsRequest = function() {
     console.log('error');
   };
 
@@ -76,19 +73,18 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     );
   };
 
-  $scope.getOlderPosts = function() {
+  $scope.getOlderPosts = function(numPosts, maxNumLastPostComments) {
     var olderPostDisplayed = $scope.posts[$scope.posts.length - 1];
-    var numOlderPostsRequired = 10;
 
     olderPostDisplayed.$getOlderPosts(
-      numOlderPostsRequired,
-      4,
-      function successRequest(olderPosts, status, headers, config) {
+      numPosts,
+      maxNumLastPostComments,
+      function successRequest(olderPosts) {
         var numOlderPosts = Object.keys(olderPosts).length;
-        if (numOlderPosts < numOlderPostsRequired) {
+        if (numOlderPosts < numPosts) {
           $scope.allPostsDisplayed = true;
         }
-        for (var i = 0; i < numOlderPosts - 1; i++) {
+        for (var i = 0; i < numOlderPosts; i++) {
           $scope.posts.push(new Posts(olderPosts[i]));
         }
       },
@@ -107,11 +103,11 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     },
     templateUrl: 'templates/posts/post.tpl.html',
     controller: function($scope, security) {
-      var updateSuccess = function(result, status, headers, config) {
+      var updateSuccess = function(result) {
         $scope.post = result;
       };
 
-      var failsRequest = function(result, status, headers, config) {
+      var failsRequest = function() {
         console.log('error');
       };
 
@@ -140,9 +136,9 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
         if (this.message) {
           post.$addComment(
             this.message,
-            function success(result, status, headers, config) {
+            function success(result) {
               self.message = '';
-              updateSuccess(result, status, headers, config);
+              updateSuccess(result);
             },
             failsRequest
           );
@@ -157,7 +153,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
         $scope.post.$getPreviousComments(
           $scope.post.comments.length,
           10,
-          function successRequest(lastComments, status, headers, config) {
+          function successRequest(lastComments) {
             for (var i = Object.keys(lastComments).length - 1; i >= 0; i--) {
               $scope.post.comments.unshift(lastComments[i]);
             }
@@ -180,21 +176,21 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
     templateUrl: 'templates/posts/comment.tpl.html',
     controller: function($scope, security, Posts) {
       var updateSuccess = function(commentId) {
-        return function(post, status, headers, config) {
+        return function(post) {
           $scope.post.$getComment(
             commentId,
-            function success(comment, status, headers, config) {
+            function success(comment) {
               $scope.comment = comment;
               $scope.post    = post;
             },
-            function error(result, status, headers, config) {
+            function error(result) {
               console.log(result);
             }
           );
         };
       };
 
-      var updateError = function(result, status, headers, config) {
+      var updateError = function() {
         console.log('error');
       };
 
