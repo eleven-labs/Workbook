@@ -3,11 +3,11 @@ angular.module('signup', ['services.localizedMessages'])
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     .when('/signup', {
-      templateUrl:'templates/signup/form.tpl.html',
+      templateUrl:'controllers/signup/templates/form.tpl.html',
       controller:'SignupController'
     })
     .when('/signup/validation', {
-      templateUrl:'templates/signup/validation.tpl.html',
+      templateUrl:'controllers/signup/templates/validation.tpl.html',
       controller:'SignupController'
     });
 }])

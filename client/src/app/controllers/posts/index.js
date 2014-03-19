@@ -2,7 +2,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/posts', {
-    templateUrl:'templates/posts/list.tpl.html',
+    templateUrl:'controllers/posts/templates/list.tpl.html',
     controller:'PostsViewCtrl',
     resolve:{
       posts:['Posts', function (Posts) {
@@ -101,7 +101,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       'editPost': '&onPostEdit',
       'removePost': '&onPostRemove'
     },
-    templateUrl: 'templates/posts/post.tpl.html',
+    templateUrl: 'controllers/posts/templates/post.tpl.html',
     controller: function($scope, security) {
       var updateSuccess = function(result) {
         $scope.post = result;
@@ -173,7 +173,7 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       comment: '=',
       'removeComment': '&onCommentRemove'
     },
-    templateUrl: 'templates/posts/comment.tpl.html',
+    templateUrl: 'controllers/posts/templates/comment.tpl.html',
     controller: function($scope, security, Posts) {
       var updateSuccess = function(commentId) {
         return function(post) {

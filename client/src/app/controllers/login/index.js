@@ -3,7 +3,7 @@ angular.module('login', ['services.localizedMessages'])
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     .when('/login', {
-      templateUrl:'templates/login/form.tpl.html',
+      templateUrl:'controllers/login/templates/form.tpl.html',
       controller:'LoginController'
     });
 }])

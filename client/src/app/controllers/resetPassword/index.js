@@ -3,11 +3,11 @@ angular.module('resetPassword', ['services.localizedMessages'])
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     .when('/request/reset/password', {
-      templateUrl:'templates/resetPassword/requestForm.tpl.html',
+      templateUrl:'controllers/resetPassword/templates/requestForm.tpl.html',
       controller:'ResetPasswordController'
     })
     .when('/reset/password', {
-      templateUrl:'templates/resetPassword/resetForm.tpl.html',
+      templateUrl:'controllers/resetPassword/templates/resetForm.tpl.html',
       controller:'ResetPasswordController'
     });
 }])

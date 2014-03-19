@@ -2,7 +2,7 @@ angular.module('profile', ['resources.users', 'security.authorization'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/profile', {
-    templateUrl:'templates/profile/edit.tpl.html',
+    templateUrl:'controllers/profile/templates/edit.tpl.html',
     controller:'ProfileEditCtrl',
     resolve:{
       authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser

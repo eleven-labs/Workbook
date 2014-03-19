@@ -7,7 +7,7 @@ angular.module('consultants', [
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider
     .when('/consultants-list', {
-      templateUrl:'templates/consultants/list.tpl.html',
+      templateUrl:'controllers/consultants/templates/list.tpl.html',
       controller:'ConsultantsListViewCtrl',
       resolve:{
         consultants:['Users', function (Users) {
@@ -17,7 +17,7 @@ angular.module('consultants', [
       }
     })
     .when('/consultants-mapping', {
-      templateUrl:'templates/consultants/mapping.tpl.html',
+      templateUrl:'controllers/consultants/templates/mapping.tpl.html',
       controller:'ConsultantsMappingViewCtrl',
       resolve:{
         consultants:['Users', function (Users) {
