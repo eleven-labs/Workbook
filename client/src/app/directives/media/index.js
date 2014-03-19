@@ -27,22 +27,22 @@ angular.module('directives.media', [])
         return userIds.indexOf(security.currentUser._id) !== -1;
       }
 
-      $scope.like = function(media) {
-        media.$addLike(updateSuccess, failsRequest);
+      $scope.like = function() {
+        $scope.media.$addLike(updateSuccess, failsRequest);
       };
 
-      $scope.unlike = function(media) {
-        media.$removeLike(updateSuccess, failsRequest);
+      $scope.unlike = function() {
+        $scope.media.$removeLike(updateSuccess, failsRequest);
       };
 
-      $scope.ownMedia = function(media) {
-        return media.creator == security.currentUser._id;
+      $scope.ownMedia = function() {
+        return $scope.media.creator == security.currentUser._id;
       }
 
-      $scope.comment = function(media) {
+      $scope.comment = function() {
         var self = this;
         if (this.message) {
-          media.$addComment(
+          $scope.media.$addComment(
             this.message,
             function success(result) {
               self.message = '';
@@ -53,8 +53,8 @@ angular.module('directives.media', [])
         }
       };
 
-      $scope.removeComment = function(media, comment) {
-        media.$removeComment(comment._id, updateSuccess, failsRequest);
+      $scope.removeComment = function(comment) {
+        $scope.media.$removeComment(comment._id, updateSuccess, failsRequest);
       };
 
       $scope.displayPreviousComments = function() {
@@ -84,12 +84,12 @@ angular.module('directives.media', [])
     templateUrl: 'directives/media/templates/comment.tpl.html',
     controller: function($scope, security) {
       var updateSuccess = function(commentId) {
-        return function(media) {
+        return function(mediaData) {
           $scope.media.$getComment(
             commentId,
             function success(comment) {
               $scope.comment = comment;
-              $scope.media    = media;
+              $scope.media    = mediaData;
             },
             function error(result) {
               console.log(result);
@@ -108,12 +108,12 @@ angular.module('directives.media', [])
         }
       }
 
-      $scope.likeComment = function(media, comment) {
-        media.$addLikeToComment(comment._id, updateSuccess(comment._id), updateError);
+      $scope.likeComment = function(comment) {
+        $scope.media.$addLikeToComment(comment._id, updateSuccess(comment._id), updateError);
       };
 
-      $scope.unlikeComment = function(media, comment) {
-        media.$removeLikeFromComment(comment._id, updateSuccess(comment._id), updateError);
+      $scope.unlikeComment = function(comment) {
+        $scope.media.$removeLikeFromComment(comment._id, updateSuccess(comment._id), updateError);
       };
 
       $scope.ownComment = function(comment) {
