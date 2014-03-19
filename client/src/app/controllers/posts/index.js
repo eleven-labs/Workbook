@@ -1,4 +1,10 @@
-angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitize', 'ngRoute'])
+angular.module('posts', [
+  'resources.posts',
+  'security.authorization',
+  'ngSanitize',
+  'ngRoute',
+  'directives.media'
+])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/posts', {
@@ -91,126 +97,4 @@ angular.module('posts', ['resources.posts', 'security.authorization', 'ngSanitiz
       failsRequest
     );
   };
-}])
-
-.directive('post', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      post: '=',
-      'editPost': '&onPostEdit',
-      'removePost': '&onPostRemove'
-    },
-    templateUrl: 'controllers/posts/templates/post.tpl.html',
-    controller: function($scope, security) {
-      var updateSuccess = function(result) {
-        $scope.post = result;
-      };
-
-      var failsRequest = function() {
-        console.log('error');
-      };
-
-      $scope.focusPostCommentArea = function($event) {
-        $($event.currentTarget).closest('.media-body').find('.form-control').focus();
-      };
-
-      $scope.userInArray = function(userIds) {
-        return userIds.indexOf(security.currentUser._id) !== -1;
-      }
-
-      $scope.like = function(post) {
-        post.$addLike(updateSuccess, failsRequest);
-      };
-
-      $scope.unlike = function(post) {
-        post.$removeLike(updateSuccess, failsRequest);
-      };
-
-      $scope.ownPost = function(post) {
-        return post.creator == security.currentUser._id;
-      }
-
-      $scope.comment = function(post) {
-        var self = this;
-        if (this.message) {
-          post.$addComment(
-            this.message,
-            function success(result) {
-              self.message = '';
-              updateSuccess(result);
-            },
-            failsRequest
-          );
-        }
-      };
-
-      $scope.removeComment = function(post, comment) {
-        post.$removeComment(comment._id, updateSuccess, failsRequest);
-      };
-
-      $scope.displayPreviousComments = function() {
-        $scope.post.$getPreviousComments(
-          $scope.post.comments.length,
-          10,
-          function successRequest(lastComments) {
-            for (var i = Object.keys(lastComments).length - 1; i >= 0; i--) {
-              $scope.post.comments.unshift(lastComments[i]);
-            }
-          },
-          failsRequest
-        );
-      };
-    }
-  };
-})
-
-.directive('comment', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      post: '=',
-      comment: '=',
-      'removeComment': '&onCommentRemove'
-    },
-    templateUrl: 'controllers/posts/templates/comment.tpl.html',
-    controller: function($scope, security, Posts) {
-      var updateSuccess = function(commentId) {
-        return function(post) {
-          $scope.post.$getComment(
-            commentId,
-            function success(comment) {
-              $scope.comment = comment;
-              $scope.post    = post;
-            },
-            function error(result) {
-              console.log(result);
-            }
-          );
-        };
-      };
-
-      var updateError = function() {
-        console.log('error');
-      };
-
-      $scope.userInArray = function(userIds) {
-        if (userIds) {
-          return userIds.indexOf(security.currentUser._id) !== -1;
-        }
-      }
-
-      $scope.likeComment = function(post, comment) {
-        post.$addLikeToComment(comment._id, updateSuccess(comment._id), updateError);
-      };
-
-      $scope.unlikeComment = function(post, comment) {
-        post.$removeLikeFromComment(comment._id, updateSuccess(comment._id), updateError);
-      };
-
-      $scope.ownComment = function(comment) {
-        return comment.creator == security.currentUser._id;
-      }
-    }
-  };
-});
+}]);
