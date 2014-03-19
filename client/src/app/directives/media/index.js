@@ -108,16 +108,16 @@ angular.module('directives.media', [])
         }
       }
 
-      $scope.likeComment = function(comment) {
-        $scope.media.$addLikeToComment(comment._id, updateSuccess(comment._id), updateError);
+      $scope.likeComment = function() {
+        $scope.media.$addLikeToComment($scope.comment._id, updateSuccess($scope.comment._id), updateError);
       };
 
-      $scope.unlikeComment = function(comment) {
-        $scope.media.$removeLikeFromComment(comment._id, updateSuccess(comment._id), updateError);
+      $scope.unlikeComment = function() {
+        $scope.media.$removeLikeFromComment($scope.comment._id, updateSuccess($scope.comment._id), updateError);
       };
 
-      $scope.ownComment = function(comment) {
-        return comment.creator == security.currentUser._id;
+      $scope.ownComment = function() {
+        return $scope.comment.creator == security.currentUser._id;
       }
     }
   };
