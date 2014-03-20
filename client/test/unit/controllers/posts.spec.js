@@ -50,7 +50,7 @@ describe('PostsViewCtrl', function() {
   describe('isEditingPost()', function() {
     var $scope = {};
 
-    it('should check if a post is being currently edited', inject(function() {
+    it('should check if a post is being currently edited', function() {
       runController($scope, []);
 
       $scope.post = null;
@@ -58,26 +58,26 @@ describe('PostsViewCtrl', function() {
 
       $scope.post = createMockPost('post-id');
       expect($scope.isEditingPost()).toEqual(true);
-    }));
+    });
   });
 
   describe('isEditingNewPost()', function() {
     var $scope = {};
 
-    it('should check if a post is currently being edited and is a new one', inject(function() {
+    it('should check if a post is currently being edited and is a new one', function() {
       runController($scope, []);
 
       $scope.post = {
         $id: function() { return undefined; }
       };
       expect($scope.isEditingNewPost()).toEqual(true);
-    }));
+    });
   });
 
   describe('initNewPost()', function() {
     var $scope = {};
 
-    it('init values for a new post', inject(function() {
+    it('init values for a new post', function() {
       runController($scope, []);
 
       // set value to expect change
@@ -88,11 +88,11 @@ describe('PostsViewCtrl', function() {
 
       expect($scope.text).toEqual('');
       expect($scope.post).not.toBeNull();
-    }));
+    });
   });
 
   describe('savePost()', function() {
-    it('insert post when it is a new one', inject(function() {
+    it('insert post when it is a new one', function() {
       var $scope = {},
         posts = createMockPostList([{_id: 'X', text: 'dummy text'}]);
 
@@ -110,9 +110,9 @@ describe('PostsViewCtrl', function() {
       expect($scope.post).toBeNull();
       expect($scope.posts.length).toEqual(2);
       expect($scope.posts[1].$id()).toEqual('X');
-    }));
+    });
 
-    it('update post when it is an existing one', inject(function() {
+    it('update post when it is an existing one', function() {
       var $scope = {},
         posts = createMockPostList([{_id: 'X', text: 'dummy text'}]);
 
@@ -131,7 +131,7 @@ describe('PostsViewCtrl', function() {
       expect($scope.posts.length).toEqual(1);
       expect($scope.posts[0].$id()).toEqual('X');
       expect($scope.posts[0].text).toEqual('dummy text changed');
-    }));
+    });
   });
 
   describe('editPost()', function() {

@@ -7,7 +7,7 @@
         <div>
             <button type="button" class="btn btn-danger btn-xs" ng-show="ownMedia()" ng-click="removeMedia(media)">{{deleteLabel}}</button>
             &nbsp;&nbsp;
-            <span class="badge ng-binding">{{media.likes.length}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
+            <span class="badge ng-binding media-num-likes">{{media.likes.length}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
             <button type="button" class="btn btn-link" ng-show="!userInArray(media.likes)" ng-click="like()">Like</button>
             <button type="button" class="btn btn-link" ng-show="userInArray(media.likes)" ng-click="unlike()">Unlike</button>
             <button type="button" class="btn btn-link" ng-click="focusMediaCommentArea($event)">Comment</button>

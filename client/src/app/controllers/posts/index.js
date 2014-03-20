@@ -1,7 +1,5 @@
 angular.module('posts', [
   'resources.posts',
-  'security.authorization',
-  'ngSanitize',
   'ngRoute',
   'directives.media'
 ])
@@ -19,7 +17,7 @@ angular.module('posts', [
   });
 }])
 
-.controller('PostsViewCtrl', ['$scope', 'posts', 'security', 'Posts', function ($scope, posts, security, Posts) {
+.controller('PostsViewCtrl', ['$scope', 'posts', 'Posts', function ($scope, posts, Posts) {
   $scope.posts = posts;
 
   $scope.post = null;

@@ -16,13 +16,13 @@ module.exports = function(config) {
       'bower_components/ckeditor/adapters/jquery.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'src/**/*.js',
-      'test/unit/**/*.spec.js',
-      'dist/templates/**/*.js'
+      'dist/templates/**/*.js',
+      'test/unit/**/*.spec.js'
     ],
     
     // use dots reporter, as travis terminal does not support escaping sequences
     // possible values: 'dots' || 'progress'
-    reporters: 'dots',
+    reporters: 'progress',
     
     // these are default values, just to show available options
     

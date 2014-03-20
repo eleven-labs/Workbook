@@ -1,4 +1,4 @@
-angular.module('directives.media', [])
+angular.module('directives.media', ['security.authorization', 'ngSanitize'])
 
 .directive('media', function() {
   return {
@@ -40,12 +40,11 @@ angular.module('directives.media', [])
       }
 
       $scope.comment = function() {
-        var self = this;
-        if (this.message) {
+        if ($scope.message) {
           $scope.media.$addComment(
-            this.message,
+            $scope.message,
             function success(result) {
-              self.message = '';
+              $scope.message = '';
               updateSuccess(result);
             },
             failsRequest
