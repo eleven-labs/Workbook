@@ -18,10 +18,10 @@ Installation
 
 You need to install Node.js and then the development tools. Node.js comes with a package manager called [npm](http://npmjs.org) for installing NodeJS applications and libraries.
 * [Install node.js](http://nodejs.org/download/) (requires node.js version >= 0.8.4)
-* Install Grunt-CLI and Karma as global npm modules:
+* Install Grunt-CLI, Bower and Karma as global npm modules:
 
     ```
-    npm install -g grunt-cli karma
+    npm install -g grunt-cli bower karma
     ```
 
 (Note that you may need to uninstall grunt 0.3 globally before installing grunt-cli)
