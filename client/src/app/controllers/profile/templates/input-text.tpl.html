@@ -1,0 +1,6 @@
+<div class="form-group has-feedback" ng-class="{'has-error': form[info.key].$error.required, 'has-success': !form[info.key].$error.required}">
+    <label class="control-label" for="info.key">{{info.label}}</label>
+    <input class="span6 form-control" type="text" id="info.key" name="info.key" ng-model="user[info.key]" required>
+    <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove': form[info.key].$error.required, 'glyphicon-ok': !form[info.key].$error.required}"></span>
+    <span ng-show="form[info.key].$error.required" class="help-inline">Ce champs est requis.</span>
+</div>

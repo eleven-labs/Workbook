@@ -1,4 +1,8 @@
-angular.module('profile', ['resources.users', 'security.authorization'])
+angular.module('profile', [
+  'ngRoute',
+  'resources.users',
+  'security.authorization'
+])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
   $routeProvider.when('/profile', {
@@ -16,6 +20,19 @@ angular.module('profile', ['resources.users', 'security.authorization'])
   $scope.master = angular.copy($scope.user);
 
   $scope.saved = false;
+
+  var statusSelection = [
+    { key: 'consultant',     label: 'Consultant' },
+    { key: 'human-resource', label: 'Ressource humaine' },
+    { key: 'leader',         label: 'Dirigeant' }
+  ];
+  $scope.fields = {
+    lastName:                   { key: 'lastName',                   label: 'Last name'                                                },
+    firstName:                  { key: 'firstName',                  label: 'First name'                                               },
+    addressMission:             { key: 'addressMission',             label: 'Adresse de la mission'                                    },
+    technologiesOfPredilection: { key: 'technologiesOfPredilection', label: 'Technologies de predilection'                             },
+    status:                     { key: 'status',                     label: 'Status',                      selections: statusSelection }
+  }
 
   var updateSuccess = function() {
     $scope.master = angular.copy($scope.user);
@@ -38,4 +55,26 @@ angular.module('profile', ['resources.users', 'security.authorization'])
   $scope.isUnchanged = function() {
     return angular.equals($scope.user, $scope.master);
   };
-}]);
+}])
+
+.directive('profileInputText', function(){
+  return {
+    restrict: 'E',
+    scope: {
+      info: '=',
+      user: '='
+    },
+    templateUrl: 'controllers/profile/templates/input-text.tpl.html'
+  }
+})
+
+.directive('profileSelect', function(){
+  return {
+    restrict: 'E',
+    scope: {
+      info: '=',
+      user: '='
+    },
+    templateUrl: 'controllers/profile/templates/select.tpl.html'
+  }
+});
