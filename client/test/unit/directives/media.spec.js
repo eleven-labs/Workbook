@@ -1,20 +1,22 @@
 describe('directives.media', function () {
   var $scope, element;
 
-  function createMockComment(id, message, likes) {
+  function createMockComment(id, message, likes, creator) {
     return {
       _id: id,
       message: message,
-      likes: likes
+      likes: likes,
+      creator: creator
     };
   }
 
-  function createMockMedia(id, text, likes, comments) {
+  function createMockMedia(id, text, likes, comments, creator) {
     var media = {
       _id: id,
       text: text,
       likes: likes,
-      comments: comments
+      comments: comments,
+      creator: creator
     };
 
     media.$id = function() { return media._id; };
@@ -73,31 +75,39 @@ describe('directives.media', function () {
       it('increment one like', function() {
         $scope.media = createMockMedia('media-id', 'dummy text', [], []);
         $scope.media.$addLike = function(success) {
-          success(createMockMedia('media-id', 'dummy text', ['user-dummy-id'], []));
+          success(createMockMedia('media-id', 'dummy text', ['user-id'], []));
         };
         $scope.$digest();
 
         expect(element.find('.media-num-likes').text().trim()).toBe('0');
+        expect(element.find('button[ng-click="like()"]').hasClass('ng-hide')).toBe(false);
+        expect(element.find('button[ng-click="unlike()"]').hasClass('ng-hide')).toBe(true);
 
         element.find('button[ng-click="like()"]').click();
 
         expect(element.find('.media-num-likes').text().trim()).toBe('1');
+        expect(element.find('button[ng-click="like()"]').hasClass('ng-hide')).toBe(true);
+        expect(element.find('button[ng-click="unlike()"]').hasClass('ng-hide')).toBe(false);
       });
     });
 
     describe('unlike', function () {
       it('unincrement one like', function() {
-        $scope.media = createMockMedia('media-id', 'dummy text', ['user-dummy-id'], []);
+        $scope.media = createMockMedia('media-id', 'dummy text', ['user-id'], []);
         $scope.media.$removeLike = function(success) {
           success(createMockMedia('media-id', 'dummy text', [], []));
         };
         $scope.$digest();
 
         expect(element.find('.media-num-likes').text().trim()).toBe('1');
+        expect(element.find('button[ng-click="like()"]').hasClass('ng-hide')).toBe(true);
+        expect(element.find('button[ng-click="unlike()"]').hasClass('ng-hide')).toBe(false);
 
         element.find('button[ng-click="unlike()"]').click();
 
         expect(element.find('.media-num-likes').text().trim()).toBe('0');
+        expect(element.find('button[ng-click="like()"]').hasClass('ng-hide')).toBe(false);
+        expect(element.find('button[ng-click="unlike()"]').hasClass('ng-hide')).toBe(true);
       });
     });
 
@@ -156,6 +166,23 @@ describe('directives.media', function () {
         expect(element.find('comment:eq(1) .media-body').text()).toMatch(/dummy message 2/);
       });
     });
+
+    describe('ownMedia', function () {
+      it('display edit and remove button when user owns the media', function() {
+        $scope.media = createMockMedia('media-id', 'dummy text', [], [], 'user-id');
+        $scope.$digest();
+
+        expect(element.find('button[ng-click="removeMedia(media)"]').hasClass('ng-hide')).toBe(false);
+        expect(element.find('button[ng-click="editMedia(media)"]').hasClass('ng-hide')).toBe(false);
+      });
+      it('hide edit and remove button when user doesn\'t own the media', function() {
+        $scope.media = createMockMedia('media-id', 'dummy text', [], [], 'other-user-id');
+        $scope.$digest();
+
+        expect(element.find('button[ng-click="removeMedia(media)"]').hasClass('ng-hide')).toBe(true);
+        expect(element.find('button[ng-click="editMedia(media)"]').hasClass('ng-hide')).toBe(true);
+      });
+    });
   });
 
   describe('comment', function () {
@@ -199,19 +226,71 @@ describe('directives.media', function () {
         $scope.media = createMockMedia('media-id', 'dummy text', [], [comment]);
         $scope.comment = comment;
         $scope.media.$addLikeToComment = function(commentId, success) {
-          var likedComment = createMockComment('comment-id', 'dummy message', ['user-dummy-id']);
-          success(createMockMedia('media-id', 'dummy text', [], [likedComment]));
+          success();
         };
         $scope.media.$getComment = function(commentId, success) {
-          success(createMockComment('comment-id', 'dummy message', ['user-dummy-id']));
+          success(createMockComment('comment-id', 'dummy message', ['user-id']));
         };
         $scope.$digest();
 
-        expect(element.find('.comment-num-likes').length).toBe(0);
+        expect(element.find('.comment-num-likes').length).toBe(1);
+        expect(element.find('.comment-num-likes').text().trim()).toBe('0');
+        expect(element.find('button[ng-click="likeComment()"]').length).toBe(1);
+        expect(element.find('button[ng-click="likeComment()"]').hasClass('ng-hide')).toBe(false);
+        expect(element.find('button[ng-click="unlikeComment()"]').hasClass('ng-hide')).toBe(true);
 
         element.find('button[ng-click="likeComment()"]').click();
 
+        expect(element.find('.comment-num-likes').text().trim()).toBe('1');
+
+        expect(element.find('button[ng-click="likeComment()"]').hasClass('ng-hide')).toBe(true);
+        expect(element.find('button[ng-click="unlikeComment()"]').hasClass('ng-hide')).toBe(false);
+      });
+    });
+
+    describe('unlikeComment', function(){
+      it('unlike a comment', function() {
+        var comment = createMockComment('comment-id', 'dummy message', ['user-id']);
+        $scope.media = createMockMedia('media-id', 'dummy text', [], [comment]);
+        $scope.comment = comment;
+        $scope.media.$removeLikeFromComment = function(commentId, success) {
+          success();
+        };
+        $scope.media.$getComment = function(commentId, success) {
+          success(createMockComment('comment-id', 'dummy message', []));
+        };
+        $scope.$digest();
+
         expect(element.find('.comment-num-likes').length).toBe(1);
+        expect(element.find('.comment-num-likes').text().trim()).toBe('1');
+        expect(element.find('button[ng-click="likeComment()"]').hasClass('ng-hide')).toBe(true);
+        expect(element.find('button[ng-click="unlikeComment()"]').hasClass('ng-hide')).toBe(false);
+
+        expect(element.find('button[ng-click="unlikeComment()"]').length).toBe(1);
+        element.find('button[ng-click="unlikeComment()"]').click();
+
+        expect(element.find('.comment-num-likes').text().trim()).toBe('0');
+        expect(element.find('button[ng-click="likeComment()"]').hasClass('ng-hide')).toBe(false);
+        expect(element.find('button[ng-click="unlikeComment()"]').hasClass('ng-hide')).toBe(true);
+      });
+    });
+
+    describe('ownComment', function () {
+      it('display remove button when user owns the comment', function() {
+        var comment = createMockComment('comment-id', 'dummy message', [], 'user-id');
+        $scope.media = createMockMedia('media-id', 'dummy text', [], [comment]);
+        $scope.comment = comment;
+        $scope.$digest();
+
+        expect(element.find('button[ng-click="removeComment(comment)"]').hasClass('ng-hide')).toBe(false);
+      });
+      it('hide remove button when user doesn\'t own the comment', function() {
+        var comment = createMockComment('comment-id', 'dummy message', [], 'other-user-id');
+        $scope.media = createMockMedia('media-id', 'dummy text', [], [comment]);
+        $scope.comment = comment;
+        $scope.$digest();
+
+        expect(element.find('button[ng-click="removeComment(comment)"]').hasClass('ng-hide')).toBe(true);
       });
     });
   });

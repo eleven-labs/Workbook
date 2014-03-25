@@ -83,12 +83,11 @@ angular.module('directives.media', ['security.authorization', 'ngSanitize'])
     templateUrl: 'directives/media/templates/comment.tpl.html',
     controller: function($scope, security) {
       var updateSuccess = function(commentId) {
-        return function(mediaData) {
+        return function() {
           $scope.media.$getComment(
             commentId,
             function success(comment) {
               $scope.comment = comment;
-              $scope.media    = mediaData;
             },
             function error(result) {
               console.log(result);
