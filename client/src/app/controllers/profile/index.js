@@ -32,7 +32,7 @@ angular.module('profile', [
     addressMission:             { key: 'addressMission',             label: 'Adresse de la mission'                                    },
     technologiesOfPredilection: { key: 'technologiesOfPredilection', label: 'Technologies de predilection'                             },
     status:                     { key: 'status',                     label: 'Status',                      selections: statusSelection }
-  }
+  };
 
   var updateSuccess = function() {
     $scope.master = angular.copy($scope.user);
@@ -65,7 +65,7 @@ angular.module('profile', [
       user: '='
     },
     templateUrl: 'controllers/profile/templates/input-text.tpl.html'
-  }
+  };
 })
 
 .directive('profileSelect', function(){
@@ -76,5 +76,5 @@ angular.module('profile', [
       user: '='
     },
     templateUrl: 'controllers/profile/templates/select.tpl.html'
-  }
+  };
 });

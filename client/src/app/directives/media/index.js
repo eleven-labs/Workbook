@@ -25,7 +25,7 @@ angular.module('directives.media', ['security.authorization', 'ngSanitize'])
 
       $scope.userInArray = function(userIds) {
         return userIds.indexOf(security.currentUser._id) !== -1;
-      }
+      };
 
       $scope.like = function() {
         $scope.media.$addLike(updateSuccess, failsRequest);
@@ -36,8 +36,8 @@ angular.module('directives.media', ['security.authorization', 'ngSanitize'])
       };
 
       $scope.ownMedia = function() {
-        return $scope.media.creator == security.currentUser._id;
-      }
+        return $scope.media.creator === security.currentUser._id;
+      };
 
       $scope.comment = function() {
         if ($scope.message) {
@@ -104,7 +104,7 @@ angular.module('directives.media', ['security.authorization', 'ngSanitize'])
         if (userIds) {
           return userIds.indexOf(security.currentUser._id) !== -1;
         }
-      }
+      };
 
       $scope.likeComment = function() {
         $scope.media.$addLikeToComment($scope.comment._id, updateSuccess($scope.comment._id), updateError);
@@ -115,8 +115,8 @@ angular.module('directives.media', ['security.authorization', 'ngSanitize'])
       };
 
       $scope.ownComment = function() {
-        return $scope.comment.creator == security.currentUser._id;
-      }
+        return $scope.comment.creator === security.currentUser._id;
+      };
     }
   };
 });

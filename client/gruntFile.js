@@ -11,9 +11,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
 
   // Default task.
-  grunt.registerTask('default', ['jshint','build','karma:unit']);
+  grunt.registerTask('default', ['build','jshint','karma:unit']);
   grunt.registerTask('build', ['clean:build','html2js','concat','recess:build','copy:assets','clean:build_templates']);
-  grunt.registerTask('release', ['clean:build','html2js','uglify','jshint','karma:unit','concat:index', 'recess:min','copy:assets']);
+  grunt.registerTask('release', ['clean:build','html2js','uglify','concat:index','concat:stylesheets', 'recess:min','copy:assets','clean:build_templates','jshint','karma:unit']);
   grunt.registerTask('test-watch', ['karma:watch']);
 
   // Print a timestamp (useful for when watching)
@@ -139,26 +139,30 @@ module.exports = function (grunt) {
           banner: "<%= banner %>"
         },
         src:['<%= src.js %>' ,'<%= src.jsTpl %>'],
-        dest:'<%= distdir %>/<%= pkg.name %>.js'
+        dest:'<%= distdir %>/js/<%= pkg.name %>.js'
       },
       angular: {
         src:['<%= concat.angular.src %>'],
-        dest: '<%= distdir %>/angular-lib.js'
+        dest: '<%= distdir %>/js/vendor/angular-lib.js'
+      },
+      ckeditor: {
+        src:['<%= concat.ckeditor.src %>'],
+        dest: '<%= distdir %>/js/vendor/ckeditor-lib.js'
       },
       bootstrap: {
-        src:['vendor/angular-ui/bootstrap/*.js'],
-        dest: '<%= distdir %>/bootstrap.js'
+        src:['<%= concat.bootstrap.src %>'],
+        dest: '<%= distdir %>/js/vendor/bootstrap-lib.js'
       },
       jquery: {
-        src:['vendor/jquery/*.js'],
-        dest: '<%= distdir %>/jquery.js'
+        src:['<%= concat.jquery.src %>'],
+        dest: '<%= distdir %>/js/vendor/jquery-lib.js'
       }
     },
     recess: {
       build: {
         files: {
-          '<%= distdir %>/css/<%= pkg.name %>.css':
-          ['<%= src.less %>'] },
+          '<%= distdir %>/css/<%= pkg.name %>.css': ['<%= src.less %>'] 
+        },
         options: {
           compile: true
         }
@@ -185,7 +189,7 @@ module.exports = function (grunt) {
     jshint:{
       files:['gruntFile.js', '<%= src.js %>', '<%= src.jsTpl %>', '<%= src.specs %>', '<%= src.scenarios %>'],
       options:{
-        curly:true,
+        curly:false,
         eqeqeq:true,
         immed:true,
         latedef:true,
