@@ -12,8 +12,8 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint','build','karma:unit']);
-  grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy:assets','copy:bower_components']);
-  grunt.registerTask('release', ['clean','html2js','uglify','jshint','karma:unit','concat:index', 'recess:min','copy:assets']);
+  grunt.registerTask('build', ['clean:build','html2js','concat','recess:build','copy:assets','clean:build_templates']);
+  grunt.registerTask('release', ['clean:build','html2js','uglify','jshint','karma:unit','concat:index', 'recess:min','copy:assets']);
   grunt.registerTask('test-watch', ['karma:watch']);
 
   // Print a timestamp (useful for when watching)
@@ -49,13 +49,16 @@ module.exports = function (grunt) {
       less: ['src/stylesheets/main.less'], // recess:build doesn't accept ** in its file patterns
       lessWatch: ['src/stylesheets/**/*.less']
     },
-    clean: ['<%= distdir %>/*'],
+    clean: {
+      build: ['<%= distdir %>/*'],
+      build_templates: ['<%= distdir %>/templates']
+    },
     copy: {
       assets: {
-        files: [{ dest: '<%= distdir %>', src : '**', expand: true, cwd: 'src/assets/' }]
-      },
-      bower_components: {
-        files: [{ dest: '<%= distdir %>/vendor', src : '**', expand: true, cwd: 'bower_components/' }]
+        files: [
+          { dest: '<%= distdir %>', src : '**', expand: true, cwd: 'src/assets/' },
+          { dest: '<%= distdir %>/fonts', src : '**', expand: true, cwd: 'bower_components/bootstrap/dist/fonts' }
+        ]
       }
     },
     karma: {
@@ -80,13 +83,13 @@ module.exports = function (grunt) {
         module: 'templates.angular.ui'
       }
     },
-    concat:{
-      dist:{
+    concat: {
+      dist: {
         options: {
           banner: "<%= banner %>"
         },
         src:['<%= src.js %>', '<%= src.jsTpl %>'],
-        dest:'<%= distdir %>/<%= pkg.name %>.js'
+        dest:'<%= distdir %>/js/<%= pkg.name %>.js'
       },
       index: {
         src: ['src/index.html'],
@@ -94,6 +97,40 @@ module.exports = function (grunt) {
         options: {
           process: true
         }
+      },
+      angular: {
+        src:[
+          'bower_components/angular/angular.js',
+          'bower_components/angular-sanitize/angular-sanitize.js',
+          'bower_components/angular-route/angular-route.js'
+        ],
+        dest: '<%= distdir %>/js/vendor/angular-lib.js'
+      },
+      ckeditor: {
+        src:[
+          'bower_components/ckeditor/ckeditor.js',
+          'bower_components/ckeditor/adapters/jquery.js'
+        ],
+        dest: '<%= distdir %>/js/vendor/ckeditor-lib.js'
+      },
+      bootstrap: {
+        src:[
+          'bower_components/bootstrap/dist/js/bootstrap.js'
+        ],
+        dest: '<%= distdir %>/js/vendor/bootstrap-lib.js'
+      },
+      jquery: {
+        src:[
+          'bower_components/jquery/dist/jquery.js'
+        ],
+        dest: '<%= distdir %>/js/vendor/jquery-lib.js'
+      },
+      stylesheets: {
+        src:[
+          'bower_components/bootstrap/dist/css/bootstrap.min.css',
+          'bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
+        ],
+        dest: '<%= distdir %>/css/lib.css'
       }
     },
     uglify: {
@@ -106,11 +143,7 @@ module.exports = function (grunt) {
       },
       angular: {
         src:['<%= concat.angular.src %>'],
-        dest: '<%= distdir %>/angular.js'
-      },
-      mongo: {
-        src:['vendor/mongolab/*.js'],
-        dest: '<%= distdir %>/mongolab.js'
+        dest: '<%= distdir %>/angular-lib.js'
       },
       bootstrap: {
         src:['vendor/angular-ui/bootstrap/*.js'],
@@ -124,7 +157,7 @@ module.exports = function (grunt) {
     recess: {
       build: {
         files: {
-          '<%= distdir %>/<%= pkg.name %>.css':
+          '<%= distdir %>/css/<%= pkg.name %>.css':
           ['<%= src.less %>'] },
         options: {
           compile: true
@@ -132,7 +165,7 @@ module.exports = function (grunt) {
       },
       min: {
         files: {
-          '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
+          '<%= distdir %>/css/<%= pkg.name %>.css': ['<%= src.less %>']
         },
         options: {
           compress: true
