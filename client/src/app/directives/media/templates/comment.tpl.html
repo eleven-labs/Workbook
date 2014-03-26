@@ -1,0 +1,16 @@
+<div class="media comment">
+    <a class="pull-left" href="#">
+        <gravatar email="comment.creator.email" size="30" class="img-polaroid pull-right"></gravatar>
+    </a>
+    <div class="media-body">
+        {{comment.message}}
+        <div>
+            <span class="badge ng-binding comment-num-likes">{{comment.likes.length}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
+            <button type="button" class="btn btn-link" ng-show="!userInArray(comment.likes)" ng-click="likeComment()">Like</button>
+            <button type="button" class="btn btn-link" ng-show="userInArray(comment.likes)" ng-click="unlikeComment()">Unlike</button>
+            <button type="button" class="btn btn-danger btn-xs" ng-show="ownComment()" ng-click="removeComment(comment)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+    </div>
+</div>

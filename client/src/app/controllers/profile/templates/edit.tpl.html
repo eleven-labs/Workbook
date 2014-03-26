@@ -1,0 +1,21 @@
+<form name="form" novalidate crud-edit="user" role="form" class="form">
+    <legend>User</legend>
+    <div class="col-md-3">
+        <gravatar email="user.email" size="200" class="img-polaroid pull-right"></gravatar>
+    </div>
+    <div class="col-md-9">
+        <div class="alert alert-success" ng-show="saved">La sauvegarde du profile a bien été prise en compte.</div>
+        <div class="form-group">
+            <label for="email">E-mail: {{user.email}}</label>
+        </div>
+        <my-customer></my-customer>
+        <profile-input-text info="fields.lastName"                   user="user"></profile-input-text>
+        <profile-input-text info="fields.firstName"                  user="user"></profile-input-text>
+        <profile-input-text info="fields.addressMission"             user="user"></profile-input-text>
+        <profile-input-text info="fields.technologiesOfPredilection" user="user"></profile-input-text>
+        <profile-select     info="fields.status"                     user="user"></profile-select>
+        <hr>
+        <button type="button" class="btn btn-primary" ng-click="update()" ng-disabled='form.$invalid'>Save</button>
+        <button type="button" class="btn" ng-click="reset()">Reset</button>
+    </div>
+</form>

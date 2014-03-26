@@ -1,0 +1,25 @@
+<div class="well">
+    <input class="span6" ng-model="query" placeholder="Search a consultant">
+</div>
+<table class="table table-bordered table-condensed table-striped table-hover">
+    <thead>
+    <tr>
+        <th></th>
+        <th>E-mail</th>
+        <th>Last name</th>
+        <th>First name</th>
+        <th>Mission</th>
+        <th>Technologies</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="consultant in consultants | filter:query">
+        <td><gravatar email="consultant.email" size="50" default-image="'monsterid'"></gravatar></td>
+        <td>{{consultant.email}}</td>
+        <td>{{consultant.lastName}}</td>
+        <td>{{consultant.firstName}}</td>
+        <td>{{consultant.addressMission}}</td>
+        <td>{{consultant.technologiesOfPredilection}}</td>
+    </tr>
+    </tbody>
+</table>

@@ -1,11 +1,9 @@
 // Based loosely around work by Witold Szczerba - https://github.com/witoldsz/angular-http-auth
 angular.module('security.service', [
-  'security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
-  'login',                  // Contains the login form template and controller
-  'ui.bootstrap.modal'      // Used to display the login form as a modal dialog.
+  'security.retryQueue'    // Keeps track of failed requests that need to be retried once the user logs in
 ])
 
-.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$modal', function($http, $q, $location, queue, $modal) {
+.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', function($http, $q, $location, queue, $modal) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
@@ -16,7 +14,7 @@ angular.module('security.service', [
   // Register a handler for when an item is added to the retry queue
   queue.onItemAddedCallbacks.push(function(retryItem) {
     if ( queue.hasMore() ) {
-      service.showLogin();
+      $location.path('/login');
     }
   });
 
