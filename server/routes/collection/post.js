@@ -23,7 +23,7 @@ exports.addRoutes = function(app, security) {
     var maxNumLastPostComments = parseInt(req.query.maxNumLastPostComments);
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
-      post.getPreviousPosts(numPosts, maxNumLastPostComments, function(err, posts){
+      Post.getList(numPosts, maxNumLastPostComments, post.dateCreation, function(err, posts){
         if (err) return next(err);
         res.send(posts);
       });
@@ -55,12 +55,11 @@ exports.addRoutes = function(app, security) {
   });
 
   app.get('/:id/comments', function(req, res, next){
-    var numComments = parseInt(req.query.numCommentsAlreadyDisplay);
-    var maxNumLast = parseInt(req.query.maxNumLastPostComments);
-    Post.findByIdAndGetPreviousComments(req.params.id, numComments, maxNumLast, function(err, post){
+    var offsetFromEnd = parseInt(req.query.numCommentsAlreadyDisplay);
+    var maxNumLast    = parseInt(req.query.maxNumLastPostComments);
+    Post.getListOfCommentsById(req.params.id, maxNumLast, offsetFromEnd, function(err, comments){
       if (err) return next(err);
-      if (!post) return next(new Error('Post not found'));
-      res.send(post.comments);
+      res.send(comments);
     });
   });
 
