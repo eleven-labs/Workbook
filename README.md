@@ -21,7 +21,7 @@ You need to install Node.js and then the development tools. Node.js comes with a
 * Install Grunt-CLI, Bower and Karma as global npm modules:
 
     ```
-    npm install -g grunt-cli bower karma
+    npm install -g grunt-cli bower karma mocha
     ```
 
 (Note that you may need to uninstall grunt 0.3 globally before installing grunt-cli)
