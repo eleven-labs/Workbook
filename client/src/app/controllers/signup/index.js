@@ -44,7 +44,7 @@ angular.module('signup', ['services.localizedMessages'])
       // If we get here then there was a problem with the signup request to the server
       $scope.authError = localizedMessages.get('signup.error.serverError', { exception: x });
     });
-  }
+  };
 
   $scope.clearForm = function() {
     $scope.user = {};

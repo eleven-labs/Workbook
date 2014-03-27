@@ -10,7 +10,7 @@ angular.module('resources.posts').factory('Posts', ['resourceFactory', '$http', 
     };
     var httpPromise = $http.get(Posts.url, {params:angular.extend({}, {}, params)});
     return this.thenFactoryMethod(httpPromise, cb, errorcb, true);
-  }
+  };
 
   Posts.prototype.$addComment = function (message, successcb, errorcb) {
     var params = { message : message };

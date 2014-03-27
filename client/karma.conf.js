@@ -15,8 +15,7 @@ module.exports = function(config) {
       'bower_components/ckeditor/ckeditor.js',
       'bower_components/ckeditor/adapters/jquery.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'src/**/*.js',
-      'dist/templates/**/*.js',
+      'dist/js/**/*.js',
       'test/unit/**/*.spec.js'
     ],
     

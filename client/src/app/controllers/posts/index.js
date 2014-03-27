@@ -26,11 +26,11 @@ angular.module('posts', [
 
   $scope.isEditingPost = function() {
     return $scope.post !== null;
-  }
+  };
 
   $scope.isEditingNewPost = function() {
     return $scope.isEditingPost() && !$scope.post.$id();
-  }
+  };
 
   var saveSuccess = function(result) {
     $scope.posts.unshift(result);
@@ -50,7 +50,7 @@ angular.module('posts', [
   $scope.initNewPost = function() {
     $scope.post = new Posts();
     $scope.text = '';
-  }
+  };
 
   $scope.savePost = function() {
     $scope.post.text = $scope.text;
@@ -71,7 +71,7 @@ angular.module('posts', [
       function removeSuccess(){
         $scope.posts = $scope.posts.filter(function removePost(post){
           return post.$id() !== postToRemove.$id();
-        })
+        });
       },
       failsRequest
     );

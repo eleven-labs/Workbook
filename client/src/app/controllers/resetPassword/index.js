@@ -41,7 +41,7 @@ angular.module('resetPassword', ['services.localizedMessages'])
     }, function(x) {
       $scope.authError = localizedMessages.get('resetPassword.error.serverError', { exception: x });
     });
-  }
+  };
 
   $scope.clearForm = function() {
     $scope.user = {};
