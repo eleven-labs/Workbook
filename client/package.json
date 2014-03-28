@@ -22,17 +22,18 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "grunt": "v0.4.3",
+    "grunt": "v0.4.4",
     "grunt-recess": "v0.6.0",
     "grunt-contrib-clean": "v0.4.0",
     "grunt-contrib-copy": "v0.5.0",
-    "grunt-contrib-jshint": "v0.8.0",
+    "grunt-contrib-jshint": "v0.9.2",
     "grunt-contrib-concat": "v0.1.2",
     "grunt-contrib-uglify": "v0.4.0",
-    "grunt-karma": "v0.7.2",
+    "grunt-karma": "v0.8.2",
     "grunt-html2js": "~0.1.0",
     "grunt-contrib-watch": "v0.5.3",
-    "karma-jasmine": "v0.2.1",
+    "karma": "v0.12.1",
+    "karma-jasmine": "v0.2.2",
     "karma-phantomjs-launcher": "v0.1.2"
   }
 }
