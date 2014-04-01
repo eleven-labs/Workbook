@@ -13,6 +13,7 @@ angular.module('app', [
   'services.httpRequestTracker',
   'security',
   'templates.app',
+  'angular.bootstrap.media.templates',
   'templates.angular.ui']);
 
 //TODO: move those messages to a separate module
