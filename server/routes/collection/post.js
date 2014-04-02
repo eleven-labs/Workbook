@@ -5,7 +5,10 @@ exports.addRoutes = function(app, security) {
   app.get('/', function(req, res, next){
     var numPosts = parseInt(req.query.numPosts);
     var maxNumLastPostComments = parseInt(req.query.maxNumLastPostComments);
-    Post.getList(numPosts, maxNumLastPostComments, function(err, posts){
+    var options = {
+      populate: 'creator comments.creator',
+    };
+    Post.getList(numPosts, maxNumLastPostComments, options, function(err, posts){
       if (err) return next(err);
       res.send(posts);
     });
@@ -23,7 +26,11 @@ exports.addRoutes = function(app, security) {
     var maxNumLastPostComments = parseInt(req.query.maxNumLastPostComments);
     Post.findById(req.params.id, function(err, post){
       if (err) return next(err);
-      Post.getList(numPosts, maxNumLastPostComments, post.dateCreation, function(err, posts){
+      var options = {
+        populate: 'creator comments.creator',
+        fromCreationDate: post.dateCreation
+      };
+      Post.getList(numPosts, maxNumLastPostComments, options, function(err, posts){
         if (err) return next(err);
         res.send(posts);
       });
