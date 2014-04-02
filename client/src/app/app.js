@@ -6,13 +6,13 @@ angular.module('app', [
   'posts',
   'consultants',
   'profile',
-  'directives.gravatar',
   'directives.ckEditor',
   'services.breadcrumbs',
   'services.i18nNotifications',
   'services.httpRequestTracker',
   'security',
   'templates.app',
+  'angular.simple.gravatar',
   'angular.bootstrap.media.templates',
   'templates.angular.ui']);
 
