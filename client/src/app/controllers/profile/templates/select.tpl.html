@@ -1,7 +1,7 @@
 <div class="form-group has-feedback" ng-class="{'has-error': form[info.key].$error.required, 'has-success': !form[info.key].$error.required}">
     <label class="control-label" for="info.key">{{info.label}}</label>
     <select class="form-control" id="info.key" name="info.key" ng-model="user[info.key]" required>
-        <option ng-repeat="selection in info.selections" value="selection.key">{{selection.label}}</option>
+        <option ng-repeat="selection in info.selections" value="{{selection.key}}">{{selection.label}}</option>
     </select>
     <span ng-show="form[info.key].$error.required" class="help-inline">Ce champs est requis.</span>
 </div>
