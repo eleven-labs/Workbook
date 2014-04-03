@@ -10,6 +10,8 @@
     "angular-sanitize": "v1.2.14",
     "angular-mocks": "v1.2.14",
     "angular-ui-bootstrap": "v0.10.0",
+    "angular-bootstrap-media": "v0.0.10",
+    "angular-simple-gravatar": "v0.0.3",
     "ckeditor": "#4.3.2/standard"
   }
 }

@@ -1,7 +1,8 @@
 angular.module('posts', [
-  'resources.posts',
   'ngRoute',
-  'directives.media'
+  'resources.posts',
+  'security.authorization',
+  'angular.bootstrap.media'
 ])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
@@ -17,12 +18,13 @@ angular.module('posts', [
   });
 }])
 
-.controller('PostsViewCtrl', ['$scope', 'posts', 'Posts', function ($scope, posts, Posts) {
+.controller('PostsViewCtrl', ['$scope', 'posts', 'Posts', 'security', function ($scope, posts, Posts, security) {
   $scope.posts = posts;
 
   $scope.post = null;
   $scope.text = '';
   $scope.allPostsDisplayed = false;
+  $scope.currentUser = security.currentUser;
 
   $scope.isEditingPost = function() {
     return $scope.post !== null;
@@ -64,6 +66,11 @@ angular.module('posts', [
   $scope.editPost = function(post) {
     $scope.post = post;
     $scope.text = post.text;
+  };
+
+  $scope.closePost = function() {
+    $scope.text = '';
+    $scope.post = null;
   };
 
   $scope.removePost = function(postToRemove) {

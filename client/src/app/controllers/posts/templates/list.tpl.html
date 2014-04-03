@@ -4,16 +4,17 @@
 <div id="newPost" ng-show="isEditingPost()">
     <div class="media comment">
         <a class="pull-left" href="#">
-            <gravatar email="user.email" size="30" class="img-polaroid pull-right"></gravatar>
+            <gravatar email="currentUser.email" size="30" class="img-polaroid pull-right" default-image="'monsterid'"></gravatar>
         </a>
         <div class="media-body">
             <form ng-submit="savePost()">
-                <div class="form-group">
-                    <textarea ck-editor class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
+                <div class="form-group has-feedback" ng-class="{'has-error': 0, 'has-success': 1}">
+                    <textarea class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" ng-show="isEditingNewPost()" value="Créer le post">
                     <input type="submit" class="btn btn-primary" ng-show="!isEditingNewPost()" value="Mettre à jour le post">
+                    <a class="btn btn-default" ng-click="closePost()">Fermer</a>
                 </div>
             </form>
         </div>
@@ -22,6 +23,14 @@
 </div>
 <br>
 <div class="posts">
-    <media media="post" ng-repeat="post in posts" on-media-edit="editPost(post)" on-media-remove="removePost(post)" delete-label="Supprimer le post"></media>
+    <media
+        media="post"
+        current-user="currentUser"
+        ng-repeat="post in posts"
+        on-media-edit="editPost(post)"
+        on-media-remove="removePost(post)"
+        delete-label="Supprimer le post"
+        default-gravatar-image="monsterid">
+    </media>
 </div>
 <button type="button" class="btn btn-link" ng-show="!allPostsDisplayed" ng-click="getOlderPosts(10, 4)">Voir les posts précédents</button>
