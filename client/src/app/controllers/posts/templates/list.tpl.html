@@ -8,12 +8,13 @@
         </a>
         <div class="media-body">
             <form ng-submit="savePost()">
-                <div class="form-group">
+                <div class="form-group has-feedback" ng-class="{'has-error': 0, 'has-success': 1}">
                     <textarea class="form-control comment-area" rows="1" name="text" ng-model="text"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" ng-show="isEditingNewPost()" value="Créer le post">
                     <input type="submit" class="btn btn-primary" ng-show="!isEditingNewPost()" value="Mettre à jour le post">
+                    <a class="btn btn-default" ng-click="closePost()">Fermer</a>
                 </div>
             </form>
         </div>

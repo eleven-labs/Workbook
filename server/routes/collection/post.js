@@ -15,7 +15,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.get('/:id', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('creator comments.creator').exec(function(err, post){
       if (err) return next(err);
       res.send(post);
     });
@@ -43,14 +43,26 @@ exports.addRoutes = function(app, security) {
     data.owner   = req.user;
     new Post(req.body).save(function(err, post){
       if (err) return next(err);
-      res.send(post);
+      post.populate('creator comments.creator', function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
     });
   });
 
   app.put('/:id', function(req, res, next){
-    Post.findByIdAndUpdate(req.params.id, req.body, function(err, post){
+    if (!req.body.creator) return next(new Error('Body posted should contains creator field'));
+
+    var query = {_id: req.params.id, creator: req.body.creator._id };
+    delete req.body.creator;
+
+    Post.findOneAndUpdate(query, req.body, function(err, post){
       if (err) return next(err);
-      res.send(post);
+      if (!post) return next(new Error('Post not found for user id ' + req.user._id));
+      post.populate('creator comments.creator', function(err, post){
+        if (err) return next(err);
+        res.send(post);
+      });
     });
   });
 
@@ -71,7 +83,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.get('/:id/comment/:commentId', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       res.send(post.getComment(req.params.commentId));
@@ -79,7 +91,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.post('/:id/comment', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('creator comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.addComment(req.user._id, req.body.message, function(err){
@@ -90,7 +102,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.delete('/:id/comment/:commentId/remove', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('creator comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.removeComment(req.user._id, req.params.commentId, function(err){
@@ -101,7 +113,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.post('/:id/like', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('creator comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.addLike(req.user._id, function(err){
@@ -112,7 +124,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.post('/:id/unlike', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('creator comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.removeLike(req.user._id, function(err){
@@ -123,7 +135,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.post('/:id/comment/:commentId/like', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.addLikeToComment(req.user._id, req.params.commentId, function(err){
@@ -134,7 +146,7 @@ exports.addRoutes = function(app, security) {
   });
 
   app.post('/:id/comment/:commentId/unlike', function(req, res, next){
-    Post.findById(req.params.id, function(err, post){
+    Post.findById(req.params.id).populate('comments.creator').exec(function(err, post){
       if (err) return next(err);
       if (!post) return next(new Error('Post not found'));
       post.removeLikeFromComment(req.user._id, req.params.commentId, function(err){

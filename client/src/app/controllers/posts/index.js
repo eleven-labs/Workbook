@@ -68,6 +68,11 @@ angular.module('posts', [
     $scope.text = post.text;
   };
 
+  $scope.closePost = function() {
+    $scope.text = '';
+    $scope.post = null;
+  };
+
   $scope.removePost = function(postToRemove) {
     postToRemove.$remove(
       function removeSuccess(){
