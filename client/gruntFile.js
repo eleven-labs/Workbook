@@ -103,10 +103,18 @@ module.exports = function (grunt) {
           'bower_components/angular/angular.js',
           'bower_components/angular-sanitize/angular-sanitize.js',
           'bower_components/angular-route/angular-route.js',
-          'bower_components/angular-bootstrap-media/dist/angular-bootstrap-media.js',
           'bower_components/angular-simple-gravatar/dist/angular-simple-gravatar.js'
         ],
         dest: '<%= distdir %>/js/vendor/angular-lib.js'
+      },
+      angularUIBootstrap: {
+        src:[
+          'bower_components/angular-ui-bootstrap/src/position/position.js',
+          'bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js',
+          'bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js',
+          'bower_components/angular-bootstrap-media/dist/angular-bootstrap-media.js',
+        ],
+        dest: '<%= distdir %>/js/vendor/angular-bootstrap-ui-lib.js'
       },
       ckeditor: {
         src:[
@@ -146,6 +154,10 @@ module.exports = function (grunt) {
       angular: {
         src:['<%= concat.angular.src %>'],
         dest: '<%= distdir %>/js/vendor/angular-lib.js'
+      },
+      angularUIBootstrap: {
+        src:['<%= concat.angularUIBootstrap.src %>'],
+        dest: '<%= distdir %>/js/vendor/angular-bootstrap-ui-lib.js'
       },
       ckeditor: {
         src:['<%= concat.ckeditor.src %>'],

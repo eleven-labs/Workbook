@@ -2,7 +2,8 @@ angular.module('posts', [
   'ngRoute',
   'resources.posts',
   'security.authorization',
-  'angular.bootstrap.media'
+  'angular.bootstrap.media',
+  'ui.bootstrap.tooltip'
 ])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
