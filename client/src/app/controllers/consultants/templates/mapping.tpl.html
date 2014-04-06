@@ -1,1 +1,9 @@
-<p class="text-center lead">Bientôt disponible</p>
+<google-map center="map.center" zoom="map.zoom">
+	<marker coords="map.center"
+	    options="map.eleven">
+	</marker>
+	<marker ng-repeat="consultant in consultants"
+		coords="consultant.map"
+		options="{title: consultant.firstName}">
+	</marker>
+</google-map>

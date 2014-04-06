@@ -104,9 +104,16 @@ module.exports = function (grunt) {
           'bower_components/angular-sanitize/angular-sanitize.js',
           'bower_components/angular-route/angular-route.js',
           'bower_components/angular-bootstrap-media/dist/angular-bootstrap-media.js',
-          'bower_components/angular-simple-gravatar/dist/angular-simple-gravatar.js'
+          'bower_components/angular-simple-gravatar/dist/angular-simple-gravatar.js',
+          'bower_components/angular-google-maps/dist/angular-google-maps.js'
         ],
         dest: '<%= distdir %>/js/vendor/angular-lib.js'
+      },
+      underscore: {
+        src:[
+          'bower_components/underscore/underscore.js'
+        ],
+        dest: '<%= distdir %>/js/vendor/underscore-lib.js'
       },
       ckeditor: {
         src:[

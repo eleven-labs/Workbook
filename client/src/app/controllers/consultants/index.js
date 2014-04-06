@@ -1,7 +1,8 @@
 angular.module('consultants', [
   'ngRoute',
   'resources.users',
-  'security.authorization'
+  'security.authorization',
+  'google-maps'
 ])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
@@ -34,4 +35,14 @@ angular.module('consultants', [
 
 .controller('ConsultantsMappingViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
   $scope.consultants = consultants;
+  $scope.map = {
+      center: {
+          latitude: 48.871476,
+          longitude: 2.308413
+      },
+      zoom: 14,
+      eleven : {
+        title: "Eleven Labs"
+      }
+  };
 }]);

@@ -12,8 +12,8 @@ var filterUser = function(user) {
         firstName:                  user.firstName,
         lastName:                   user.lastName,
         status:                     user.status,
-        addressMission:             user.addressMission,
-        technologiesOfPredilection: user.technologiesOfPredilection,
+        missionAddress:             user.missionAddress,
+        technologies:               user.technologies,
         admin:                      user.admin
       }
     };

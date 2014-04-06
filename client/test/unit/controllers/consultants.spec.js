@@ -14,8 +14,8 @@ describe('ConsultantsListViewCtrl', function() {
       email:                       'dummy email',
       lastName:                    'dummy last name',
       firstName:                   'dummy first name',
-      addressMission:              'dummy mission address',
-      technologiesOfPredilection:  'dummy technologies'
+      missionAddress:              'dummy mission address',
+      technologies:                'dummy technologies'
     };
   }
 
