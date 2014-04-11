@@ -14,5 +14,8 @@
     "sender": {
       "no-reply": "no-reply@super-site.com"
     }
+  },
+  "signin": {
+    "emailDomain": null // set specific domain restriction here when user sign in (i.e.: "@eleven-labs.com")
   }
 }
