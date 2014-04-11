@@ -15,4 +15,5 @@ node_modules
 npm-debug.log
 config/runtime.json
 config/development.json
+config/preproduction.json
 config/production.json
