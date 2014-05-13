@@ -35,14 +35,41 @@ angular.module('consultants', [
 
 .controller('ConsultantsMappingViewCtrl', ['$scope', '$location', 'consultants', 'security', function ($scope, $location, consultants, security) {
   $scope.consultants = consultants;
+
+  var elevenCoords = {
+    latitude: 48.871476,
+    longitude: 2.308413
+  };
+
   $scope.map = {
-      center: {
-          latitude: 48.871476,
-          longitude: 2.308413
-      },
-      zoom: 14,
+      center: elevenCoords,
+      zoom: 12,
       eleven : {
         title: "Eleven Labs"
       }
   };
+
+  var maxLatDiff  = 0;
+  var maxLongDiff = 0;
+
+  _.each(consultants, function(consultant, index) {
+    if (!consultant.map) {
+      return;
+    }
+
+    maxLatDiff  = Math.max(maxLatDiff, Math.abs($scope.map.center.latitude - consultant.map.latitude));
+    maxLongDiff = Math.max(maxLongDiff, Math.abs($scope.map.center.longitude - consultant.map.longitude));
+
+    $scope.map.bounds = {
+      northeast: {
+        latitude: elevenCoords.latitude + maxLatDiff,
+        longitude: elevenCoords.longitude + maxLongDiff
+      },
+      southwest: {
+        latitude: elevenCoords.latitude - maxLatDiff,
+        longitude: elevenCoords.longitude - maxLongDiff
+      }
+    };
+  });
+
 }]);

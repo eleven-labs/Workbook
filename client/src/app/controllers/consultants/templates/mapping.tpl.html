@@ -1,9 +1,15 @@
-<google-map center="map.center" zoom="map.zoom">
+<google-map
+	center="map.center"
+	bounds="map.bounds"
+	zoom="map.zoom">
+
 	<marker coords="map.center"
-	    options="map.eleven">
+	    options="map.eleven"
+	    icon="'http://eleven-labs.com/ui/img/gmarker.png'">
 	</marker>
 	<marker ng-repeat="consultant in consultants"
 		coords="consultant.map"
-		options="{title: consultant.firstName}">
+		options="{title: consultant.firstName}"
+		icon="'http://eleven-labs.com/ui/img/gmarker.png'">
 	</marker>
 </google-map>

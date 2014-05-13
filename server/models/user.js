@@ -27,11 +27,11 @@ var googleGeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?sensor
 
 UserSchema.pre('save', function (next) {
   var self = this;
-  googleGeocodeUrl += '&address=' + encodeURIComponent(self.missionAddress);
+  var googleGeocodeUrlWithAddress = googleGeocodeUrl + '&address=' + encodeURIComponent(self.missionAddress);
 
-  console.log('User pre save. Call: ' + googleGeocodeUrl);
+  console.log('User pre save. Call: ' + googleGeocodeUrlWithAddress);
 
-  var req = https.get(googleGeocodeUrl, function(res) {
+  var req = https.get(googleGeocodeUrlWithAddress, function(res) {
     if (res.statusCode == 200) {
       var body = '';
       res.on('data', function(chunk) {
