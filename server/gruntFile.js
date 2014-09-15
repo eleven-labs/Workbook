@@ -3,11 +3,9 @@
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
   // Project configuration.
   grunt.initConfig({
-    nodeunit: ['test/**/*.js'],
     watch: {
       files: '<config:lint.files>',
       tasks: 'default timestamp'
@@ -31,7 +29,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint','nodeunit']);
+  grunt.registerTask('default', ['jshint']);
 
   grunt.registerTask('timestamp', function() {
     grunt.log.subhead(Date());
