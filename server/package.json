@@ -18,7 +18,7 @@
     }
   ],
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 0.8"
   },
   "dependencies": {
     "express": "~3.0",
@@ -39,7 +39,6 @@
     "rewire": "~1.0.3",
     "supervisor": "~0.4.1",
     "grunt": "~0.4",
-    "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-nodeunit": "~0.1.2"
+    "grunt-contrib-jshint": "~0.2.0"
   }
 }
