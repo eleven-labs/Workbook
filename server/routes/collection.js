@@ -1,3 +1,8 @@
+var express = require('express');
+var collectionRouter = express.Router();
+var userRouter = express.Router();
+var postRouter = express.Router();
+
 exports.addRoutes = function(app, security) {
   app.use('/collection', function(req, res, next){
     if ( req.method !== 'GET' ) {
@@ -15,12 +20,10 @@ exports.addRoutes = function(app, security) {
     next();
   });
 
-  app.namespace('/collection', function() {
-    app.namespace('/users', function() {
-      require('./collection/user').addRoutes(app);
-    });
-    app.namespace('/posts', function() {
-      require('./collection/post').addRoutes(app);
-    });
-  });
+  app.use('/collection', collectionRouter);
+  collectionRouter.use('/users', userRouter);
+  collectionRouter.use('/posts', postRouter);
+
+  require('./collection/user').addRoutes(userRouter);
+  require('./collection/post').addRoutes(postRouter);
 };
