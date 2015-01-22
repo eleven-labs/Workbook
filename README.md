@@ -35,5 +35,3 @@ Browse to the application at [http://localhost](http://localhost) and log in wit
 
 [Technical directive](https://github.com/eleven-labs/Workbook/issues/43)
 ---------------------
-
-Test prose.io
