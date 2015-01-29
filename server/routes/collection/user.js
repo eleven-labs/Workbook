@@ -27,16 +27,22 @@ exports.addRoutes = function(app, security) {
   });
 
   app.put('/:id', function(req, res, next){
-    var change = {};
-    var updatableFields = ['lastName', 'firstName', 'status', 'addressMission', 'technologiesOfPredilection'];
-    Object.keys(req.body).forEach(function(field){
-      if (updatableFields.indexOf(field) !== -1) {
-        change[field] = req.body[field];
-      }
-    });
-    User.findByIdAndUpdate(req.params.id, change, function(err){
+    var updatableFields = ['lastName', 'firstName', 'status', 'missionAddress', 'technologies'];
+
+    User.findById(req.params.id, function (err, user) {
       if (err) return next(err);
-      res.send('User updated');
+      if (user) {
+        Object.keys(req.body).forEach(function(field){
+          if (updatableFields.indexOf(field) !== -1) {
+            user[field] = req.body[field];
+          }
+        });
+
+        user.save(function (err) {
+          if (err) return next(err);
+          res.send('User updated');
+        });
+      }
     });
   });
 

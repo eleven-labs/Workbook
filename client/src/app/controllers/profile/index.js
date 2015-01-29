@@ -29,8 +29,8 @@ angular.module('profile', [
   $scope.fields = {
     lastName:                   { key: 'lastName',                   label: 'Last name'                                                },
     firstName:                  { key: 'firstName',                  label: 'First name'                                               },
-    addressMission:             { key: 'addressMission',             label: 'Adresse de la mission'                                    },
-    technologiesOfPredilection: { key: 'technologiesOfPredilection', label: 'Technologies de predilection'                             },
+    missionAddress:             { key: 'missionAddress',             label: 'Adresse de la mission'                                    },
+    technologies:               { key: 'technologies',               label: 'Technologies de predilection'                             },
     status:                     { key: 'status',                     label: 'Status',                      selections: statusSelection }
   };
 

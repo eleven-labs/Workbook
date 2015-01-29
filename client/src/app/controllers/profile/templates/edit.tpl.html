@@ -9,11 +9,11 @@
             <label for="email">E-mail: {{user.email}}</label>
         </div>
         <my-customer></my-customer>
-        <profile-input-text info="fields.lastName"                   user="user"></profile-input-text>
-        <profile-input-text info="fields.firstName"                  user="user"></profile-input-text>
-        <profile-input-text info="fields.addressMission"             user="user"></profile-input-text>
-        <profile-input-text info="fields.technologiesOfPredilection" user="user"></profile-input-text>
-        <profile-select     info="fields.status"                     user="user"></profile-select>
+        <profile-input-text info="fields.lastName"       user="user"></profile-input-text>
+        <profile-input-text info="fields.firstName"      user="user"></profile-input-text>
+        <profile-input-text info="fields.missionAddress" user="user"></profile-input-text>
+        <profile-input-text info="fields.technologies"   user="user"></profile-input-text>
+        <profile-select     info="fields.status"         user="user"></profile-select>
         <hr>
         <button type="button" class="btn btn-primary" ng-click="update()" ng-disabled='form.$invalid'>Save</button>
         <button type="button" class="btn" ng-click="reset()">Reset</button>

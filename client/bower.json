@@ -12,6 +12,7 @@
     "angular-ui-bootstrap": "v0.10.0",
     "angular-bootstrap-media": "v0.0.10",
     "angular-simple-gravatar": "v0.0.3",
-    "ckeditor": "#4.3.2/standard"
+    "ckeditor": "#4.3.2/standard",
+    "angular-google-maps": "1.0.18"
   }
 }
