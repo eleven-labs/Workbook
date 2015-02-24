@@ -16,7 +16,7 @@ module.exports = function(config) {
       'bower_components/ckeditor/adapters/jquery.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/underscore/underscore.js',
-      'bower_components/angular-google-maps/dist/angular-google-maps.js',
+      'http://maps.google.com/maps/api/js?sensor=false',
       'dist/js/**/*.js',
       'test/unit/**/*.spec.js'
     ],
