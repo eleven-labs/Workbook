@@ -28,6 +28,7 @@
     "cookie-session": "^1.0.2",
     "errorhandler": "^1.2.0",
     "express": "4.9.0",
+    "express-namespace": "~0.1.1",
     "moment": "2.8.3",
     "mongoose": "3.8.16",
     "mongoose-rattle-plugin": "0.3.0",
