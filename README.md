@@ -13,7 +13,8 @@ Installation
 
 ```
 npm cache clear
-npm install -g grunt-cli bower mocha
+npm install -g grunt-cli bower mocha nave
+nave use 0.10.31
 git clone https://github.com/eleven-labs/Workbook.git
 cd Workbook/client
 npm install
