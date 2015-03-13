@@ -22,6 +22,7 @@ bower install
 grunt build
 grunt karma:unit
 cd ../server
+cp config/development.json-dist config/development.json
 npm install
 node scripts/create-admin-user.js --email=my@email.com --password=workbook --admin=1 --firstName=Admin --lastName=User --status=consultant --validated=1
 sudo -E node server.js
