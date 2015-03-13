@@ -27,6 +27,10 @@ var googleGeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?sensor
 
 UserSchema.pre('save', function (next) {
   var self = this;
+  if (!self.missionAddress) {
+    return next();
+  }
+
   var googleGeocodeUrlWithAddress = googleGeocodeUrl + '&address=' + encodeURIComponent(self.missionAddress);
 
   console.log('User pre save. Call: ' + googleGeocodeUrlWithAddress);
